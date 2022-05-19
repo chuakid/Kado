@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "72886769722",
+    "project_id": "kado-b99cd",
+    "storage_bucket": "kado-b99cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72886769722:android:f3d68644fba1ce7010fd03",
+        "android_client_info": {
+          "package_name": "com.example.kado"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72886769722-ccvoqo46db8affvr23m6gkanltqmeeh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1GGMQOjCkM8oHhP3Ii65-Yx0GELnud6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "72886769722-ccvoqo46db8affvr23m6gkanltqmeeh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
