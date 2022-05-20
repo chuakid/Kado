@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:kado/src/ui/screens/create_card_stack/create_card_stack.dart';
 import 'package:kado/src/ui/widgets/my_page_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -32,7 +33,14 @@ class HomePage extends StatelessWidget {
             const SignOutButton(),
           ]),
       body: MyPageView(),
-      // floatingActionButton: const ComposeButton(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () => {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => const CreateCardStack()))
+          //add new stack of cards
+        },
+      ),
       // bottomNavigationBar: const BottomNaviBarWidget(),
     );
   }
