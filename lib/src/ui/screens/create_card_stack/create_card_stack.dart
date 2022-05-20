@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kado/src/database/db_service.dart';
 
 class CreateCardStack extends StatefulWidget {
   const CreateCardStack({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class CreateCardStack extends StatefulWidget {
 }
 
 class _CreateCardStackState extends State<CreateCardStack> {
-  String cardText = "";
+  String stackName = "";
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -20,14 +21,26 @@ class _CreateCardStackState extends State<CreateCardStack> {
         child: Column(
           children: [
             TextFormField(
-                autofocus: true, onChanged: (value) => {cardText = value})
+                validator: (value) => value == "" ? "Enter a name" : null,
+                autofocus: true,
+                onChanged: (value) => {stackName = value})
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () => {
-                //upload to firebase
+                if (_formKey.currentState!.validate())
+                  {
+                    DBService.addStack(stackName).then(
+                      (value) => {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('New stack added')),
+                        ),
+                        Navigator.pop(context)
+                      },
+                    )
+                  }
               }),
     );
   }

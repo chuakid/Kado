@@ -18,30 +18,29 @@ class HomePage extends StatelessWidget {
     }
     String init =
         user.email == null ? "N" : user.email!.substring(0, 1).toUpperCase();
-
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(CupertinoIcons.trash),
-            onPressed: () {},
-          ),
+          // leading: IconButton(
+          //   icon: const Icon(CupertinoIcons.trash),
+          //   onPressed: () {},
+          // ),
           actions: [
             Padding(
                 padding: const EdgeInsets.only(right: 8),
                 child: CircleAvatar(child: Text(init))),
             const SignOutButton(),
           ]),
-      body: MyPageView(),
+      body: const MyPageView(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
+        tooltip: 'Add new stack',
         onPressed: () => {
           Navigator.push(context,
               MaterialPageRoute(builder: (_) => const CreateCardStack()))
           //add new stack of cards
         },
       ),
-      // bottomNavigationBar: const BottomNaviBarWidget(),
+      // TODO Create bottom nav
     );
   }
 }
