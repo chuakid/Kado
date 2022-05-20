@@ -32,7 +32,10 @@ class _MyPageViewState extends State<MyPageView> {
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (context, index) {
           return Card(
-              child: Text(stacks[0].text != null ? stacks[0].text! : ""));
+              child: InkWell(
+                  onTap: () => {debugPrint("tapped")},
+                  child: Text(
+                      stacks[index].text != null ? stacks[index].text! : "")));
         });
   }
 }
