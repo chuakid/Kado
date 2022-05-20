@@ -25,6 +25,7 @@ class _CreateCardStackState extends State<CreateCardStack> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
           onPressed: () => {
                 //upload to firebase
               }),
