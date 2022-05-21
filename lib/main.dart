@@ -6,7 +6,7 @@ import 'package:kado/src/config/firebase_options.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/ui/screens/misc/loader.dart';
 import 'package:kado/src/ui/screens/misc/something_went_wrong.dart';
-import 'package:kado/src/utils/palette.dart';
+import 'package:kado/styles/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,7 @@ class _AppState extends State<App> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return const MyAwesomeApp();
+          return const MyApp();
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
@@ -54,30 +54,15 @@ class _AppState extends State<App> {
   }
 }
 
-class MyAwesomeApp extends StatelessWidget {
-  const MyAwesomeApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: title,
-      theme: ThemeData(
-        primarySwatch: Palette.color,
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        outlinedButtonTheme: OutlinedButtonThemeData(
-          style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsets>(
-                const EdgeInsets.all(24),
-              ),
-              textStyle: MaterialStateProperty.all<TextStyle>(
-                  const TextStyle(fontSize: 20))),
-        ),
-      ),
       debugShowCheckedModeBanner: false,
+      title: title,
+      theme: themeData,
       home: const AuthGate(),
     );
   }
