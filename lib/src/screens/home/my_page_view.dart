@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kado/src/database/db_service.dart';
+import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/models/Stack.dart';
+import 'package:kado/src/provider/kado_user.dart';
+import 'package:provider/provider.dart';
 
 class MyPageView extends StatefulWidget {
   const MyPageView({Key? key}) : super(key: key);
@@ -11,6 +14,7 @@ class MyPageView extends StatefulWidget {
 
 class _MyPageViewState extends State<MyPageView> {
   List<CardStack> stacks = [];
+
   @override
   void initState() {
     super.initState();
@@ -25,6 +29,10 @@ class _MyPageViewState extends State<MyPageView> {
 
   @override
   Widget build(BuildContext context) {
+    final KadoUserModel userModel = context.read<KadoUser>().getUserModel!;
+    userModel.deckCount = stacks.length;
+    context.read<KadoUser>().setUserModel(userModel);
+
     return GridView.builder(
         itemCount: stacks.length,
         gridDelegate:
