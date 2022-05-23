@@ -1,14 +1,27 @@
-String truncatedEmail(String email) {
-  final emailName = email.split('@')[0];
+import 'package:flutter/material.dart';
+import 'package:kado/src/auth/auth.dart';
+import 'package:kado/src/models/kado_user_model.dart';
+import 'package:kado/src/screens/guest_page.dart';
+import 'package:kado/src/screens/home/home_page.dart';
 
-  if (emailName.length <= 3) {
-    return '*' * email.length;
-  }
+Widget buildToggleLightDarkModeButton() => IconButton(
+    icon: Icon(HomePage.themeNotifier.value == ThemeMode.light
+        ? Icons.dark_mode
+        : Icons.light_mode),
+    onPressed: () {
+      HomePage.themeNotifier.value =
+          HomePage.themeNotifier.value == ThemeMode.light
+              ? ThemeMode.dark
+              : ThemeMode.light;
+    });
 
-  int visibleLength = emailName.length ~/ 3;
-  int invisibleLength = email.length - visibleLength;
-
-  String visibleName = emailName.substring(0, visibleLength);
-
-  return '$visibleName${'*' * invisibleLength}';
-}
+StreamBuilder userLoggedInPageOrGuestPage(Widget page) =>
+    StreamBuilder<KadoUserModel?>(
+      stream: AuthService.user,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const GuestPage();
+        }
+        return page;
+      },
+    );

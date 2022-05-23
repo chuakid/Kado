@@ -5,9 +5,10 @@ import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/create_card_stack/create_card_stack.dart';
 import 'package:kado/src/screens/home/my_page_view.dart';
 import 'package:kado/src/screens/home/user/user_profile_page.dart';
+import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final KadoUserModel user;
   const HomePage({Key? key, required this.user}) : super(key: key);
 
@@ -16,23 +17,12 @@ class HomePage extends StatelessWidget {
       ValueNotifier(ThemeMode.light);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
-    Widget buildToggleLightDarkModeButton(
-            ValueNotifier<ThemeMode> themeNotifier) =>
-        IconButton(
-            icon: Icon(HomePage.themeNotifier.value == ThemeMode.light
-                ? Icons.dark_mode
-                : Icons.light_mode),
-            onPressed: () {
-              HomePage.themeNotifier.value =
-                  HomePage.themeNotifier.value == ThemeMode.light
-                      ? ThemeMode.dark
-                      : ThemeMode.light;
-            });
-
-    final Widget toggleThemeModeBtn =
-        buildToggleLightDarkModeButton(themeNotifier);
-
     Widget buildProfileAvatar(KadoUserModel user) {
       const double avatarRadiusSize = 20.0;
       final Widget img = user.photoURL!.isEmpty
@@ -52,16 +42,14 @@ class HomePage extends StatelessWidget {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => UserProfilePage(
-                                  user: user,
-                                  toggleThemeModeBtn: toggleThemeModeBtn)));
+                              builder: (_) => const UserProfilePage()));
                     },
                     child: Center(child: img)))),
       );
     }
 
-    return ValueListenableBuilder<ThemeMode>(
-        valueListenable: themeNotifier,
+    return userLoggedInPageOrGuestPage(ValueListenableBuilder<ThemeMode>(
+        valueListenable: HomePage.themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -71,8 +59,11 @@ class HomePage extends StatelessWidget {
               theme: themeData,
               home: Scaffold(
                 appBar: AppBar(
-                    leading: toggleThemeModeBtn,
-                    actions: [buildProfileAvatar(user), const SignOutButton()]),
+                    leading: buildToggleLightDarkModeButton(),
+                    actions: [
+                      buildProfileAvatar(widget.user),
+                      const SignOutButton()
+                    ]),
                 body: const MyPageView(),
                 floatingActionButton: FloatingActionButton(
                   child: const Icon(Icons.add),
@@ -85,8 +76,7 @@ class HomePage extends StatelessWidget {
                     //add new stack of cards
                   },
                 ),
-                // TODO: Create bottom nav
               ));
-        });
+        }));
   }
 }
