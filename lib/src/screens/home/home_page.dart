@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
+import 'package:kado/src/controller/user.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/create_card_stack/create_card_stack.dart';
 import 'package:kado/src/screens/home/my_page_view.dart';
@@ -8,19 +10,14 @@ import 'package:kado/src/screens/home/user/user_profile_page.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 
-class HomePage extends StatefulWidget {
-  final KadoUserModel user;
-  const HomePage({Key? key, required this.user}) : super(key: key);
+class HomePage extends StatelessWidget {
+  HomePage({Key? key}) : super(key: key);
 
   // Using "static" so that we can easily access it later
   static final ValueNotifier<ThemeMode> themeNotifier =
       ValueNotifier(ThemeMode.light);
+  final KadoUserModel user = Get.find<UserController>().userModel;
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Widget buildProfileAvatar(KadoUserModel user) {
@@ -38,20 +35,15 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.transparent,
                 textStyle: const TextStyle(color: Colors.white),
                 child: InkWell(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const UserProfilePage()));
-                    },
+                    onTap: () => Get.to(const UserProfilePage()),
                     child: Center(child: img)))),
       );
     }
 
-    return userLoggedInPageOrGuestPage(ValueListenableBuilder<ThemeMode>(
+    return ValueListenableBuilder<ThemeMode>(
         valueListenable: HomePage.themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
-          return MaterialApp(
+          return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               darkTheme: ThemeData.dark(),
               themeMode: currentMode,
@@ -60,23 +52,14 @@ class _HomePageState extends State<HomePage> {
               home: Scaffold(
                 appBar: AppBar(
                     leading: buildToggleLightDarkModeButton(),
-                    actions: [
-                      buildProfileAvatar(widget.user),
-                      const SignOutButton()
-                    ]),
+                    actions: [buildProfileAvatar(user), const SignOutButton()]),
                 body: const MyPageView(),
                 floatingActionButton: FloatingActionButton(
-                  child: const Icon(Icons.add),
-                  tooltip: 'Add new stack',
-                  onPressed: () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const CreateCardStack()))
+                    child: const Icon(Icons.add),
+                    tooltip: 'Add new stack',
                     //add new stack of cards
-                  },
-                ),
+                    onPressed: () => Get.to(const CreateCardStack())),
               ));
-        }));
+        });
   }
 }

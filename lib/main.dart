@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:kado/src/auth/auth_gate.dart';
 import 'package:kado/src/config/firebase_options.dart';
 import 'package:kado/src/config/global_constant.dart';
-import 'package:kado/src/provider/kado_user.dart';
 import 'package:kado/src/screens/misc/loader.dart';
 import 'package:kado/src/screens/misc/something_went_wrong.dart';
 import 'package:kado/styles/theme.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(ChangeNotifierProvider(
-      create: (context) => KadoUser(), child: const App()));
+  runApp(const App());
 }
 
 /// We are using a StatefulWidget such that we only create the [Future] once,
