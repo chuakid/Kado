@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
-import 'package:kado/src/controller/user.dart';
+import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/create_card_stack/create_card_stack.dart';
 import 'package:kado/src/screens/home/my_page_view.dart';
@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                 color: Colors.transparent,
                 textStyle: const TextStyle(color: Colors.white),
                 child: InkWell(
-                    onTap: () => Get.to(const UserProfilePage()),
+                    onTap: () => Get.to(() => const UserProfilePage()),
                     child: Center(child: img)))),
       );
     }
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                     child: const Icon(Icons.add),
                     tooltip: 'Add new stack',
                     //add new stack of cards
-                    onPressed: () => Get.to(const CreateCardStack())),
+                    onPressed: () => Get.to(() => const CreateCardStack())),
               ));
         });
   }

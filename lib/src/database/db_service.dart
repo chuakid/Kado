@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:kado/src/models/Stack.dart';
+import 'package:kado/src/models/card_stack.dart';
 
 class DBService {
   static final db = FirebaseFirestore.instance;

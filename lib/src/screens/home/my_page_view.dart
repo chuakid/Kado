@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kado/src/controller/user.dart';
+import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/database/db_service.dart';
+import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/models/kado_user_model.dart';
-import 'package:kado/src/models/Stack.dart';
 
 class MyPageView extends StatefulWidget {
   const MyPageView({Key? key}) : super(key: key);
@@ -34,16 +34,22 @@ class _MyPageViewState extends State<MyPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        itemCount: stacks.length,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (context, index) {
-          return Card(
-              child: InkWell(
-                  onTap: () => {debugPrint("tapped")},
-                  child: Text(
-                      stacks[index].text != null ? stacks[index].text! : "")));
-        });
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GridView.builder(
+          itemCount: stacks.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3),
+          itemBuilder: (context, index) {
+            return Card(
+                child: InkWell(
+                    onTap: () => {debugPrint("tapped")},
+                    child: Center(
+                      child: Text(stacks[index].text != null
+                          ? stacks[index].text!
+                          : ""),
+                    )));
+          }),
+    );
   }
 }
