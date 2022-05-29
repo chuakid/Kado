@@ -13,7 +13,8 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final KadoUserModel user = Get.find<UserController>().userModel;
+    final UserController controller = Get.find<UserController>();
+    final KadoUserModel user = controller.userModel;
     const double headerFontSize = 30.0;
     const double offsetFromCenter = -100.0;
 
@@ -73,7 +74,8 @@ class UserProfilePage extends StatelessWidget {
                       addHorizontalSpacing(30.0),
                       Transform.translate(
                         offset: const Offset(offsetFromCenter, 0),
-                        child: Text("Number Of Decks: ${user.deckCount}",
+                        child: Text(
+                            "Number Of Decks: ${controller.stacks.length}",
                             style: const TextStyle(fontSize: 20.0)),
                       )
                     ],

@@ -6,7 +6,6 @@ import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/create_card_stack/create_card_stack.dart';
 import 'package:kado/src/screens/home/widgets/stack_list.dart';
-import 'package:kado/src/screens/home/user/user_profile_page.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 
@@ -20,26 +19,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget buildProfileAvatar(KadoUserModel user) {
-      const double avatarRadiusSize = 20.0;
-      final Widget img = user.photoURL!.isEmpty
-          ? Text(user.email!.substring(0, 1).toUpperCase())
-          : Image.network(user.photoURL!);
-      return Container(
-        margin: const EdgeInsets.only(right: appBarIconSpacing),
-        child: CircleAvatar(
-            radius: avatarRadiusSize,
-            child: Material(
-                shape: const CircleBorder(),
-                clipBehavior: Clip.hardEdge,
-                color: Colors.transparent,
-                textStyle: const TextStyle(color: Colors.white),
-                child: InkWell(
-                    onTap: () => Get.to(() => const UserProfilePage()),
-                    child: Center(child: img)))),
-      );
-    }
-
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: HomePage.themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
