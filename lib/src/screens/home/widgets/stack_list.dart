@@ -5,14 +5,14 @@ import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 
-class MyPageView extends StatefulWidget {
-  const MyPageView({Key? key}) : super(key: key);
+class StackList extends StatefulWidget {
+  const StackList({Key? key}) : super(key: key);
 
   @override
-  State<MyPageView> createState() => _MyPageViewState();
+  State<StackList> createState() => _StackListState();
 }
 
-class _MyPageViewState extends State<MyPageView> {
+class _StackListState extends State<StackList> {
   List<CardStack> stacks = [];
   final KadoUserModel userModel = Get.find<UserController>().userModel;
 

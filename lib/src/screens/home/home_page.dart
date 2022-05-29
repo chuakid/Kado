@@ -5,7 +5,7 @@ import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/create_card_stack/create_card_stack.dart';
-import 'package:kado/src/screens/home/my_page_view.dart';
+import 'package:kado/src/screens/home/widgets/stack_list.dart';
 import 'package:kado/src/screens/home/user/user_profile_page.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
                 appBar: AppBar(
                     leading: buildToggleLightDarkModeButton(),
                     actions: [buildProfileAvatar(user), const SignOutButton()]),
-                body: const MyPageView(),
+                body: const StackList(),
                 floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.add),
                     tooltip: 'Add new stack',
