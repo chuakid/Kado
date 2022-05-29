@@ -19,7 +19,10 @@ class StackList extends StatelessWidget {
             itemBuilder: (context, index) {
               return Card(
                   child: InkWell(
-                      onTap: () => Get.to(() => StackPage()),
+                      onTap: () {
+                        controller.setSelectedStack(stacks[index]);
+                        Get.to(() => StackPage());
+                      },
                       child: Center(
                         child: Text(stacks[index].name),
                       )));

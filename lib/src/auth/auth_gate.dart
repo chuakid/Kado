@@ -17,8 +17,8 @@ class AuthGate extends StatelessWidget {
         if (!snapshot.hasData) {
           return const GuestPage();
         }
-        Get.put<UserController>(UserController(snapshot.data!));
-        return HomePage();
+        return GetBuilder(
+            init: UserController(snapshot.data!), builder: (_) => HomePage());
       },
     );
   }

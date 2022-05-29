@@ -33,14 +33,6 @@ class UserProfilePage extends StatelessWidget {
             height: imgSize,
           );
 
-    Widget buildBackToHomeBtn() {
-      return Container(
-        margin: const EdgeInsets.only(right: appBarIconSpacing),
-        child: IconButton(
-            onPressed: () => Get.back(), icon: const Icon(Icons.home)),
-      );
-    }
-
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: HomePage.themeNotifier,
         builder: (_, ThemeMode currentMode, __) {

@@ -8,7 +8,6 @@ class UserController extends GetxController {
   final KadoUserModel _userModel;
   RxList<CardStack> stacks = RxList<CardStack>([]);
   CardStack? selectedStack;
-  RxList<EachCard>? cards;
 
   @override
   void onInit() {
@@ -20,12 +19,14 @@ class UserController extends GetxController {
 
   KadoUserModel get userModel => _userModel;
 
-  getCardsByStackId(String stackId) {
-    cards!.bindStream(DBService.getCards(stackId));
+  List<EachCard> getCardsByStackId(String stackId) {
+    RxList<EachCard>? cards = RxList<EachCard>([]);
+    cards.bindStream(DBService.getCards(stackId));
+    return cards;
   }
 
   CardStack? get getSelectedStack => selectedStack;
 
-  set setSelectedStack(CardStack? selectedStack) =>
+  setSelectedStack(CardStack? selectedStack) =>
       this.selectedStack = selectedStack;
 }

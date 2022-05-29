@@ -36,7 +36,6 @@ class HomePage extends StatelessWidget {
                 floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.add),
                     tooltip: 'Add new stack',
-                    //add new stack of cards
                     onPressed: () => Get.to(() => const CreateCardStack())),
               ));
         });

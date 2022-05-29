@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
-import 'package:kado/src/screens/create_card_stack/create_card_stack.dart';
 import 'package:kado/src/screens/home/home_page.dart';
 import 'package:kado/src/screens/home/widgets/card_list.dart';
 import 'package:kado/src/utils/helper.dart';
@@ -28,13 +27,16 @@ class StackPage extends StatelessWidget {
               home: Scaffold(
                 appBar: AppBar(
                     leading: buildToggleLightDarkModeButton(),
-                    actions: [buildProfileAvatar(user), const SignOutButton()]),
-                body: CardList(),
+                    actions: [
+                      buildBackToHomeBtn(),
+                      buildProfileAvatar(user),
+                      const SignOutButton()
+                    ]),
+                body: const CardList(),
                 floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.add),
                     tooltip: 'Add new card',
-                    //add new stack of cards
-                    onPressed: () => Get.to(() => const CreateCardStack())),
+                    onPressed: () {}),
               ));
         });
   }

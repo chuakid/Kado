@@ -14,8 +14,7 @@ class DBService {
       throw Exception("uid empty");
     }
 
-    return stacksCollectionRef.add({"uid": uid, "name": stackName}).then(
-        (docRef) => print(docRef.id));
+    return stacksCollectionRef.add({"uid": uid, "name": stackName});
   }
 
   static Future addCard(String stackId, String text) {

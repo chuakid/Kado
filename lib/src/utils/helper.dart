@@ -5,6 +5,14 @@ import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home/home_page.dart';
 import 'package:kado/src/screens/home/user/user_profile_page.dart';
 
+Widget buildBackToHomeBtn() {
+  return Container(
+    margin: const EdgeInsets.only(right: appBarIconSpacing),
+    child:
+        IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.home)),
+  );
+}
+
 Widget buildToggleLightDarkModeButton() => IconButton(
     icon: Icon(HomePage.themeNotifier.value == ThemeMode.light
         ? Icons.dark_mode
