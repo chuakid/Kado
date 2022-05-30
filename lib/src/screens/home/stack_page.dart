@@ -3,15 +3,15 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
-import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home/home_page.dart';
 import 'package:kado/src/screens/home/widgets/card_list.dart';
+import 'package:kado/src/screens/home/widgets/tags/tags.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 
 class StackPage extends StatelessWidget {
   StackPage({Key? key}) : super(key: key);
-  final KadoUserModel user = Get.find<UserController>().userModel;
+  final controller = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +25,21 @@ class StackPage extends StatelessWidget {
               title: title,
               theme: themeData,
               home: Scaffold(
-                appBar: AppBar(
-                    leading: buildToggleLightDarkModeButton(),
-                    actions: [
-                      buildBackToHomeBtn(),
-                      buildProfileAvatar(user),
-                      const SignOutButton()
-                    ]),
-                body: const CardList(),
+                appBar:
+                    AppBar(leading: buildToggleLightDarkModeButton(), actions: [
+                  buildBackToHomeBtn(),
+                  buildProfileAvatar(controller.userModel),
+                  const SignOutButton()
+                ]),
+                body: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(controller.selectedStack!.name),
+                          Tags(),
+                          const CardList(),
+                        ])),
                 floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.add),
                     tooltip: 'Add new card',
