@@ -14,7 +14,7 @@ class DBService {
       throw Exception("uid empty");
     }
 
-    return stacksCollectionRef.add({"uid": uid, "name": stackName});
+    return stacksCollectionRef.add({"uid": uid, "name": stackName, "tags": []});
   }
 
   static Future addCard(String stackId, String text) {
@@ -25,9 +25,11 @@ class DBService {
   }
 
   static List<CardStack> _cardStackListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs
-        .map((doc) => CardStack(doc.id, doc['name'] ?? '', doc['uid'] ?? '0'))
-        .toList();
+    return snapshot.docs.map((doc) {
+      Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
+      return CardStack(doc.id, doc['name'], doc['uid'],
+          asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
+    }).toList();
   }
 
   static Stream<List<CardStack>> getStacks() {
@@ -50,5 +52,11 @@ class DBService {
         stacksCollectionRef.doc(stackId).collection("cards");
 
     return cardsCollectionRef.snapshots().map(_eachCardListFromSnapshot);
+  }
+
+  static Future<void> addTagToStack(String stackId, String tag) {
+    return stacksCollectionRef.doc(stackId).update({
+      'tags': FieldValue.arrayUnion([tag])
+    });
   }
 }

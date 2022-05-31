@@ -7,6 +7,7 @@ import 'package:kado/src/models/kado_user_model.dart';
 class UserController extends GetxController {
   final KadoUserModel _userModel;
   RxList<CardStack> stacks = RxList<CardStack>([]);
+  //TODO fix tags not updating on client side on insert
   CardStack? selectedStack;
 
   @override
@@ -27,6 +28,7 @@ class UserController extends GetxController {
 
   CardStack? get getSelectedStack => selectedStack;
 
-  setSelectedStack(CardStack? selectedStack) =>
-      this.selectedStack = selectedStack;
+  setSelectedStack(CardStack selectedStack) {
+    this.selectedStack = selectedStack;
+  }
 }
