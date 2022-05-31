@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kado/src/controller/user_controller.dart';
+import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 
 class AddTagForm extends StatefulWidget {
@@ -12,7 +12,7 @@ class AddTagForm extends StatefulWidget {
 class _AddTagFormState extends State<AddTagForm> {
   String newTagName = "";
   final _formKey = GlobalKey<FormState>();
-  var controller = Get.find<UserController>();
+  var controller = Get.find<StackController>();
 
   @override
   Widget build(BuildContext context) {

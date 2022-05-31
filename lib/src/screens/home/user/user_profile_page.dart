@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
+import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home/home_page.dart';
@@ -13,8 +14,9 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserController controller = Get.find<UserController>();
-    final KadoUserModel user = controller.userModel;
+    final UserController userController = Get.find<UserController>();
+    final StackController stackController = Get.find<StackController>();
+    final KadoUserModel user = userController.userModel;
     const double headerFontSize = 30.0;
     const double offsetFromCenter = -100.0;
 
@@ -67,7 +69,7 @@ class UserProfilePage extends StatelessWidget {
                       Transform.translate(
                         offset: const Offset(offsetFromCenter, 0),
                         child: Text(
-                            "Number Of Decks: ${controller.stacks.length}",
+                            "Number Of Decks: ${stackController.stacks.length}",
                             style: const TextStyle(fontSize: 20.0)),
                       )
                     ],

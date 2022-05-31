@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                         buildProfileAvatar(user),
                         const SignOutButton()
                       ]),
-                  body: const StackList(),
+                  body: StackList(),
                   floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.add),
                     tooltip: 'Add New Stack',

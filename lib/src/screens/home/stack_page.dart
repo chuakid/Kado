@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
+import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/controller/user_controller.dart';
-import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/models/kado_user_model.dart';
+import 'package:kado/src/screens/create/add_card.dart';
 import 'package:kado/src/screens/home/home_page.dart';
 import 'package:kado/src/screens/home/widgets/card_list.dart';
 import 'package:kado/src/utils/helper.dart';
@@ -14,7 +15,7 @@ import 'package:kado/styles/theme.dart';
 class StackPage extends StatelessWidget {
   StackPage({Key? key}) : super(key: key);
   final KadoUserModel user = Get.find<UserController>().userModel;
-  final CardStack? cardStack = Get.find<UserController>().selectedStack;
+  final CardStack? cardStack = Get.find<StackController>().selectedStack;
   final RxString input = ''.obs;
 
   @override
@@ -42,23 +43,12 @@ class StackPage extends StatelessWidget {
                       tooltip: 'Add new card',
                       onPressed: () {
                         Get.defaultDialog(
-                            title: '',
-                            content: TextField(
-                              keyboardType: TextInputType.text,
-                              maxLines: 1,
-                              decoration: const InputDecoration(
-                                labelText: 'Card Name',
-                                hintMaxLines: 1,
-                              ),
-                              onChanged: (val) => input.value = val,
-                            ),
-                            confirm: TextButton(
-                                onPressed: () => DBService.addCard(
-                                    cardStack!.id, input.value),
-                                child: const Text("Create",
-                                    style: TextStyle(fontSize: 15.0))),
-                            radius: 10.0,
-                            onConfirm: () => Get.back());
+                            title: 'Add New Stack',
+                            titleStyle: const TextStyle(fontSize: 15.0),
+                            titlePadding: const EdgeInsets.only(top: 15.0),
+                            content: AddCard(context: context),
+                            contentPadding: const EdgeInsets.all(15.0),
+                            radius: 10.0);
                       })));
         });
   }
