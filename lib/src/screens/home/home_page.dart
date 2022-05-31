@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
-import 'package:kado/src/screens/create_card_stack/create_card_stack.dart';
+import 'package:kado/src/screens/create/add_stack.dart';
 import 'package:kado/src/screens/home/widgets/stack_list.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
@@ -29,15 +29,25 @@ class HomePage extends StatelessWidget {
               title: title,
               theme: themeData,
               home: Scaffold(
-                appBar: AppBar(
-                    leading: buildToggleLightDarkModeButton(),
-                    actions: [buildProfileAvatar(user), const SignOutButton()]),
-                body: const StackList(),
-                floatingActionButton: FloatingActionButton(
+                  appBar: AppBar(
+                      leading: buildToggleLightDarkModeButton(),
+                      actions: [
+                        buildProfileAvatar(user),
+                        const SignOutButton()
+                      ]),
+                  body: const StackList(),
+                  floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.add),
-                    tooltip: 'Add new stack',
-                    onPressed: () => Get.to(() => const CreateCardStack())),
-              ));
+                    tooltip: 'Add New Stack',
+                    onPressed: () => Get.defaultDialog(
+                      title: 'Add New Stack',
+                      titleStyle: const TextStyle(fontSize: 15.0),
+                      titlePadding: const EdgeInsets.only(top: 15.0),
+                      content: AddStack(context: context),
+                      contentPadding: const EdgeInsets.all(15.0),
+                      radius: 10.0,
+                    ),
+                  )));
         });
   }
 }

@@ -34,6 +34,8 @@ Color shadeColor(Color color, double factor) => Color.fromRGBO(
     shadeValue(color.blue, factor),
     1);
 
+Color darkBlue = const Color.fromARGB(221, 11, 0, 167);
+
 class Palette {
   static const Color primary = Color.fromARGB(255, 75, 110, 168);
   static final MaterialColor? color = generateMaterialColor(primary);

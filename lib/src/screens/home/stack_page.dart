@@ -3,6 +3,8 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
+import 'package:kado/src/database/db_service.dart';
+import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home/home_page.dart';
 import 'package:kado/src/screens/home/widgets/card_list.dart';
@@ -12,6 +14,8 @@ import 'package:kado/styles/theme.dart';
 class StackPage extends StatelessWidget {
   StackPage({Key? key}) : super(key: key);
   final KadoUserModel user = Get.find<UserController>().userModel;
+  final CardStack? cardStack = Get.find<UserController>().selectedStack;
+  final RxString input = ''.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +29,37 @@ class StackPage extends StatelessWidget {
               title: title,
               theme: themeData,
               home: Scaffold(
-                appBar: AppBar(
-                    leading: buildToggleLightDarkModeButton(),
-                    actions: [
-                      buildBackToHomeBtn(),
-                      buildProfileAvatar(user),
-                      const SignOutButton()
-                    ]),
-                body: const CardList(),
-                floatingActionButton: FloatingActionButton(
-                    child: const Icon(Icons.add),
-                    tooltip: 'Add new card',
-                    onPressed: () {}),
-              ));
+                  appBar: AppBar(
+                      leading: buildToggleLightDarkModeButton(),
+                      actions: [
+                        buildBackToHomeBtn(),
+                        buildProfileAvatar(user),
+                        const SignOutButton()
+                      ]),
+                  body: const CardList(),
+                  floatingActionButton: FloatingActionButton(
+                      child: const Icon(Icons.add),
+                      tooltip: 'Add new card',
+                      onPressed: () {
+                        Get.defaultDialog(
+                            title: '',
+                            content: TextField(
+                              keyboardType: TextInputType.text,
+                              maxLines: 1,
+                              decoration: const InputDecoration(
+                                labelText: 'Card Name',
+                                hintMaxLines: 1,
+                              ),
+                              onChanged: (val) => input.value = val,
+                            ),
+                            confirm: TextButton(
+                                onPressed: () => DBService.addCard(
+                                    cardStack!.id, input.value),
+                                child: const Text("Create",
+                                    style: TextStyle(fontSize: 15.0))),
+                            radius: 10.0,
+                            onConfirm: () => Get.back());
+                      })));
         });
   }
 }
