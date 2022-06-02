@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kado/src/models/each_card.dart';
+import 'package:kado/src/screens/view_card_page.dart';
 
 class KadoCard extends StatelessWidget {
   final EachCard card;
@@ -10,7 +12,7 @@ class KadoCard extends StatelessWidget {
     return Card(
         margin: const EdgeInsets.only(top: 10.0),
         child: ListTile(
-          title: Text(card.name),
-        ));
+            title: Text(card.name),
+            onTap: () => Get.to(() => const ViewCardPage())));
   }
 }

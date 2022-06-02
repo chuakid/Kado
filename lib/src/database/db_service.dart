@@ -17,11 +17,13 @@ class DBService {
     return stacksCollectionRef.add({"uid": uid, "name": stackName, "tags": []});
   }
 
-  static Future addCard(String stackId, String text) {
-    return stacksCollectionRef
-        .doc(stackId)
-        .collection("cards")
-        .add({"name": text});
+  static Future addCard(
+      String stackId, String name, String frontContent, String backContent) {
+    return stacksCollectionRef.doc(stackId).collection("cards").add({
+      "name": name,
+      "frontContent": frontContent,
+      "backContent": backContent
+    });
   }
 
   static List<CardStack> _cardStackListFromSnapshot(QuerySnapshot snapshot) {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/models/kado_user_model.dart';
-import 'package:kado/src/screens/home/home_page.dart';
-import 'package:kado/src/screens/home/user/user_profile_page.dart';
+import 'package:kado/src/screens/home_page.dart';
+import 'package:kado/src/screens/user_profile_page.dart';
 
 Widget buildBackToHomeBtn() {
   return Container(

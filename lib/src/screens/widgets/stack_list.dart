@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
-import 'package:kado/src/screens/home/stack_page.dart';
-import 'package:kado/src/screens/home/widgets/no_record.dart';
+import 'package:kado/src/screens/stack_page.dart';
+import 'package:kado/src/screens/widgets/no_record.dart';
 import 'package:kado/src/screens/misc/loader.dart';
 import 'package:kado/src/utils/helper.dart';
 

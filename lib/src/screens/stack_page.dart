@@ -6,9 +6,9 @@ import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/models/kado_user_model.dart';
-import 'package:kado/src/screens/create/add_card.dart';
-import 'package:kado/src/screens/home/home_page.dart';
-import 'package:kado/src/screens/home/widgets/card_list.dart';
+import 'package:kado/src/screens/home_page.dart';
+import 'package:kado/src/screens/widgets/card_list.dart';
+import 'package:kado/src/screens/widgets/create/add_card.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 

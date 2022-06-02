@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
-import 'package:kado/src/screens/create/add_stack.dart';
-import 'package:kado/src/screens/home/widgets/stack_list.dart';
+import 'package:kado/src/screens/widgets/create/add_stack.dart';
+import 'package:kado/src/screens/widgets/stack_list.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 
