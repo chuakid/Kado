@@ -9,6 +9,8 @@ import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/widgets/card_list.dart';
 import 'package:kado/src/screens/widgets/create/add_card.dart';
+import 'package:kado/src/screens/widgets/tags/add_tag_form.dart';
+import 'package:kado/src/screens/widgets/tags/tags.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 
@@ -37,7 +39,15 @@ class StackPage extends StatelessWidget {
                         buildProfileAvatar(user),
                         const SignOutButton()
                       ]),
-                  body: const CardList(),
+                  body: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(children: const [
+                      Tags(),
+                      Expanded(
+                        child: CardList(),
+                      ),
+                    ]),
+                  ),
                   floatingActionButton: FloatingActionButton(
                       child: const Icon(Icons.add),
                       tooltip: addCard,
