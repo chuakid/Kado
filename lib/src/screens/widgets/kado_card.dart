@@ -12,7 +12,6 @@ class KadoCard extends StatelessWidget {
     return Card(
         margin: const EdgeInsets.only(top: 10.0),
         child: ListTile(
-            title: Text(card.name),
-            onTap: () => Get.to(() => const ViewCardPage())));
+            title: Text(card.name), onTap: () => Get.to(ViewCardPage(card))));
   }
 }

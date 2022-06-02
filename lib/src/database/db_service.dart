@@ -45,15 +45,21 @@ class DBService {
         .map(_cardStackListFromSnapshot);
   }
 
-  static List<EachCard> _eachCardListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) => EachCard(doc['name'])).toList();
+  static List<EachCard> _eachCardListFromSnapshot(
+      QuerySnapshot snapshot, String stackId) {
+    return snapshot.docs
+        .map((doc) => EachCard(
+            stackId, doc['name'], doc['frontContent'], doc['backContent']))
+        .toList();
   }
 
   static Stream<List<EachCard>> getCards(String stackId) {
     final cardsCollectionRef =
         stacksCollectionRef.doc(stackId).collection("cards");
 
-    return cardsCollectionRef.snapshots().map(_eachCardListFromSnapshot);
+    return cardsCollectionRef
+        .snapshots()
+        .map((ss) => _eachCardListFromSnapshot(ss, stackId));
   }
 
   static Future<void> addTagToStack(String stackId, String tag) {
