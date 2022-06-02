@@ -40,10 +40,10 @@ class StackPage extends StatelessWidget {
                   body: const CardList(),
                   floatingActionButton: FloatingActionButton(
                       child: const Icon(Icons.add),
-                      tooltip: 'Add new card',
+                      tooltip: addCard,
                       onPressed: () {
                         Get.defaultDialog(
-                            title: 'Add New Stack',
+                            title: addCard,
                             titleStyle: const TextStyle(fontSize: 15.0),
                             titlePadding: const EdgeInsets.only(top: 15.0),
                             content: AddCard(context: context),

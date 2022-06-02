@@ -38,9 +38,9 @@ class HomePage extends StatelessWidget {
                   body: StackList(),
                   floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.add),
-                    tooltip: 'Add New Stack',
+                    tooltip: addStack,
                     onPressed: () => Get.defaultDialog(
-                      title: 'Add New Stack',
+                      title: addStack,
                       titleStyle: const TextStyle(fontSize: 15.0),
                       titlePadding: const EdgeInsets.only(top: 15.0),
                       content: AddStack(context: context),

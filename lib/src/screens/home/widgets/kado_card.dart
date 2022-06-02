@@ -8,12 +8,9 @@ class KadoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: const EdgeInsets.only(top: 16.0),
+        margin: const EdgeInsets.only(top: 10.0),
         child: ListTile(
-            leading: CircleAvatar(
-              backgroundColor: Colors.blue[500],
-            ),
-            title: Text(card.name),
-            subtitle: const Text("Card subtitle")));
+          title: Text(card.name),
+        ));
   }
 }

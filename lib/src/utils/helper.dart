@@ -43,3 +43,12 @@ Widget buildProfileAvatar(KadoUserModel user) {
                 child: Center(child: img)))),
   );
 }
+
+Widget displayError(String message) {
+  return Center(
+    child: Text(
+      message,
+      style: const TextStyle(fontSize: 25.0),
+    ),
+  );
+}

@@ -4,7 +4,9 @@ import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/screens/home/stack_page.dart';
+import 'package:kado/src/screens/home/widgets/no_record.dart';
 import 'package:kado/src/screens/misc/loader.dart';
+import 'package:kado/src/utils/helper.dart';
 
 class StackList extends StatelessWidget {
   StackList({Key? key}) : super(key: key);
@@ -18,15 +20,13 @@ class StackList extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Loader();
           }
-          List<CardStack>? stacks = snapshot.data;
-          controller.stacks = stacks!;
+          if (snapshot.hasError) {
+            return displayError("Error occurred while fetching data");
+          }
+          List<CardStack> stacks = snapshot.data!;
+          controller.stacks = stacks;
           return stacks.isEmpty
-              ? const Center(
-                  child: Text(
-                    "No stacks record found",
-                    style: TextStyle(fontSize: 25.0),
-                  ),
-                )
+              ? const NoRecord()
               : GridView.builder(
                   itemCount: stacks.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
