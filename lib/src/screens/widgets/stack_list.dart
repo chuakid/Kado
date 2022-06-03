@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
+import 'package:kado/src/screens/misc/something_went_wrong.dart';
 import 'package:kado/src/screens/stack_page.dart';
 import 'package:kado/src/screens/widgets/no_record.dart';
 import 'package:kado/src/screens/misc/loader.dart';
@@ -21,12 +22,12 @@ class StackList extends StatelessWidget {
             return const Loader();
           }
           if (snapshot.hasError) {
-            return displayError("Error occurred while fetching data");
+            return const SomethingWentWrong();
           }
           List<CardStack> stacks = snapshot.data!;
           controller.stacks = stacks;
           return stacks.isEmpty
-              ? const NoRecord()
+              ? const NoRecord("stack")
               : GridView.builder(
                   itemCount: stacks.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

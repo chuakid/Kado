@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class NoRecord extends StatelessWidget {
-  const NoRecord({Key? key}) : super(key: key);
+  final String _type;
+  const NoRecord(this._type, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Text(
-        "No record found",
-        style: TextStyle(fontSize: 25.0),
+        "No $_type record found",
+        style: const TextStyle(fontSize: 25.0),
       ),
     );
   }

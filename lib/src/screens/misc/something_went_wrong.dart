@@ -9,7 +9,7 @@ class SomethingWentWrong extends StatelessWidget {
       color: Colors.white,
       child: const Center(
         child: Text(
-          'Something went wrong!',
+          'Something went wrong while fetching data!',
           style: TextStyle(color: Colors.grey),
           textDirection: TextDirection.ltr,
         ),

@@ -5,23 +5,18 @@ import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/user_profile_page.dart';
 
-Widget buildBackToHomeBtn() {
-  return Container(
-    margin: const EdgeInsets.only(right: appBarIconSpacing),
-    child:
-        IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.home)),
-  );
-}
+Widget buildBackToHomeBtn() => Container(
+      margin: const EdgeInsets.only(right: appBarIconSpacing),
+      child:
+          IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.home)),
+    );
 
-Widget buildToggleLightDarkModeButton() => IconButton(
-    icon: Icon(HomePage.themeNotifier.value == ThemeMode.light
-        ? Icons.dark_mode
-        : Icons.light_mode),
+Widget buildToggleLightDarkModeButton(RxBool isDarkMode) => IconButton(
+    icon: Icon(isDarkMode.value ? Icons.light_mode : Icons.dark_mode),
     onPressed: () {
+      isDarkMode.value = !isDarkMode.value;
       HomePage.themeNotifier.value =
-          HomePage.themeNotifier.value == ThemeMode.light
-              ? ThemeMode.dark
-              : ThemeMode.light;
+          isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
     });
 
 Widget buildProfileAvatar(KadoUserModel user) {
@@ -41,14 +36,5 @@ Widget buildProfileAvatar(KadoUserModel user) {
             child: InkWell(
                 onTap: () => Get.to(() => const UserProfilePage()),
                 child: Center(child: img)))),
-  );
-}
-
-Widget displayError(String message) {
-  return Center(
-    child: Text(
-      message,
-      style: const TextStyle(fontSize: 25.0),
-    ),
   );
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
-import 'package:kado/src/controller/stack_controller.dart';
+import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/each_card.dart';
+import 'package:kado/src/utils/helper.dart';
 
-class ViewCardPage extends GetView<StackController> {
+class ViewCardPage extends GetView<UserController> {
   final EachCard card;
   ViewCardPage(this.card, {Key? key}) : super(key: key);
   final RxBool isFront = true.obs;
@@ -18,7 +20,10 @@ class ViewCardPage extends GetView<StackController> {
     }
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(actions: [
+        buildProfileAvatar(controller.userModel),
+        const SignOutButton()
+      ]),
       body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Obx(

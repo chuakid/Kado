@@ -7,7 +7,6 @@ import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/utils/helper.dart';
-import 'package:kado/styles/theme.dart';
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({Key? key}) : super(key: key);
@@ -19,6 +18,7 @@ class UserProfilePage extends StatelessWidget {
     final KadoUserModel user = userController.userModel;
     const double headerFontSize = 30.0;
     const double offsetFromCenter = -100.0;
+    RxBool isDarkMode = (HomePage.themeNotifier.value == ThemeMode.dark).obs;
 
     const double imgSize = 150.0;
     final Widget img = user.photoURL.isEmpty
@@ -35,45 +35,33 @@ class UserProfilePage extends StatelessWidget {
             height: imgSize,
           );
 
-    return ValueListenableBuilder<ThemeMode>(
-        valueListenable: HomePage.themeNotifier,
-        builder: (_, ThemeMode currentMode, __) {
-          return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              darkTheme: ThemeData.dark(),
-              themeMode: currentMode,
-              title: title,
-              theme: themeData,
-              home: Scaffold(
-                  appBar: AppBar(
-                      leading: buildToggleLightDarkModeButton(),
-                      actions: [
-                        buildBackToHomeBtn(),
-                        const SignOutButton(),
-                      ]),
-                  body: Column(
-                    children: [
-                      addHorizontalSpacing(50.0),
-                      Center(child: ClipOval(child: img)),
-                      addHorizontalSpacing(20.0),
-                      Column(
-                        children: [
-                          Text(user.name,
-                              style: const TextStyle(fontSize: headerFontSize)),
-                          Text(user.email,
-                              style:
-                                  const TextStyle(fontSize: headerFontSize / 2))
-                        ],
-                      ),
-                      addHorizontalSpacing(30.0),
-                      Transform.translate(
-                        offset: const Offset(offsetFromCenter, 0),
-                        child: Text(
-                            "Number Of Decks: ${stackController.stacks.length}",
-                            style: const TextStyle(fontSize: 20.0)),
-                      )
-                    ],
-                  )));
-        });
+    return Scaffold(
+        appBar: AppBar(
+            leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
+            actions: [
+              buildBackToHomeBtn(),
+              const SignOutButton(),
+            ]),
+        body: Column(
+          children: [
+            addHorizontalSpacing(50.0),
+            Center(child: ClipOval(child: img)),
+            addHorizontalSpacing(20.0),
+            Column(
+              children: [
+                Text(user.name,
+                    style: const TextStyle(fontSize: headerFontSize)),
+                Text(user.email,
+                    style: const TextStyle(fontSize: headerFontSize / 2))
+              ],
+            ),
+            addHorizontalSpacing(30.0),
+            Transform.translate(
+              offset: const Offset(offsetFromCenter, 0),
+              child: Text("Number Of Decks: ${stackController.stacks.length}",
+                  style: const TextStyle(fontSize: 20.0)),
+            )
+          ],
+        ));
   }
 }

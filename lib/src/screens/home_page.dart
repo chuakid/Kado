@@ -3,19 +3,17 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
-import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/widgets/create/add_stack.dart';
 import 'package:kado/src/screens/widgets/stack_list.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+class HomePage extends GetView<UserController> {
+  const HomePage({Key? key}) : super(key: key);
 
   // Using "static" so that we can easily access it later
   static final ValueNotifier<ThemeMode> themeNotifier =
       ValueNotifier(ThemeMode.light);
-  final KadoUserModel user = Get.find<UserController>().userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +28,10 @@ class HomePage extends StatelessWidget {
               theme: themeData,
               home: Scaffold(
                   appBar: AppBar(
-                      leading: buildToggleLightDarkModeButton(),
+                      leading: buildToggleLightDarkModeButton(
+                          (currentMode == ThemeMode.dark).obs),
                       actions: [
-                        buildProfileAvatar(user),
+                        buildProfileAvatar(controller.userModel),
                         const SignOutButton()
                       ]),
                   body: StackList(),
