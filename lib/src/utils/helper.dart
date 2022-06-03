@@ -14,7 +14,7 @@ Widget buildBackToHomeBtn() => Container(
 Widget buildToggleLightDarkModeButton(RxBool isDarkMode) => IconButton(
     icon: Icon(isDarkMode.value ? Icons.light_mode : Icons.dark_mode),
     onPressed: () {
-      isDarkMode.value = !isDarkMode.value;
+      isDarkMode.toggle();
       HomePage.themeNotifier.value =
           isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
     });
