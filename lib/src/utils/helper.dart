@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/models/kado_user_model.dart';
-import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/user_profile_page.dart';
 
 Widget buildBackToHomeBtn() => Container(
@@ -15,7 +15,7 @@ Widget buildToggleLightDarkModeButton(RxBool isDarkMode) => IconButton(
     icon: Icon(isDarkMode.value ? Icons.light_mode : Icons.dark_mode),
     onPressed: () {
       isDarkMode.toggle();
-      HomePage.themeNotifier.value =
+      MyApp.themeNotifier.value =
           isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
     });
 

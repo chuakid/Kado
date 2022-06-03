@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kado/src/auth/auth_gate.dart';
 import 'package:kado/src/config/firebase_options.dart';
 import 'package:kado/src/config/global_constant.dart';
@@ -56,13 +57,23 @@ class _AppState extends State<App> {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  // Using "static" so that we can easily access it later
+  static final ValueNotifier<ThemeMode> themeNotifier =
+      ValueNotifier(ThemeMode.light);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: title,
-      theme: themeData,
-      home: const AuthGate(),
-    );
+    return ValueListenableBuilder<ThemeMode>(
+        valueListenable: MyApp.themeNotifier,
+        builder: (_, ThemeMode currentMode, __) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: title,
+            theme: themeData,
+            darkTheme: ThemeData.dark(),
+            themeMode: currentMode,
+            home: const AuthGate(),
+          );
+        });
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
+import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
-import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/utils/helper.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -18,7 +18,7 @@ class UserProfilePage extends StatelessWidget {
     final KadoUserModel user = userController.userModel;
     const double headerFontSize = 30.0;
     const double offsetFromCenter = -100.0;
-    RxBool isDarkMode = (HomePage.themeNotifier.value == ThemeMode.dark).obs;
+    RxBool isDarkMode = (MyApp.themeNotifier.value == ThemeMode.dark).obs;
 
     const double imgSize = 150.0;
     final Widget img = user.photoURL.isEmpty

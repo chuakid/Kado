@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
+import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/screens/home_page.dart';
@@ -11,8 +12,7 @@ import 'package:kado/src/utils/helper.dart';
 class StackPage extends GetView<UserController> {
   StackPage({Key? key}) : super(key: key);
   final RxString input = ''.obs;
-  final RxBool isDarkMode =
-      (HomePage.themeNotifier.value == ThemeMode.dark).obs;
+  final RxBool isDarkMode = (MyApp.themeNotifier.value == ThemeMode.dark).obs;
 
   @override
   Widget build(BuildContext context) {
