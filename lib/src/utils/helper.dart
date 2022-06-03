@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/models/kado_user_model.dart';
+import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/user_profile_page.dart';
 
 Widget buildBackToHomeBtn() => Container(
       margin: const EdgeInsets.only(right: appBarIconSpacing),
-      child:
-          IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.home)),
+      child: IconButton(
+          onPressed: () => Get.off(HomePage()), icon: const Icon(Icons.home)),
     );
 
 Widget buildToggleLightDarkModeButton(RxBool isDarkMode) => IconButton(

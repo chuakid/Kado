@@ -21,6 +21,7 @@ class ViewCardPage extends GetView<UserController> {
 
     return Scaffold(
       appBar: AppBar(actions: [
+        buildBackToHomeBtn(),
         buildProfileAvatar(controller.userModel),
         const SignOutButton()
       ]),
