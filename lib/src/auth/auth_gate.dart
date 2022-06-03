@@ -18,7 +18,8 @@ class AuthGate extends StatelessWidget {
           return const GuestPage();
         }
         return GetBuilder(
-            init: UserController(snapshot.data!), builder: (_) => HomePage());
+            init: UserController(snapshot.data!),
+            builder: (_) => const HomePage());
       },
     );
   }
