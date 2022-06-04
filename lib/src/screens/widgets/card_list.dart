@@ -46,8 +46,7 @@ class CardList extends GetView<StackController> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(top: 20.0),
-                        child: buildLabel(
-                            "Stack Name: ${controller.selectedStack!.name}")),
+                        child: buildLabel(controller.selectedStack!.name)),
                     addVerticalSpacing(10.0),
                     Expanded(
                       child: Obx(() => ReorderableListView(

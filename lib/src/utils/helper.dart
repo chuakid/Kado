@@ -1,11 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/main.dart';
+import 'package:kado/src/auth/auth_gate.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/user_profile_page.dart';
+import 'package:kado/styles/palette.dart';
+
+Widget buildSignOutBtn(BuildContext context) {
+  FirebaseAuth? auth;
+
+  return Container(
+    margin: const EdgeInsets.only(right: appBarIconSpacing),
+    child: IconButton(
+        tooltip: "Sign Out",
+        icon: const Icon(Icons.logout),
+        onPressed: () {
+          FlutterFireUIAuth.signOut(
+            context: context,
+            auth: auth,
+          ).then((_) => Get.to(() => const AuthGate()));
+        }),
+  );
+}
 
 Widget buildBackToHomeBtn() => Container(
       margin: const EdgeInsets.only(right: appBarIconSpacing),
@@ -45,3 +66,7 @@ Widget buildProfileAvatar() {
 
 Widget buildLabel(String text) =>
     Text(text, style: const TextStyle(fontSize: 20.0));
+
+void showSnackBar(String title, String subTitle, SnackPosition pos) =>
+    Get.snackbar(title, subTitle,
+        snackPosition: pos, backgroundColor: darkBlue, colorText: Colors.white);

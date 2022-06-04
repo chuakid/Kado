@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
@@ -21,7 +20,7 @@ class StackPage extends GetView<StackController> {
             actions: [
               buildBackToHomeBtn(),
               buildProfileAvatar(),
-              const SignOutButton()
+              buildSignOutBtn(context)
             ]),
         body: const CardList(),
         floatingActionButton: FloatingActionButton(

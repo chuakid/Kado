@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/database/db_service.dart';
-import 'package:kado/styles/palette.dart';
+import 'package:kado/src/utils/helper.dart';
 
 class AddStack extends StatelessWidget {
   final BuildContext context;
@@ -16,10 +16,8 @@ class AddStack extends StatelessWidget {
       FormState? fs = _formKey.currentState;
       if (fs != null && fs.validate()) {
         DBService.addStack(input.value);
-        Get.snackbar("New Stack Added", input.value + " added successfully.",
-            snackPosition: SnackPosition.TOP,
-            backgroundColor: darkBlue,
-            colorText: Colors.white);
+        showSnackBar("New Stack Added", input.value + " added successfully.",
+            SnackPosition.TOP);
         Navigator.of(context, rootNavigator: true).pop();
       }
     }

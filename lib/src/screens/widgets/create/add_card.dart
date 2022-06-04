@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
-import 'package:kado/styles/palette.dart';
+import 'package:kado/src/utils/helper.dart';
 
 class AddCard extends GetView<StackController> {
   final BuildContext context;
@@ -29,10 +29,8 @@ class AddCard extends GetView<StackController> {
       if (fs != null && fs.validate()) {
         DBService.addCard(controller.selectedStack!.id, cardName.value,
             frontContent.value, backContent.value);
-        Get.snackbar("New Card Added", cardName.value + " added successfully.",
-            snackPosition: SnackPosition.TOP,
-            backgroundColor: darkBlue,
-            colorText: Colors.white);
+        showSnackBar("New Card Added", cardName.value + " added successfully.",
+            SnackPosition.TOP);
         resetAllFields();
       }
     }

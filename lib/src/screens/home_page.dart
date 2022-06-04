@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
@@ -17,7 +16,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
-            actions: [buildProfileAvatar(), const SignOutButton()]),
+            actions: [buildProfileAvatar(), buildSignOutBtn(context)]),
         body: StackList(),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
