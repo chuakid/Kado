@@ -41,3 +41,6 @@ Widget buildProfileAvatar() {
                 child: Center(child: img)))),
   );
 }
+
+Widget buildLabel(String text) =>
+    Text(text, style: const TextStyle(fontSize: 20.0));

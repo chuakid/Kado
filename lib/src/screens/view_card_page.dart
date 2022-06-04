@@ -13,7 +13,7 @@ class ViewCardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget _buildCardBody(EachCard card) {
+    Widget _buildViewCardBody(EachCard card) {
       var txt = TextEditingController(text: card.frontContent);
 
       flipCard() {
@@ -29,8 +29,7 @@ class ViewCardPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Card Name: ${card.name}",
-                      style: const TextStyle(fontSize: 20.0)),
+                  buildLabel("Card Name: ${card.name}"),
                   addVerticalSpacing(20.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +69,7 @@ class ViewCardPage extends StatelessWidget {
         body: PageView(
           controller:
               PageController(initialPage: cardController.selectedCardIdx),
-          children: cardController.cards.map(_buildCardBody).toList(),
+          children: cardController.cards.map(_buildViewCardBody).toList(),
         ));
   }
 }

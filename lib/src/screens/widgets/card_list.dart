@@ -4,6 +4,7 @@ import 'package:kado/src/controller/card_controller.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/each_card.dart';
+import 'package:kado/src/screens/edit_card_page.dart';
 import 'package:kado/src/screens/misc/loader.dart';
 import 'package:kado/src/screens/misc/something_went_wrong.dart';
 import 'package:kado/src/screens/view_card_page.dart';
@@ -52,7 +53,10 @@ class CardList extends GetView<StackController> {
                               child: Wrap(
                                 children: [
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        cardController.setSelectedCardIdx(i);
+                                        Get.to(EditCardPage());
+                                      },
                                       icon: const Icon(Icons.edit)),
                                   IconButton(
                                       onPressed: () => deleteCard(i),

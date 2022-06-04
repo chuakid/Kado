@@ -73,6 +73,25 @@ class DBService {
         .toList();
   }
 
+  // Update Operations
+  static Future<void> updateCard(
+      EachCard card, String name, String frontContent, String backContent) {
+    final docData = {
+      'name': name,
+      'frontContent': frontContent,
+      'backContent': backContent,
+    };
+    return stacksCollectionRef
+        .doc(card.stackId)
+        .collection(cardCollectionName)
+        .doc(card.cardId)
+        .set(docData)
+        .then(
+          (_) => debugPrint("Card updated successfully"),
+          onError: (e) => debugPrint("Error occurred when updating card: $e"),
+        );
+  }
+
   // Delete Operations
   static Future<void> deleteCard(EachCard card) {
     return stacksCollectionRef
