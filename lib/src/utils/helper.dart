@@ -10,7 +10,8 @@ import 'package:kado/src/screens/user_profile_page.dart';
 Widget buildBackToHomeBtn() => Container(
       margin: const EdgeInsets.only(right: appBarIconSpacing),
       child: IconButton(
-          onPressed: () => Get.off(HomePage()), icon: const Icon(Icons.home)),
+          onPressed: () => Get.off(() => HomePage()),
+          icon: const Icon(Icons.home)),
     );
 
 Widget buildToggleLightDarkModeButton(RxBool isDarkMode) => IconButton(

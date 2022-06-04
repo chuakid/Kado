@@ -23,17 +23,7 @@ class StackPage extends GetView<StackController> {
               buildProfileAvatar(),
               const SignOutButton()
             ]),
-        body: Container(
-          margin: const EdgeInsets.only(top: 10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildLabel("Stack Name: ${controller.selectedStack!.name}"),
-              addVerticalSpacing(20.0),
-              const CardList(),
-            ],
-          ),
-        ),
+        body: const CardList(),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add),
             tooltip: addCard,

@@ -26,24 +26,27 @@ class EditCardPage extends StatelessWidget {
         FormState? fs = _formKey.currentState;
         if (fs != null && fs.validate()) {
           await DBService.updateCard(
-              card, cardName.value, frontContent.value, backContent.value);
-          Get.snackbar("Saved", cardName.value + " updated successfully.",
-              snackPosition: SnackPosition.TOP,
-              backgroundColor: darkBlue,
-              colorText: Colors.white);
-          Get.back();
+                  card, cardName.value, frontContent.value, backContent.value)
+              .then((_) {
+            Get.snackbar("Saved", cardName.value + " updated successfully.",
+                snackPosition: SnackPosition.TOP,
+                backgroundColor: darkBlue,
+                colorText: Colors.white);
+            Navigator.of(context, rootNavigator: true).pop();
+          });
         }
       }
 
       return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Obx(() => Container(
+          child: Container(
               margin: const EdgeInsets.only(top: 10.0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     buildLabel(
                         "Stack Name: ${stackController.selectedStack!.name}"),
+                    addVerticalSpacing(10.0),
                     buildLabel("Card Name: ${card.name}"),
                     addVerticalSpacing(20.0),
                     Form(
@@ -66,7 +69,7 @@ class EditCardPage extends StatelessWidget {
                           TextFormField(
                             initialValue: card.frontContent,
                             keyboardType: TextInputType.multiline,
-                            maxLines: 10,
+                            maxLines: 8,
                             validator: (value) => value != null && value.isEmpty
                                 ? "Enter front content"
                                 : null,
@@ -80,7 +83,7 @@ class EditCardPage extends StatelessWidget {
                           TextFormField(
                             initialValue: card.backContent,
                             keyboardType: TextInputType.multiline,
-                            maxLines: 10,
+                            maxLines: 8,
                             validator: (value) => value != null && value.isEmpty
                                 ? "Enter back content"
                                 : null,
@@ -96,7 +99,7 @@ class EditCardPage extends StatelessWidget {
                                   style: TextStyle(fontSize: 15.0)),
                               onPressed: () => validateAndUpdateCard()),
                         ]))
-                  ]))));
+                  ])));
     }
 
     return Scaffold(
@@ -105,14 +108,10 @@ class EditCardPage extends StatelessWidget {
           buildProfileAvatar(),
           const SignOutButton()
         ]),
-        body: const Text("dhfaklsdjf")
-        // _buildEditCardBody(
-        //     cardController.cards[cardController.selectedCardIdx])
-        // PageView(
-        //   controller:
-        //       PageController(initialPage: cardController.selectedCardIdx),
-        //   children: cardController.cards.map(_buildEditCardBody).toList(),
-        // )
-        );
+        body: PageView(
+          controller:
+              PageController(initialPage: cardController.selectedCardIdx),
+          children: cardController.cards.map(_buildEditCardBody).toList(),
+        ));
   }
 }
