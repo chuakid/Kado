@@ -8,6 +8,8 @@ import 'package:kado/src/screens/misc/loader.dart';
 import 'package:kado/src/screens/misc/something_went_wrong.dart';
 import 'package:kado/styles/theme.dart';
 
+import 'src/utils/app_scroll_behavior.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const App());
@@ -67,6 +69,7 @@ class MyApp extends StatelessWidget {
         valueListenable: MyApp.themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
           return GetMaterialApp(
+            scrollBehavior: AppScrollBehavior(),
             debugShowCheckedModeBanner: false,
             title: title,
             theme: themeData,

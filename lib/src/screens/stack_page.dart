@@ -3,12 +3,11 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
-import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/screens/widgets/card_list.dart';
 import 'package:kado/src/screens/widgets/create/add_card.dart';
 import 'package:kado/src/utils/helper.dart';
 
-class StackPage extends GetView<UserController> {
+class StackPage extends StatelessWidget {
   StackPage({Key? key}) : super(key: key);
   final RxString input = ''.obs;
   final RxBool isDarkMode = (MyApp.themeNotifier.value == ThemeMode.dark).obs;
@@ -20,7 +19,7 @@ class StackPage extends GetView<UserController> {
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
             actions: [
               buildBackToHomeBtn(),
-              buildProfileAvatar(controller.userModel),
+              buildProfileAvatar(),
               const SignOutButton()
             ]),
         body: const CardList(),

@@ -18,7 +18,7 @@ class AddCard extends GetView<StackController> {
     validateAndAddCard() {
       FormState? fs = _formKey.currentState;
       if (fs != null && fs.validate()) {
-        DBService.addCard(controller.getSelectedStack!.id, cardName.value,
+        DBService.addCard(controller.selectedStack!.id, cardName.value,
             frontContent.value, backContent.value);
         Get.snackbar("New Card Added", cardName.value + " added successfully.",
             snackPosition: SnackPosition.TOP,
@@ -41,7 +41,7 @@ class AddCard extends GetView<StackController> {
             onChanged: (val) => cardName.value = val,
             onFieldSubmitted: (_) => validateAndAddCard(),
           ),
-          addHorizontalSpacing(20.0),
+          addVerticalSpacing(20.0),
           TextFormField(
             keyboardType: TextInputType.multiline,
             maxLines: 8,
@@ -53,7 +53,7 @@ class AddCard extends GetView<StackController> {
             onChanged: (val) => frontContent.value = val,
             onFieldSubmitted: (_) => validateAndAddCard(),
           ),
-          addHorizontalSpacing(20.0),
+          addVerticalSpacing(20.0),
           TextFormField(
             keyboardType: TextInputType.multiline,
             maxLines: 8,
@@ -65,7 +65,7 @@ class AddCard extends GetView<StackController> {
             onChanged: (val) => backContent.value = val,
             onFieldSubmitted: (_) => validateAndAddCard(),
           ),
-          addHorizontalSpacing(20.0),
+          addVerticalSpacing(20.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

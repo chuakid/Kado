@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kado/src/controller/card_controller.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
@@ -25,14 +26,19 @@ class CardList extends GetView<StackController> {
             return const SomethingWentWrong();
           }
           List<EachCard> cards = snapshot.data!;
+          Get.put<CardController>(CardController()).cards = cards;
           return cards.isEmpty
               ? const NoRecord("card")
               : Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: ListView(
-                      children:
-                          cards.map((card) => KadoCard(card: card)).toList()),
-                );
+                  child: ListView.builder(
+                      itemCount: cards.length,
+                      itemBuilder: ((context, index) =>
+                          KadoCard(card: cards[index], cardIdx: index)))
+                  // child: ListView(
+                  //     children:
+                  //         cards.map((card) => KadoCard(card: card)).toList()),
+                  );
         });
   }
 }

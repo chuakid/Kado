@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
+import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/user_profile_page.dart';
@@ -20,7 +21,8 @@ Widget buildToggleLightDarkModeButton(RxBool isDarkMode) => IconButton(
           isDarkMode.value ? ThemeMode.dark : ThemeMode.light;
     });
 
-Widget buildProfileAvatar(KadoUserModel user) {
+Widget buildProfileAvatar() {
+  KadoUserModel user = Get.find<UserController>().userModel;
   const double avatarRadiusSize = 20.0;
   final Widget img = user.photoURL!.isEmpty
       ? Text(user.email!.substring(0, 1).toUpperCase())

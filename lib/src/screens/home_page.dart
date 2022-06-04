@@ -3,12 +3,11 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
-import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/screens/widgets/create/add_stack.dart';
 import 'package:kado/src/screens/widgets/stack_list.dart';
 import 'package:kado/src/utils/helper.dart';
 
-class HomePage extends GetView<UserController> {
+class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
   final RxBool isDarkMode = (MyApp.themeNotifier.value == ThemeMode.dark).obs;
@@ -18,10 +17,7 @@ class HomePage extends GetView<UserController> {
     return Scaffold(
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
-            actions: [
-              buildProfileAvatar(controller.userModel),
-              const SignOutButton()
-            ]),
+            actions: [buildProfileAvatar(), const SignOutButton()]),
         body: StackList(),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),

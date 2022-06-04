@@ -2,30 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
-import 'package:kado/src/controller/user_controller.dart';
+import 'package:kado/src/controller/card_controller.dart';
 import 'package:kado/src/models/each_card.dart';
 import 'package:kado/src/utils/helper.dart';
 
-class ViewCardPage extends GetView<UserController> {
-  final EachCard card;
-  ViewCardPage(this.card, {Key? key}) : super(key: key);
+class ViewCardPage extends StatelessWidget {
+  ViewCardPage({Key? key}) : super(key: key);
+  final CardController cardController = Get.find<CardController>();
   final RxBool isFront = true.obs;
 
   @override
   Widget build(BuildContext context) {
-    var txt = TextEditingController(text: card.frontContent);
-    flipCard() {
-      isFront.value = !isFront.value;
-      txt.text = isFront.value ? card.frontContent : card.backContent;
-    }
+    Widget _buildCardBody(EachCard card) {
+      var txt = TextEditingController(text: card.frontContent);
 
-    return Scaffold(
-      appBar: AppBar(actions: [
-        buildBackToHomeBtn(),
-        buildProfileAvatar(controller.userModel),
-        const SignOutButton()
-      ]),
-      body: Padding(
+      flipCard() {
+        isFront.value = !isFront.value;
+        txt.text = isFront.value ? card.frontContent : card.backContent;
+      }
+
+      return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Obx(
             () => Container(
@@ -35,7 +31,7 @@ class ViewCardPage extends GetView<UserController> {
                 children: [
                   Text("Card Name: ${card.name}",
                       style: const TextStyle(fontSize: 20.0)),
-                  addHorizontalSpacing(20.0),
+                  addVerticalSpacing(20.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -51,7 +47,7 @@ class ViewCardPage extends GetView<UserController> {
                                 '${isFront.value ? "Front" : "Back"} Content',
                           ),
                         ),
-                        addHorizontalSpacing(20.0),
+                        addVerticalSpacing(20.0),
                         TextButton(
                             child: const Text("Flip",
                                 style: TextStyle(fontSize: 15.0)),
@@ -62,7 +58,19 @@ class ViewCardPage extends GetView<UserController> {
                 ],
               ),
             ),
-          )),
-    );
+          ));
+    }
+
+    return Scaffold(
+        appBar: AppBar(actions: [
+          buildBackToHomeBtn(),
+          buildProfileAvatar(),
+          const SignOutButton()
+        ]),
+        body: PageView(
+          controller:
+              PageController(initialPage: cardController.selectedCardIdx),
+          children: cardController.cards.map(_buildCardBody).toList(),
+        ));
   }
 }

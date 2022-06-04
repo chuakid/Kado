@@ -44,9 +44,9 @@ class UserProfilePage extends StatelessWidget {
             ]),
         body: Column(
           children: [
-            addHorizontalSpacing(50.0),
+            addVerticalSpacing(50.0),
             Center(child: ClipOval(child: img)),
-            addHorizontalSpacing(20.0),
+            addVerticalSpacing(20.0),
             Column(
               children: [
                 Text(user.name,
@@ -55,7 +55,7 @@ class UserProfilePage extends StatelessWidget {
                     style: const TextStyle(fontSize: headerFontSize / 2))
               ],
             ),
-            addHorizontalSpacing(30.0),
+            addVerticalSpacing(30.0),
             Transform.translate(
               offset: const Offset(offsetFromCenter, 0),
               child: Text("Number Of Decks: ${stackController.stacks.length}",
