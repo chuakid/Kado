@@ -3,11 +3,10 @@ import 'package:get/get.dart';
 import 'package:kado/src/controller/card_controller.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
-import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/models/each_card.dart';
 import 'package:kado/src/screens/misc/loader.dart';
 import 'package:kado/src/screens/misc/something_went_wrong.dart';
-import 'package:kado/src/screens/widgets/kado_card.dart';
+import 'package:kado/src/screens/view_card_page.dart';
 import 'package:kado/src/screens/widgets/no_record.dart';
 
 class CardList extends GetView<StackController> {
@@ -15,9 +14,12 @@ class CardList extends GetView<StackController> {
 
   @override
   Widget build(BuildContext context) {
-    final CardStack stack = controller.selectedStack!;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final Color oddItemColor = colorScheme.primary.withOpacity(0.15);
+    final Color evenItemColor = colorScheme.primary.withOpacity(0.30);
+
     return StreamBuilder<List<EachCard>>(
-        stream: DBService.getCards(stack.id),
+        stream: DBService.getCards(controller.selectedStack!.id),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Loader();
@@ -25,20 +27,33 @@ class CardList extends GetView<StackController> {
           if (snapshot.hasError) {
             return const SomethingWentWrong();
           }
-          List<EachCard> cards = snapshot.data!;
-          Get.put<CardController>(CardController()).cards = cards;
+          RxList<EachCard> cards = snapshot.data!.obs;
+          final CardController cardController =
+              Get.put<CardController>(CardController());
+          cardController.cards = cards;
           return cards.isEmpty
               ? const NoRecord("card")
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                      itemCount: cards.length,
-                      itemBuilder: ((context, index) =>
-                          KadoCard(card: cards[index], cardIdx: index)))
-                  // child: ListView(
-                  //     children:
-                  //         cards.map((card) => KadoCard(card: card)).toList()),
-                  );
+              : Obx(() => ReorderableListView(
+                    padding: const EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 0.0),
+                    children: [
+                      for (int i = 0; i < cards.length; i++)
+                        ListTile(
+                            key: Key('$i'),
+                            title: Text(cards[i].name),
+                            tileColor: i.isEven ? evenItemColor : oddItemColor,
+                            onTap: () {
+                              cardController.setSelectedCardIdx(i);
+                              Get.to(() => ViewCardPage());
+                            })
+                    ],
+                    onReorder: (int oldIndex, int newIndex) {
+                      if (oldIndex < newIndex) {
+                        newIndex--;
+                      }
+                      final EachCard card = cards.removeAt(oldIndex);
+                      cards.insert(newIndex, card);
+                    },
+                  ));
         });
   }
 }
