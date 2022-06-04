@@ -12,10 +12,19 @@ class AddCard extends GetView<StackController> {
   final RxString cardName = ''.obs;
   final RxString frontContent = ''.obs;
   final RxString backContent = ''.obs;
+  final _cardNameController = TextEditingController();
+  final _frontContentController = TextEditingController();
+  final _backContentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    validateAndAddCard() {
+    void resetAllFields() {
+      _cardNameController.clear();
+      _frontContentController.clear();
+      _backContentController.clear();
+    }
+
+    void validateAndAddCard() {
       FormState? fs = _formKey.currentState;
       if (fs != null && fs.validate()) {
         DBService.addCard(controller.selectedStack!.id, cardName.value,
@@ -24,6 +33,7 @@ class AddCard extends GetView<StackController> {
             snackPosition: SnackPosition.TOP,
             backgroundColor: darkBlue,
             colorText: Colors.white);
+        resetAllFields();
       }
     }
 
@@ -31,6 +41,7 @@ class AddCard extends GetView<StackController> {
         key: _formKey,
         child: Column(children: <Widget>[
           TextFormField(
+            controller: _cardNameController,
             validator: (value) =>
                 value != null && value.isEmpty ? "Enter card name" : null,
             decoration: const InputDecoration(
@@ -43,6 +54,7 @@ class AddCard extends GetView<StackController> {
           ),
           addVerticalSpacing(20.0),
           TextFormField(
+            controller: _frontContentController,
             keyboardType: TextInputType.multiline,
             maxLines: 8,
             validator: (value) =>
@@ -55,6 +67,7 @@ class AddCard extends GetView<StackController> {
           ),
           addVerticalSpacing(20.0),
           TextFormField(
+            controller: _backContentController,
             keyboardType: TextInputType.multiline,
             maxLines: 8,
             validator: (value) =>

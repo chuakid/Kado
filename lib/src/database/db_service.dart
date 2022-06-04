@@ -1,13 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/models/each_card.dart';
 
 class DBService {
   static final db = FirebaseFirestore.instance;
   static final FirebaseAuth auth = FirebaseAuth.instance;
-  static final stacksCollectionRef = db.collection("decks");
+  static const String stackCollectionName = "stacks";
+  static const String cardCollectionName = "cards";
+  static final stacksCollectionRef = db.collection(stackCollectionName);
 
+  // Create operations
   static Future addStack(String stackName) {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
@@ -19,21 +23,20 @@ class DBService {
 
   static Future addCard(
       String stackId, String name, String frontContent, String backContent) {
-    return stacksCollectionRef.doc(stackId).collection("cards").add({
+    return stacksCollectionRef.doc(stackId).collection(cardCollectionName).add({
       "name": name,
       "frontContent": frontContent,
       "backContent": backContent
     });
   }
 
-  static List<CardStack> _cardStackListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((doc) {
-      Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
-      return CardStack(doc.id, doc['name'], doc['uid'],
-          asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
-    }).toList();
+  static Future<void> addTagToStack(String stackId, String tag) {
+    return stacksCollectionRef.doc(stackId).update({
+      'tags': FieldValue.arrayUnion([tag])
+    });
   }
 
+  // Read Operations
   static Stream<List<CardStack>> getStacks() {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
@@ -45,26 +48,41 @@ class DBService {
         .map(_cardStackListFromSnapshot);
   }
 
-  static List<EachCard> _eachCardListFromSnapshot(
-      QuerySnapshot snapshot, String stackId) {
-    return snapshot.docs
-        .map((doc) => EachCard(
-            stackId, doc['name'], doc['frontContent'], doc['backContent']))
-        .toList();
+  static List<CardStack> _cardStackListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
+      return CardStack(doc.id, doc['name'], doc['uid'],
+          asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
+    }).toList();
   }
 
   static Stream<List<EachCard>> getCards(String stackId) {
     final cardsCollectionRef =
-        stacksCollectionRef.doc(stackId).collection("cards");
+        stacksCollectionRef.doc(stackId).collection(cardCollectionName);
 
     return cardsCollectionRef
         .snapshots()
         .map((ss) => _eachCardListFromSnapshot(ss, stackId));
   }
 
-  static Future<void> addTagToStack(String stackId, String tag) {
-    return stacksCollectionRef.doc(stackId).update({
-      'tags': FieldValue.arrayUnion([tag])
-    });
+  static List<EachCard> _eachCardListFromSnapshot(
+      QuerySnapshot snapshot, String stackId) {
+    return snapshot.docs
+        .map((doc) => EachCard(doc.id, stackId, doc['name'],
+            doc['frontContent'], doc['backContent']))
+        .toList();
+  }
+
+  // Delete Operations
+  static Future<void> deleteCard(EachCard card) {
+    return stacksCollectionRef
+        .doc(card.stackId)
+        .collection(cardCollectionName)
+        .doc(card.cardId)
+        .delete()
+        .then(
+          (_) => debugPrint("Card deleted successfully"),
+          onError: (e) => debugPrint("Error occurred when deleting card: $e"),
+        );
   }
 }

@@ -27,10 +27,16 @@ class CardList extends GetView<StackController> {
           if (snapshot.hasError) {
             return const SomethingWentWrong();
           }
-          RxList<EachCard> cards = snapshot.data!.obs;
+          final RxList<EachCard> cards = snapshot.data!.obs;
           final CardController cardController =
               Get.put<CardController>(CardController());
           cardController.cards = cards;
+
+          void deleteCard(int i) async {
+            await DBService.deleteCard(cards[i]);
+            cards.removeAt(i);
+          }
+
           return cards.isEmpty
               ? const NoRecord("card")
               : Obx(() => ReorderableListView(
@@ -41,6 +47,19 @@ class CardList extends GetView<StackController> {
                             key: Key('$i'),
                             title: Text(cards[i].name),
                             tileColor: i.isEven ? evenItemColor : oddItemColor,
+                            trailing: Padding(
+                              padding: const EdgeInsets.only(right: 15.0),
+                              child: Wrap(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.edit)),
+                                  IconButton(
+                                      onPressed: () => deleteCard(i),
+                                      icon: const Icon(Icons.delete)),
+                                ],
+                              ),
+                            ),
                             onTap: () {
                               cardController.setSelectedCardIdx(i);
                               Get.to(() => ViewCardPage());
