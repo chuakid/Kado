@@ -74,6 +74,16 @@ class DBService {
   }
 
   // Update Operations
+  static Future<void> updateStack(String stackId, String name) {
+    final docData = {
+      'name': name,
+    };
+    return stacksCollectionRef.doc(stackId).update(docData).then(
+          (_) => debugPrint("Stack updated successfully"),
+          onError: (e) => debugPrint("Error occurred when updating Stack: $e"),
+        );
+  }
+
   static Future<void> updateCard(
       EachCard card, String name, String frontContent, String backContent) {
     final docData = {
@@ -85,7 +95,7 @@ class DBService {
         .doc(card.stackId)
         .collection(cardCollectionName)
         .doc(card.cardId)
-        .set(docData)
+        .update(docData)
         .then(
           (_) => debugPrint("Card updated successfully"),
           onError: (e) => debugPrint("Error occurred when updating card: $e"),
@@ -93,6 +103,13 @@ class DBService {
   }
 
   // Delete Operations
+  static Future<void> deleteStack(String stackId) {
+    return stacksCollectionRef.doc(stackId).delete().then(
+          (_) => debugPrint("Stack deleted successfully"),
+          onError: (e) => debugPrint("Error occurred when deleting stack: $e"),
+        );
+  }
+
   static Future<void> deleteCard(EachCard card) {
     return stacksCollectionRef
         .doc(card.stackId)

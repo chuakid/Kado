@@ -95,10 +95,8 @@ class EditCardPage extends StatelessWidget {
                               onFieldSubmitted: (_) => validateAndUpdateCard(),
                             ),
                             addVerticalSpacing(20.0),
-                            TextButton(
-                                child: const Text("Save",
-                                    style: TextStyle(fontSize: 15.0)),
-                                onPressed: () => validateAndUpdateCard()),
+                            buildActionBtn("Save", validateAndUpdateCard,
+                                const Icon(Icons.save))
                           ]))
                     ]),
               )));

@@ -37,9 +37,7 @@ class AddStack extends StatelessWidget {
             onFieldSubmitted: (value) => validateAndAddStack(),
           ),
           addVerticalSpacing(20.0),
-          TextButton(
-              child: const Text("Add", style: TextStyle(fontSize: 15.0)),
-              onPressed: () => validateAndAddStack())
+          buildActionBtn("Add", validateAndAddStack, const Icon(Icons.add_box)),
         ]));
   }
 }

@@ -70,3 +70,16 @@ Widget buildLabel(String text) =>
 void showSnackBar(String title, String subTitle, SnackPosition pos) =>
     Get.snackbar(title, subTitle,
         snackPosition: pos, backgroundColor: darkBlue, colorText: Colors.white);
+
+Widget buildActionBtn(String text, Function func, [Icon? icon]) {
+  return icon == null
+      ? OutlinedButton(
+          onPressed: () => func(),
+          child: Text(text),
+        )
+      : OutlinedButton.icon(
+          onPressed: () => func(),
+          icon: icon,
+          label: Text(text),
+        );
+}

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/screens/misc/something_went_wrong.dart';
 import 'package:kado/src/screens/stack_page.dart';
+import 'package:kado/src/screens/widgets/actions/edit_stack.dart';
 import 'package:kado/src/screens/widgets/no_record.dart';
 import 'package:kado/src/screens/misc/loader.dart';
+import 'package:kado/styles/theme.dart';
 
 class StackList extends StatelessWidget {
   StackList({Key? key}) : super(key: key);
@@ -34,6 +37,14 @@ class StackList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Card(
                         child: InkWell(
+                            onLongPress: () => Get.defaultDialog(
+                                  title: editStack,
+                                  titleStyle: dialogBoxTitleStyle,
+                                  titlePadding: dialogBoxTitlePadding,
+                                  content: EditStack(stack: stacks[index]),
+                                  contentPadding: const EdgeInsets.all(15.0),
+                                  radius: 10.0,
+                                ),
                             onTap: () {
                               controller.setSelectedStack(stacks[index]);
                               Get.to(() => StackPage());

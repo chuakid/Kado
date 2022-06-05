@@ -80,13 +80,11 @@ class AddCard extends GetView<StackController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextButton(
-                  child: const Text("Add", style: TextStyle(fontSize: 15.0)),
-                  onPressed: () => validateAndAddCard()),
-              TextButton(
-                  child: const Text("Close", style: TextStyle(fontSize: 15.0)),
-                  onPressed: () =>
-                      Navigator.of(context, rootNavigator: true).pop())
+              buildActionBtn(
+                  "Add", validateAndAddCard, const Icon(Icons.add_card)),
+              addHorizontalSpacing(20.0),
+              buildActionBtn("Close",
+                  () => Navigator.of(context, rootNavigator: true).pop()),
             ],
           )
         ]));

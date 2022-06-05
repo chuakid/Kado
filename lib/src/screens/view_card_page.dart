@@ -47,10 +47,8 @@ class ViewCardPage extends StatelessWidget {
                           ),
                         ),
                         addVerticalSpacing(20.0),
-                        TextButton(
-                            child: const Text("Flip",
-                                style: TextStyle(fontSize: 15.0)),
-                            onPressed: () => flipCard()),
+                        buildActionBtn(
+                            "Flip", flipCard, const Icon(Icons.flip)),
                       ]),
                     ],
                   ),
