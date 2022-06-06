@@ -26,4 +26,8 @@ class StackController extends GetxController with StateMixin {
             element.name.contains(search.value))
         .toList();
   }
+
+  void deleteTag(String name) {
+    DBService.deleteTag(selectedStack.value.id, name);
+  }
 }

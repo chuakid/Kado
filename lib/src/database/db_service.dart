@@ -135,4 +135,10 @@ class DBService {
       },
     );
   }
+
+  static void deleteTag(String stackId, String tagName) {
+    stacksCollectionRef.doc(stackId).update({
+      'tags': FieldValue.arrayRemove([tagName])
+    });
+  }
 }
