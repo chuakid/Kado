@@ -27,7 +27,7 @@ class AddCard extends GetView<StackController> {
     void validateAndAddCard() {
       FormState? fs = _formKey.currentState;
       if (fs != null && fs.validate()) {
-        DBService.addCard(controller.selectedStack!.id, cardName.value,
+        DBService.addCard(controller.selectedStack.value.id, cardName.value,
             frontContent.value, backContent.value);
         showSnackBar("New Card Added", cardName.value + " added successfully.",
             SnackPosition.TOP);

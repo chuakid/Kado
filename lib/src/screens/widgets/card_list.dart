@@ -22,7 +22,7 @@ class CardList extends GetView<StackController> {
     final Color evenItemColor = colorScheme.primary.withOpacity(0.30);
 
     return StreamBuilder<List<EachCard>>(
-        stream: DBService.getCards(controller.selectedStack!.id),
+        stream: DBService.getCards(controller.selectedStack.value.id),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Loader();
@@ -46,7 +46,7 @@ class CardList extends GetView<StackController> {
                   children: [
                     Container(
                         margin: const EdgeInsets.only(top: 20.0),
-                        child: buildLabel(controller.selectedStack!.name)),
+                        child: buildLabel(controller.selectedStack.value.name)),
                     addVerticalSpacing(10.0),
                     Expanded(
                       child: Obx(() => ReorderableListView(

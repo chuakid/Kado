@@ -26,17 +26,18 @@ class _AddTagFormState extends State<AddTagForm> {
                 autofocus: false,
                 onChanged: (value) => {newTagName = value}),
             OutlinedButton(
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(
-                    const EdgeInsets.all(10.0)),
-              ),
-              child: const Text(
-                "Add Tag",
-                textScaleFactor: 0.8,
-              ),
-              onPressed: () => DBService.addTagToStack(
-                  controller.selectedStack!.id, newTagName),
-            )
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.all(10.0)),
+                ),
+                child: const Text(
+                  "Add Tag",
+                  textScaleFactor: 0.8,
+                ),
+                onPressed: () {
+                  DBService.addTagToStack(
+                      controller.selectedStack.value.id, newTagName);
+                })
           ],
         ));
   }

@@ -43,7 +43,7 @@ class EditCardPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       buildLabel(
-                          "Stack Name: ${stackController.selectedStack!.name}"),
+                          "Stack Name: ${stackController.selectedStack.value.name}"),
                       addVerticalSpacing(10.0),
                       buildLabel("Card Name: ${card.name}"),
                       addVerticalSpacing(20.0),

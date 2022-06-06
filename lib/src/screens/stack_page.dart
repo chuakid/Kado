@@ -5,6 +5,7 @@ import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/screens/widgets/actions/add_card.dart';
 import 'package:kado/src/screens/widgets/card_list.dart';
+import 'package:kado/src/screens/widgets/tags/tags.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
 
@@ -23,7 +24,15 @@ class StackPage extends GetView<StackController> {
               buildProfileAvatar(),
               buildSignOutBtn(context)
             ]),
-        body: const CardList(),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: [
+            Tags(),
+            const Expanded(
+              child: CardList(),
+            ),
+          ]),
+        ),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add),
             tooltip: addCard,
