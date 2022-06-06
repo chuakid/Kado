@@ -27,10 +27,13 @@ class StackPage extends GetView<StackController> {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: [
-            Tags(),
             const Expanded(
               child: CardList(),
             ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              child: Tags(),
+            )
           ]),
         ),
         floatingActionButton: FloatingActionButton(
