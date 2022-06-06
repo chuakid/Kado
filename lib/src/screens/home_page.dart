@@ -22,13 +22,15 @@ class HomePage extends GetView<StackController> {
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
             actions: [buildProfileAvatar(), buildSignOutBtn(context)]),
-        body: Column(
-          children: [
-            const Searchbar(),
-            addVerticalSpacing(20),
-            const Expanded(child: StackList())
-          ],
-        ),
+        body: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                const Searchbar(),
+                addVerticalSpacing(20),
+                const Expanded(child: StackList())
+              ],
+            )),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           tooltip: addStack,
