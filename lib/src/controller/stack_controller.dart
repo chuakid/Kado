@@ -1,13 +1,12 @@
 import 'package:get/get.dart';
+import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
 
 class StackController extends GetxController with StateMixin {
   List<CardStack> stacks = [];
-  CardStack? selectedStack;
-
-  CardStack? get getSelectedStack => selectedStack;
+  Rx<CardStack> selectedStack = CardStack('', '', '', []).obs;
 
   setSelectedStack(CardStack selectedStack) {
-    this.selectedStack = selectedStack;
+    this.selectedStack.bindStream(DBService.getStack(selectedStack.id));
   }
 }

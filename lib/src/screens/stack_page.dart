@@ -9,7 +9,6 @@ import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/widgets/card_list.dart';
 import 'package:kado/src/screens/widgets/create/add_card.dart';
-import 'package:kado/src/screens/widgets/tags/add_tag_form.dart';
 import 'package:kado/src/screens/widgets/tags/tags.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
@@ -17,7 +16,6 @@ import 'package:kado/styles/theme.dart';
 class StackPage extends StatelessWidget {
   StackPage({Key? key}) : super(key: key);
   final KadoUserModel user = Get.find<UserController>().userModel;
-  final CardStack? cardStack = Get.find<StackController>().selectedStack;
   final RxString input = ''.obs;
 
   @override
@@ -41,9 +39,9 @@ class StackPage extends StatelessWidget {
                       ]),
                   body: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(children: const [
+                    child: Column(children: [
                       Tags(),
-                      Expanded(
+                      const Expanded(
                         child: CardList(),
                       ),
                     ]),

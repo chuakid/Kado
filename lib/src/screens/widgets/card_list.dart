@@ -14,9 +14,9 @@ class CardList extends GetView<StackController> {
 
   @override
   Widget build(BuildContext context) {
-    final CardStack stack = controller.selectedStack!;
+    final String stackId = controller.selectedStack.value.id;
     return StreamBuilder<List<EachCard>>(
-        stream: DBService.getCards(stack.id),
+        stream: DBService.getCards(stackId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Loader();

@@ -6,7 +6,7 @@ import 'package:kado/src/models/each_card.dart';
 class DBService {
   static final db = FirebaseFirestore.instance;
   static final FirebaseAuth auth = FirebaseAuth.instance;
-  static final stacksCollectionRef = db.collection("decks");
+  static final stacksCollectionRef = db.collection("stacks");
 
   static Future addStack(String stackName) {
     final uid = auth.currentUser?.uid;
@@ -66,5 +66,19 @@ class DBService {
     return stacksCollectionRef.doc(stackId).update({
       'tags': FieldValue.arrayUnion([tag])
     });
+  }
+
+  static Stream<CardStack> getStack(String stackId) {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("uid empty");
+    }
+    return stacksCollectionRef.doc(stackId).snapshots().map(
+      (doc) {
+        Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
+        return CardStack(doc.id, doc['name'], doc['uid'],
+            asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
+      },
+    );
   }
 }
