@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
+import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/widgets/create/add_stack.dart';
@@ -20,6 +21,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put<StackController>(StackController());
+
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: HomePage.themeNotifier,
         builder: (_, ThemeMode currentMode, __) {

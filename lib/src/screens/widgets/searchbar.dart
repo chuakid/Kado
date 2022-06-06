@@ -4,8 +4,7 @@ import 'package:kado/src/controller/stack_controller.dart';
 
 class Searchbar extends StatelessWidget {
   Searchbar({Key? key}) : super(key: key);
-  final Rx<String> searchInput =
-      Get.put<StackController>(StackController()).search;
+  final Rx<String> searchInput = Get.find<StackController>().search;
 
   @override
   Widget build(BuildContext context) {
