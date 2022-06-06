@@ -20,7 +20,9 @@ class StackController extends GetxController with StateMixin {
   List<CardStack> getFilteredStacks() {
     if (search.value == '') return stacks;
     return stacks
-        .where((element) => element.tags.contains(search.value))
+        .where((element) =>
+            element.tags.contains(search.value) ||
+            element.name.contains(search.value))
         .toList();
   }
 }
