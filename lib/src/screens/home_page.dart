@@ -5,6 +5,7 @@ import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/widgets/create/add_stack.dart';
+import 'package:kado/src/screens/widgets/searchbar.dart';
 import 'package:kado/src/screens/widgets/stack_list.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
@@ -35,7 +36,13 @@ class HomePage extends StatelessWidget {
                         buildProfileAvatar(user),
                         const SignOutButton()
                       ]),
-                  body: StackList(),
+                  body: Column(
+                    children: [
+                      Searchbar(),
+                      addHorizontalSpacing(20),
+                      Expanded(child: StackList())
+                    ],
+                  ),
                   floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.add),
                     tooltip: addStack,

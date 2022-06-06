@@ -24,7 +24,11 @@ class StackList extends StatelessWidget {
             return displayError("Error occurred while fetching data");
           }
           List<CardStack> stacks = snapshot.data!;
-          controller.stacks = stacks;
+          controller.stacks = stacks
+              .where(
+                (element) => element.tags.contains(controller.search.value),
+              )
+              .toList();
           return stacks.isEmpty
               ? const NoRecord()
               : GridView.builder(
