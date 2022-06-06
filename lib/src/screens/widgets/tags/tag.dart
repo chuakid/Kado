@@ -11,14 +11,11 @@ class Tag extends GetView<StackController> {
       margin: const EdgeInsets.all(5),
       child: DecoratedBox(
         decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular((20))),
+            borderRadius: BorderRadius.all(Radius.circular((10))),
             color: Colors.blue),
-        child: Padding(
-          padding: const EdgeInsets.all(7),
-          child: TextButton(
-            onPressed: () => controller.deleteTag(tagName),
-            child: Text(tagName, style: TextStyle(color: Colors.white)),
-          ),
+        child: TextButton(
+          onPressed: () => controller.deleteTag(tagName),
+          child: Text(tagName, style: const TextStyle(color: Colors.white)),
         ),
       ),
     );
