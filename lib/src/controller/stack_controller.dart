@@ -15,7 +15,7 @@ class StackController extends GetxController with StateMixin {
 
   setSelectedStack(CardStack selectedStack) {
     this.selectedStack.value = selectedStack;
-    this.selectedStack.bindStream(DBService.getStack(selectedStack.id));
+    this.selectedStack.bindStream(DBService.getStackById(selectedStack.id));
   }
 
   List<CardStack> getFilteredStacks() {
