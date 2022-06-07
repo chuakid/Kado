@@ -17,7 +17,7 @@ class Tag extends GetView<StackController> {
           padding: const EdgeInsets.all(7),
           child: TextButton(
             onPressed: () => controller.deleteTag(tagName),
-            child: Text(tagName, style: TextStyle(color: Colors.white)),
+            child: Text(tagName, style: const TextStyle(color: Colors.white)),
           ),
         ),
       ),
