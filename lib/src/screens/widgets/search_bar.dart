@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 
 class SearchBar extends GetView<StackController> {
@@ -7,13 +8,14 @@ class SearchBar extends GetView<StackController> {
 
   @override
   Widget build(BuildContext context) {
+    var txtController = TextEditingController(text: controller.search.value);
     return TextField(
+        controller: txtController,
         autocorrect: false,
-        decoration:
-            const InputDecoration(hintText: "Search stacks by tag or name"),
+        decoration: const InputDecoration(hintText: searchHint),
         onChanged: (value) {
-          controller.getFilteredStacks();
           controller.search.value = value;
+          controller.getFilteredStacks();
         });
   }
 }

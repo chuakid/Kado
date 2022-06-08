@@ -12,7 +12,7 @@ class DBService {
   static final stacksCollectionRef = db.collection(stackCollectionName);
 
   // Create operations
-  static Future addStack(String stackName) {
+  static Future<void> addStack(String stackName) {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
       throw Exception("uid empty");

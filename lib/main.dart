@@ -50,7 +50,12 @@ class _AppState extends State<App> {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return const Loader();
+        return MaterialApp(
+          title: title,
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {'/': (context) => const Loader()},
+        );
       },
     );
   }
