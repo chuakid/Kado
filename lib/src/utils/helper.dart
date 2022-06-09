@@ -69,7 +69,7 @@ Widget buildProfileAvatar() {
 }
 
 Widget buildLabel(String text) => Container(
-    padding: const EdgeInsets.all(20.0),
+    padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 10.0),
     decoration: const BoxDecoration(color: opaqueWhite),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,

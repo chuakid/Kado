@@ -22,40 +22,37 @@ class ViewCardPage extends StatelessWidget {
       }
 
       return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Obx(
-            () => Container(
-              margin: const EdgeInsets.only(top: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        padding: const EdgeInsets.all(8.0),
+        child: Obx(
+          () => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildLabel("Card Name: ${card.name}"),
+              addVerticalSpacing(20.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  buildLabel("Card Name: ${card.name}"),
-                  addVerticalSpacing(20.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(children: <Widget>[
-                        TextField(
-                          textAlign: TextAlign.center,
-                          controller: txt,
-                          readOnly: true,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 25,
-                          decoration: InputDecoration(
-                            labelText:
-                                '${isFront.value ? "Front" : "Back"} Content',
-                          ),
-                        ),
-                        addVerticalSpacing(20.0),
-                        buildActionBtn(
-                            "Flip", flipCard, const Icon(Icons.flip)),
-                      ]),
-                    ],
-                  ),
+                  Column(children: <Widget>[
+                    TextField(
+                      textAlign: TextAlign.center,
+                      controller: txt,
+                      readOnly: true,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 25,
+                      decoration: InputDecoration(
+                        labelText:
+                            '${isFront.value ? "Front" : "Back"} Content',
+                      ),
+                    ),
+                    addVerticalSpacing(20.0),
+                    buildActionBtn("Flip", flipCard, const Icon(Icons.flip)),
+                  ]),
                 ],
               ),
-            ),
-          ));
+            ],
+          ),
+        ),
+      );
     }
 
     return Scaffold(
