@@ -17,14 +17,20 @@ class _AddTagFormState extends State<AddTagForm> {
 
   @override
   Widget build(BuildContext context) {
+    FocusNode textNode = FocusNode();
     return Form(
         key: _formKey,
         child: Column(
           children: [
             TextFormField(
+                focusNode: textNode,
                 validator: (value) => value == "" ? "Enter a tag" : null,
-                autofocus: false,
-                onChanged: (value) => {newTagName = value}),
+                onChanged: (value) => {newTagName = value},
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(textNode);
+                  DBService.addTagToStack(
+                      controller.selectedStack.value.id, newTagName);
+                }),
             addVerticalSpacing(10.0),
             OutlinedButton(
                 style: ButtonStyle(

@@ -35,6 +35,7 @@ Color shadeColor(Color color, double factor) => Color.fromRGBO(
     1);
 
 Color darkBlue = const Color.fromARGB(221, 11, 0, 167);
+Color darkRed = Color.fromARGB(221, 129, 1, 24);
 
 class Palette {
   static const Color primary = Color.fromARGB(255, 75, 110, 168);

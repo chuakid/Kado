@@ -18,12 +18,12 @@ class Tags extends StatelessWidget {
       decoration: const BoxDecoration(color: opaqueWhite),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Obx(() => Wrap(
-              children:
-                  cardStack.value.tags.map((i) => Tag(tagName: i)).toList())),
-          addVerticalSpacing(10.0),
-          const AddTagForm(),
+        children: const [
+          // Obx(() => Wrap(
+          //     children:
+          //         cardStack.value.tags.map((i) => Tag(tagName: i)).toList())),
+          // addVerticalSpacing(10.0),
+          AddTagForm(),
         ],
       ),
     );

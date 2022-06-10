@@ -38,7 +38,7 @@ class HomePage extends GetView<StackController> {
             title: addStack,
             titleStyle: dialogBoxTitleStyle,
             titlePadding: dialogBoxTitlePadding,
-            content: AddStack(context: context),
+            content: AddStack(),
             contentPadding: const EdgeInsets.all(15.0),
             radius: 10.0,
           ),

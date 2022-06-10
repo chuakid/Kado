@@ -12,13 +12,13 @@ class DBService {
   static final stacksCollectionRef = db.collection(stackCollectionName);
 
   // Create operations
-  static Future<void> addStack(String stackName) {
+  static Future<void> addStack(String name, List<String> tags) {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
       throw Exception("uid empty");
     }
 
-    return stacksCollectionRef.add({"uid": uid, "name": stackName, "tags": []});
+    return stacksCollectionRef.add({"uid": uid, "name": name, "tags": tags});
   }
 
   static Future addCard(
