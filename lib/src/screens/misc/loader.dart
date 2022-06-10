@@ -6,24 +6,14 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final spinkit = SpinKitFadingCircle(
+    return SpinKitFadingCircle(
       itemBuilder: (BuildContext context, int index) {
         return DecoratedBox(
           decoration: BoxDecoration(
-            color: index.isEven ? Colors.blue[400] : Colors.blue[900],
+            color: index.isEven ? Colors.blue[300] : Colors.blue[900],
           ),
         );
       },
-    );
-
-    return MaterialApp(
-      title: 'Kado',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: '/',
-      routes: {'/': (context) => spinkit},
     );
   }
 }

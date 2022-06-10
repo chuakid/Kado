@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 
@@ -19,12 +20,12 @@ class _AddTagFormState extends State<AddTagForm> {
     return Form(
         key: _formKey,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
                 validator: (value) => value == "" ? "Enter a tag" : null,
                 autofocus: false,
                 onChanged: (value) => {newTagName = value}),
+            addVerticalSpacing(10.0),
             OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsets>(

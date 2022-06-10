@@ -25,15 +25,15 @@ class StackPage extends GetView<StackController> {
               buildSignOutBtn(context)
             ]),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(children: [
             const Expanded(
               child: CardList(),
             ),
             Container(
-              margin: const EdgeInsets.only(bottom: 20),
+              margin: const EdgeInsets.only(bottom: 30),
               child: Tags(),
-            )
+            ),
           ]),
         ),
         floatingActionButton: FloatingActionButton(

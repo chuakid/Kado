@@ -12,7 +12,7 @@ class DBService {
   static final stacksCollectionRef = db.collection(stackCollectionName);
 
   // Create operations
-  static Future addStack(String stackName) {
+  static Future<void> addStack(String stackName) {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
       throw Exception("uid empty");
@@ -54,6 +54,20 @@ class DBService {
       return CardStack(doc.id, doc['name'], doc['uid'],
           asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
     }).toList();
+  }
+
+  static Stream<CardStack> getStackById(String stackId) {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("uid empty");
+    }
+    return stacksCollectionRef.doc(stackId).snapshots().map(
+      (doc) {
+        Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
+        return CardStack(doc.id, doc['name'], doc['uid'],
+            asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
+      },
+    );
   }
 
   static Stream<List<EachCard>> getCards(String stackId) {
@@ -120,20 +134,6 @@ class DBService {
           (_) => debugPrint("Card deleted successfully"),
           onError: (e) => debugPrint("Error occurred when deleting card: $e"),
         );
-  }
-
-  static Stream<CardStack> getStack(String stackId) {
-    final uid = auth.currentUser?.uid;
-    if (uid == null) {
-      throw Exception("uid empty");
-    }
-    return stacksCollectionRef.doc(stackId).snapshots().map(
-      (doc) {
-        Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
-        return CardStack(doc.id, doc['name'], doc['uid'],
-            asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
-      },
-    );
   }
 
   static void deleteTag(String stackId, String tagName) {

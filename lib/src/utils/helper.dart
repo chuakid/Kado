@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/auth/auth_gate.dart';
 import 'package:kado/src/config/global_constant.dart';
+import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
@@ -31,7 +32,10 @@ Widget buildSignOutBtn(BuildContext context) {
 Widget buildBackToHomeBtn() => Container(
       margin: const EdgeInsets.only(right: appBarIconSpacing),
       child: IconButton(
-          onPressed: () => Get.off(() => HomePage()),
+          onPressed: () {
+            Get.find<StackController>().getFilteredStacks();
+            Get.off(() => HomePage());
+          },
           icon: const Icon(Icons.home)),
     );
 
@@ -64,12 +68,22 @@ Widget buildProfileAvatar() {
   );
 }
 
-Widget buildLabel(String text) =>
-    Text(text, style: const TextStyle(fontSize: 20.0));
+Widget buildLabel(String text) => Container(
+    padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 10.0),
+    decoration: const BoxDecoration(color: opaqueWhite),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(text, style: const TextStyle(fontSize: 20.0)),
+      ],
+    ));
 
 void showSnackBar(String title, String subTitle, SnackPosition pos) =>
     Get.snackbar(title, subTitle,
-        snackPosition: pos, backgroundColor: darkBlue, colorText: Colors.white);
+        snackPosition: pos,
+        backgroundColor: darkBlue,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 1));
 
 Widget buildActionBtn(String text, Function func, [Icon? icon]) {
   return icon == null

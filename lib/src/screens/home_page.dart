@@ -4,7 +4,7 @@ import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/screens/widgets/actions/add_stack.dart';
-import 'package:kado/src/screens/widgets/searchbar.dart';
+import 'package:kado/src/screens/widgets/search_bar.dart';
 import 'package:kado/src/screens/widgets/stack_list.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/theme.dart';
@@ -26,7 +26,7 @@ class HomePage extends GetView<StackController> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                const Searchbar(),
+                const SearchBar(),
                 addVerticalSpacing(20),
                 const Expanded(child: StackList())
               ],
