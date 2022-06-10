@@ -21,7 +21,7 @@ class Tag extends GetView<StackController> {
           margin: const EdgeInsets.all(5),
           child: DecoratedBox(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular((15.0))),
+                borderRadius: const BorderRadius.all(Radius.circular((15.0))),
                 color: isSelected.value ? darkRed : darkBlue),
             child: Padding(
               padding: const EdgeInsets.all(7),
