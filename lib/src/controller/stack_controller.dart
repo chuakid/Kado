@@ -22,14 +22,15 @@ class StackController extends GetxController with StateMixin<List<CardStack>> {
     try {
       change(null, status: RxStatus.loading());
       DBService.getStacks().listen((cardStacks) {
-        stacks.value = search.value == ''
+        stacks.value = cardStacks;
+        var filtered = search.value == ''
             ? cardStacks
             : cardStacks
                 .where((element) =>
                     element.tags.contains(search.value) ||
                     element.name.contains(search.value))
                 .toList();
-        change(stacks, status: RxStatus.success());
+        change(filtered, status: RxStatus.success());
       });
     } catch (exception) {
       change(null, status: RxStatus.error(exception.toString()));
@@ -38,5 +39,12 @@ class StackController extends GetxController with StateMixin<List<CardStack>> {
 
   void deleteTag(String name) {
     DBService.deleteTag(selectedStack.value.id, name);
+  }
+
+  List<String> getTags() {
+    return stacks.fold(
+        [],
+        (previousValue, element) =>
+            (previousValue + element.tags).toSet().toList());
   }
 }
