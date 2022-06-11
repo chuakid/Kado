@@ -4,6 +4,7 @@ import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/screens/misc/loader.dart';
+import 'package:kado/src/screens/widgets/tags/tag.dart';
 import 'package:kado/src/utils/helper.dart';
 
 class EditStack extends StatelessWidget {
@@ -12,21 +13,28 @@ class EditStack extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final RxString stackName = ''.obs;
   final RxBool isUpdating = false.obs;
+  final RxBool isTagHidden = true.obs;
 
   @override
   Widget build(BuildContext context) {
+    RxList<String> currTags = stack.tags.obs;
+
     void validateAndUpdateStack() async {
-      isUpdating.toggle();
       FormState? fs = _formKey.currentState;
-      if (fs != null && fs.validate()) {
-        DBService.updateStack(stack.id, stackName.value).then((_) {
-          showSnackBar(
-              "Saved",
-              "${stack.name} updated to ${stackName.value} successfully.",
-              SnackPosition.BOTTOM);
-          Navigator.of(context, rootNavigator: true).pop();
+      if (fs != null) {
+        isUpdating.toggle();
+        if (fs.validate()) {
+          DBService.updateStack(stack.id, stackName.value, currTags).then((_) {
+            showSnackBar(
+                "Saved",
+                "${stack.name} updated to ${stackName.value} successfully.",
+                SnackPosition.BOTTOM);
+            Navigator.of(context, rootNavigator: true).pop();
+            isUpdating.toggle();
+          });
+        } else {
           isUpdating.toggle();
-        });
+        }
       }
     }
 
@@ -38,6 +46,10 @@ class EditStack extends StatelessWidget {
         Navigator.of(context, rootNavigator: true).pop();
         isUpdating.toggle();
       });
+    }
+
+    void deleteTag(String tagName) {
+      currTags.remove(tagName);
     }
 
     return Obx(() => isUpdating.value
@@ -57,6 +69,27 @@ class EditStack extends StatelessWidget {
                 onChanged: (val) => stackName.value = val,
                 onFieldSubmitted: (value) => validateAndUpdateStack(),
               ),
+              addVerticalSpacing(20.0),
+              buildActionBtn("${isTagHidden.value ? "Show" : "Hide"} Tags",
+                  () => isTagHidden.toggle()),
+              addVerticalSpacing(10.0),
+              Visibility(
+                  visible: !isTagHidden.value,
+                  child: Wrap(children: [
+                    for (int i = 0; i < currTags.length + 1; i++)
+                      i == currTags.length
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(18.0, 5.0, 0, 0),
+                              child: IconButton(
+                                  onPressed: () => addNewTag(currTags),
+                                  icon: const Icon(Icons.add)),
+                            )
+                          : Tag(
+                              tagName: currTags[i],
+                              onPressed: deleteTag,
+                              icon: const Icon(Icons.delete_forever))
+                  ])),
               addVerticalSpacing(20.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

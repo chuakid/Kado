@@ -4,10 +4,8 @@ import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/screens/misc/loader.dart';
-import 'package:kado/src/screens/widgets/actions/add_tag.dart';
 import 'package:kado/src/screens/widgets/tags/tag.dart';
 import 'package:kado/src/utils/helper.dart';
-import 'package:kado/styles/theme.dart';
 
 class AddStack extends GetView<StackController> {
   AddStack({Key? key}) : super(key: key);
@@ -21,29 +19,25 @@ class AddStack extends GetView<StackController> {
   Widget build(BuildContext context) {
     final RxList<String> existingTags = controller.getTags().obs;
 
-    validateAndAddStack() {
-      isAdding.toggle();
+    void validateAndAddStack() {
       FormState? fs = _formKey.currentState;
-      if (fs != null && fs.validate()) {
-        DBService.addStack(input.value, selectedTags).then((_) {
-          showSnackBar("New Stack Added", input.value + " added successfully.",
-              SnackPosition.TOP);
-          Navigator.of(context, rootNavigator: true).pop();
+      if (fs != null) {
+        isAdding.toggle();
+        if (fs.validate()) {
+          DBService.addStack(input.value, selectedTags).then((_) {
+            showSnackBar("New Stack Added",
+                input.value + " added successfully.", SnackPosition.TOP);
+            Navigator.of(context, rootNavigator: true).pop();
+            isAdding.toggle();
+          });
+        } else {
           isAdding.toggle();
-        });
+        }
       }
     }
 
-    addNewTag() {
-      Get.defaultDialog(
-          title: addTag,
-          titleStyle: dialogBoxTitleStyle,
-          titlePadding: dialogBoxTitlePadding,
-          content: AddTag(
-            existingTags: existingTags,
-          ),
-          contentPadding: const EdgeInsets.all(15.0),
-          radius: 10.0);
+    void addTag(String tagName) {
+      selectedTags.add(tagName);
     }
 
     return Obx(() => isAdding.value
@@ -76,12 +70,13 @@ class AddStack extends GetView<StackController> {
                               padding:
                                   const EdgeInsets.fromLTRB(18.0, 5.0, 0, 0),
                               child: IconButton(
-                                  onPressed: addNewTag,
+                                  onPressed: () => addNewTag(existingTags),
                                   icon: const Icon(Icons.add)),
                             )
                           : Tag(
                               tagName: existingTags[i],
-                              selectedTags: selectedTags)
+                              onPressed: addTag,
+                            )
                   ])),
               addVerticalSpacing(20.0),
               buildActionBtn(

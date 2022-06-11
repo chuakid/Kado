@@ -88,9 +88,11 @@ class DBService {
   }
 
   // Update Operations
-  static Future<void> updateStack(String stackId, String name) {
+  static Future<void> updateStack(
+      String stackId, String name, List<String> tags) {
     final docData = {
       'name': name,
+      'tags': tags,
     };
     return stacksCollectionRef.doc(stackId).update(docData).then(
           (_) => debugPrint("Stack updated successfully"),

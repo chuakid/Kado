@@ -10,7 +10,9 @@ import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/user_profile_page.dart';
+import 'package:kado/src/screens/widgets/actions/add_tag.dart';
 import 'package:kado/styles/palette.dart';
+import 'package:kado/styles/theme.dart';
 
 Widget buildSignOutBtn(BuildContext context) {
   FirebaseAuth? auth;
@@ -96,4 +98,16 @@ Widget buildActionBtn(String text, Function func, [Icon? icon]) {
           icon: icon,
           label: Text(text),
         );
+}
+
+void addNewTag(List<String> tags) {
+  Get.defaultDialog(
+      title: addTag,
+      titleStyle: dialogBoxTitleStyle,
+      titlePadding: dialogBoxTitlePadding,
+      content: AddTag(
+        existingTags: tags,
+      ),
+      contentPadding: const EdgeInsets.all(15.0),
+      radius: 10.0);
 }
