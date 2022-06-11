@@ -41,7 +41,7 @@ class AddCard extends GetView<StackController> {
           TextFormField(
             controller: _cardNameController,
             validator: (value) =>
-                value != null && value.isEmpty ? "Enter card name" : null,
+                value != null && value.isEmpty ? emptyCardName : null,
             decoration: const InputDecoration(
               icon: Icon(Icons.card_membership),
               labelText: 'Card Name',
@@ -56,7 +56,7 @@ class AddCard extends GetView<StackController> {
             keyboardType: TextInputType.multiline,
             maxLines: 8,
             validator: (value) =>
-                value != null && value.isEmpty ? "Enter front content" : null,
+                value != null && value.isEmpty ? emptyFrontContent : null,
             decoration: const InputDecoration(
               labelText: 'Front Content',
             ),
@@ -69,7 +69,7 @@ class AddCard extends GetView<StackController> {
             keyboardType: TextInputType.multiline,
             maxLines: 8,
             validator: (value) =>
-                value != null && value.isEmpty ? "Enter back content" : null,
+                value != null && value.isEmpty ? emptyBackContent : null,
             decoration: const InputDecoration(
               labelText: 'Back Content',
             ),

@@ -27,7 +27,7 @@ class AddTag extends GetView<StackController> {
         child: Column(children: <Widget>[
           TextFormField(
             validator: (value) =>
-                value != null && value.isEmpty ? "Enter tag name" : null,
+                value != null && value.isEmpty ? emptyTagName : null,
             decoration: const InputDecoration(
               icon: Icon(Icons.bookmark),
               labelText: 'Tag Name',

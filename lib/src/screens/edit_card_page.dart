@@ -45,7 +45,7 @@ class EditCardPage extends StatelessWidget {
                 TextFormField(
                   initialValue: card.name,
                   validator: (value) =>
-                      value != null && value.isEmpty ? "Enter card name" : null,
+                      value != null && value.isEmpty ? emptyCardName : null,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.card_membership),
                     labelText: 'Card Name',
@@ -59,9 +59,8 @@ class EditCardPage extends StatelessWidget {
                   initialValue: card.frontContent,
                   keyboardType: TextInputType.multiline,
                   maxLines: 8,
-                  validator: (value) => value != null && value.isEmpty
-                      ? "Enter front content"
-                      : null,
+                  validator: (value) =>
+                      value != null && value.isEmpty ? emptyFrontContent : null,
                   decoration: const InputDecoration(
                     labelText: 'Front Content',
                   ),
@@ -73,9 +72,8 @@ class EditCardPage extends StatelessWidget {
                   initialValue: card.backContent,
                   keyboardType: TextInputType.multiline,
                   maxLines: 8,
-                  validator: (value) => value != null && value.isEmpty
-                      ? "Enter back content"
-                      : null,
+                  validator: (value) =>
+                      value != null && value.isEmpty ? emptyBackContent : null,
                   decoration: const InputDecoration(
                     labelText: 'Back Content',
                   ),

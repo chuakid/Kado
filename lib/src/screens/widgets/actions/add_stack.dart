@@ -47,7 +47,7 @@ class AddStack extends GetView<StackController> {
             child: Column(children: <Widget>[
               TextFormField(
                 validator: (value) =>
-                    value != null && value.isEmpty ? "Enter stack name" : null,
+                    value != null && value.isEmpty ? emptyStackName : null,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.book),
                   labelText: 'Stack Name',

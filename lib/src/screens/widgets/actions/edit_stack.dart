@@ -60,7 +60,7 @@ class EditStack extends StatelessWidget {
               TextFormField(
                 initialValue: stack.name,
                 validator: (value) =>
-                    value != null && value.isEmpty ? "Enter stack name" : null,
+                    value != null && value.isEmpty ? emptyStackName : null,
                 decoration: const InputDecoration(
                   icon: Icon(Icons.book),
                   labelText: 'Stack Name',
