@@ -71,12 +71,10 @@ Widget buildProfileAvatar() {
 }
 
 Widget buildLabel(String text) => Container(
-    padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 10.0),
-    decoration: const BoxDecoration(color: opaqueWhite),
+    padding: const EdgeInsets.only(left: 15.0),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(text, style: const TextStyle(fontSize: 20.0)),
+        Text(text, style: const TextStyle(fontSize: 22.0)),
       ],
     ));
 

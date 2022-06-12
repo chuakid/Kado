@@ -33,13 +33,14 @@ class EditCardPage extends StatelessWidget {
         }
       }
 
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          buildLabel("Stack Name: ${stackController.selectedStack.value.name}"),
-          buildLabel("Card Name: ${card.name}"),
-          addVerticalSpacing(10.0),
-          Form(
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        addVerticalSpacing(20.0),
+        buildLabel("Stack Name: ${stackController.selectedStack.value.name}"),
+        buildLabel("Card Name: ${card.name}"),
+        addVerticalSpacing(20.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Form(
               key: _formKey,
               child: Column(children: <Widget>[
                 TextFormField(
@@ -83,9 +84,9 @@ class EditCardPage extends StatelessWidget {
                 addVerticalSpacing(20.0),
                 buildActionBtn(
                     "Save", validateAndUpdateCard, const Icon(Icons.save))
-              ]))
-        ]),
-      );
+              ])),
+        )
+      ]);
     }
 
     return Scaffold(

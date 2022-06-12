@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/card_controller.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
@@ -43,8 +44,10 @@ class CardList extends GetView<StackController> {
               ? const NoRecord("card")
               : Column(
                   children: [
+                    addVerticalSpacing(20.0),
                     Container(
                         child: buildLabel(controller.selectedStack.value.name)),
+                    addVerticalSpacing(20.0),
                     Expanded(
                       child: Obx(() => ReorderableListView(
                             padding:

@@ -15,7 +15,7 @@ const emptyBackContent = "Enter Back Content";
 
 const title = "Kado";
 const appBarIconSpacing = 20.0;
-const opaqueWhite = Color.fromARGB(255, 255, 255, 255);
+const opaqueWhite = Color.fromARGB(255, 250, 250, 250);
 
 Widget addVerticalSpacing(double size) => SizedBox(height: size);
 Widget addHorizontalSpacing(double size) => SizedBox(width: size);

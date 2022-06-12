@@ -27,7 +27,8 @@ class ViewCardPage extends StatelessWidget {
           () => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildLabel("Card Name: ${card.name}"),
+              addVerticalSpacing(10.0),
+              buildLabel(card.name),
               addVerticalSpacing(20.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
