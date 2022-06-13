@@ -59,7 +59,8 @@ class AddStack extends GetView<StackController> {
               addVerticalSpacing(20.0),
               buildActionBtn(
                   "${isTagHidden.value ? "Select From" : "Hide"} Existing Tags",
-                  () => isTagHidden.toggle()),
+                  () => isTagHidden.toggle(),
+                  null),
               addVerticalSpacing(10.0),
               Visibility(
                   visible: !isTagHidden.value,
@@ -80,7 +81,7 @@ class AddStack extends GetView<StackController> {
                   ])),
               addVerticalSpacing(20.0),
               buildActionBtn(
-                  "Add", validateAndAddStack, const Icon(Icons.add_box)),
+                  "Add", validateAndAddStack, null, const Icon(Icons.add_box)),
             ])));
   }
 }

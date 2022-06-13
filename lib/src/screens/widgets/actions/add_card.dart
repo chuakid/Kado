@@ -81,10 +81,10 @@ class AddCard extends GetView<StackController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               buildActionBtn(
-                  "Add", validateAndAddCard, const Icon(Icons.add_card)),
+                  "Add", validateAndAddCard, null, const Icon(Icons.add_card)),
               addHorizontalSpacing(20.0),
               buildActionBtn("Close",
-                  () => Navigator.of(context, rootNavigator: true).pop()),
+                  () => Navigator.of(context, rootNavigator: true).pop(), null),
             ],
           )
         ]));

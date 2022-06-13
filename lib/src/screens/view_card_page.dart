@@ -46,7 +46,8 @@ class ViewCardPage extends StatelessWidget {
                       ),
                     ),
                     addVerticalSpacing(20.0),
-                    buildActionBtn("Flip", flipCard, const Icon(Icons.flip)),
+                    buildActionBtn(
+                        "Flip", flipCard, null, const Icon(Icons.flip)),
                   ]),
                 ],
               ),

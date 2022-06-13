@@ -37,7 +37,8 @@ class AddTag extends GetView<StackController> {
             onFieldSubmitted: (value) => validateAndAddTag(),
           ),
           addVerticalSpacing(20.0),
-          buildActionBtn("Add", validateAndAddTag, const Icon(Icons.add_box)),
+          buildActionBtn(
+              "Add", validateAndAddTag, null, const Icon(Icons.add_box)),
         ]));
   }
 }

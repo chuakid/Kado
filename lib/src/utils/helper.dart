@@ -85,13 +85,16 @@ void showSnackBar(String title, String subTitle, SnackPosition pos) =>
         colorText: Colors.white,
         duration: const Duration(seconds: 1));
 
-Widget buildActionBtn(String text, Function func, [Icon? icon]) {
+Widget buildActionBtn(String text, Function func, ButtonStyle? btnStyle,
+    [Icon? icon]) {
   return icon == null
       ? OutlinedButton(
+          style: btnStyle,
           onPressed: () => func(),
           child: Text(text),
         )
       : OutlinedButton.icon(
+          style: btnStyle,
           onPressed: () => func(),
           icon: icon,
           label: Text(text),

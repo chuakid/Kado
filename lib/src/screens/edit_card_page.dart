@@ -83,7 +83,7 @@ class EditCardPage extends StatelessWidget {
                 ),
                 addVerticalSpacing(20.0),
                 buildActionBtn(
-                    "Save", validateAndUpdateCard, const Icon(Icons.save))
+                    "Save", validateAndUpdateCard, null, const Icon(Icons.save))
               ])),
         )
       ]);

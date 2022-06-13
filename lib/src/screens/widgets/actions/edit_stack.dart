@@ -6,6 +6,7 @@ import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/screens/misc/loader.dart';
 import 'package:kado/src/screens/widgets/tags/tag.dart';
 import 'package:kado/src/utils/helper.dart';
+import 'package:kado/styles/palette.dart';
 
 class EditStack extends StatelessWidget {
   final CardStack stack;
@@ -71,7 +72,7 @@ class EditStack extends StatelessWidget {
               ),
               addVerticalSpacing(20.0),
               buildActionBtn("${isTagHidden.value ? "Show" : "Hide"} Tags",
-                  () => isTagHidden.toggle()),
+                  () => isTagHidden.toggle(), null),
               addVerticalSpacing(10.0),
               Visibility(
                   visible: !isTagHidden.value,
@@ -94,14 +95,22 @@ class EditStack extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildActionBtn(
-                      "Save", validateAndUpdateStack, const Icon(Icons.save)),
+                  buildActionBtn("Save", validateAndUpdateStack, null,
+                      const Icon(Icons.save)),
                   addHorizontalSpacing(10.0),
                   buildActionBtn(
-                      "Delete", deleteStack, const Icon(Icons.delete_forever)),
+                      "Delete",
+                      deleteStack,
+                      ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          backgroundColor: MaterialStateProperty.all(darkRed)),
+                      const Icon(Icons.delete_forever)),
                   addHorizontalSpacing(10.0),
-                  buildActionBtn("Close",
-                      () => Navigator.of(context, rootNavigator: true).pop()),
+                  buildActionBtn(
+                      "Close",
+                      () => Navigator.of(context, rootNavigator: true).pop(),
+                      null),
                 ],
               )
             ])));
