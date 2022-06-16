@@ -26,7 +26,10 @@ Widget buildSignOutBtn(BuildContext context) {
           FlutterFireUIAuth.signOut(
             context: context,
             auth: auth,
-          ).then((_) => Get.to(() => const AuthGate()));
+          ).then((_) {
+            Get.deleteAll();
+            Get.offAll(() => const AuthGate());
+          });
         }),
   );
 }
