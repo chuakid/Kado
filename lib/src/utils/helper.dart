@@ -78,10 +78,7 @@ Widget buildProfileAvatar() {
 }
 
 Widget buildLabel(String text) => Container(
-    color: MyApp.themeNotifier.value == ThemeMode.dark
-        ? Colors.black
-        : Colors.white,
-    padding: const EdgeInsets.fromLTRB(15.0, 20.0, 0, 20.0),
+    padding: const EdgeInsets.only(left: 15.0),
     child: Row(
       children: [
         Expanded(child: Text(text, style: const TextStyle(fontSize: 22.0))),

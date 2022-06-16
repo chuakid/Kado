@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kado/src/config/global_constant.dart';
+import 'package:kado/main.dart';
 import 'package:kado/src/controller/card_controller.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
@@ -10,7 +10,6 @@ import 'package:kado/src/screens/misc/loader.dart';
 import 'package:kado/src/screens/misc/something_went_wrong.dart';
 import 'package:kado/src/screens/view_card_page.dart';
 import 'package:kado/src/screens/widgets/no_record.dart';
-import 'package:kado/src/utils/helper.dart';
 
 class CardList extends GetView<StackController> {
   const CardList({Key? key}) : super(key: key);
@@ -40,13 +39,25 @@ class CardList extends GetView<StackController> {
             cards.removeAt(i);
           }
 
+          Widget buildLabel(String text) => Container(
+              color: MyApp.themeNotifier.value == ThemeMode.dark
+                  ? Colors.black
+                  : Colors.white,
+              padding: const EdgeInsets.fromLTRB(15.0, 20.0, 0, 20.0),
+              child: Row(
+                children: [
+                  Expanded(
+                      child:
+                          Text(text, style: const TextStyle(fontSize: 22.0))),
+                ],
+              ));
+
           return cards.isEmpty
               ? const NoRecord("card")
               : Column(
                   children: [
                     Container(
                         child: buildLabel(controller.selectedStack.value.name)),
-                    addVerticalSpacing(10.0),
                     Expanded(
                       child: Obx(() => ReorderableListView(
                             buildDefaultDragHandles:

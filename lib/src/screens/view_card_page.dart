@@ -39,7 +39,7 @@ class ViewCardPage extends StatelessWidget {
                       controller: txt,
                       readOnly: true,
                       keyboardType: TextInputType.multiline,
-                      maxLines: 25,
+                      maxLines: 22,
                       decoration: InputDecoration(
                         labelText:
                             '${isFront.value ? "Front" : "Back"} Content',
