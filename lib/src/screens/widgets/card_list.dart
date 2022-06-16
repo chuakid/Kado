@@ -44,12 +44,13 @@ class CardList extends GetView<StackController> {
               ? const NoRecord("card")
               : Column(
                   children: [
-                    addVerticalSpacing(20.0),
                     Container(
                         child: buildLabel(controller.selectedStack.value.name)),
-                    addVerticalSpacing(20.0),
+                    addVerticalSpacing(10.0),
                     Expanded(
                       child: Obx(() => ReorderableListView(
+                            buildDefaultDragHandles:
+                                false, //Remove default drag handles
                             padding:
                                 const EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 0.0),
                             children: [
@@ -59,23 +60,25 @@ class CardList extends GetView<StackController> {
                                     title: Text(cards[i].name),
                                     tileColor:
                                         i.isEven ? evenItemColor : oddItemColor,
-                                    trailing: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 15.0),
-                                      child: Wrap(
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                cardController
-                                                    .setSelectedCardIdx(i);
-                                                Get.to(() => EditCardPage());
-                                              },
-                                              icon: const Icon(Icons.edit)),
-                                          IconButton(
-                                              onPressed: () => deleteCard(i),
-                                              icon: const Icon(Icons.delete)),
-                                        ],
-                                      ),
+                                    trailing: Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              cardController
+                                                  .setSelectedCardIdx(i);
+                                              Get.to(() => EditCardPage());
+                                            },
+                                            icon: const Icon(Icons.edit)),
+                                        IconButton(
+                                            onPressed: () => deleteCard(i),
+                                            icon: const Icon(Icons.delete)),
+                                        ReorderableDragStartListener(
+                                            index: i,
+                                            child:
+                                                const Icon(Icons.drag_handle)),
+                                      ],
                                     ),
                                     onTap: () {
                                       cardController.setSelectedCardIdx(i);

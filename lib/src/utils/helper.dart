@@ -51,30 +51,37 @@ Widget buildToggleLightDarkModeButton(RxBool isDarkMode) => IconButton(
 
 Widget buildProfileAvatar() {
   KadoUserModel user = Get.find<UserController>().userModel;
-  const double avatarRadiusSize = 20.0;
+  const double avatarRadiusSize = 18.0;
   final Widget img = user.photoURL!.isEmpty
       ? Text(user.email!.substring(0, 1).toUpperCase())
       : Image.network(user.photoURL!);
   return Container(
     margin: const EdgeInsets.only(right: appBarIconSpacing),
     child: CircleAvatar(
-        radius: avatarRadiusSize,
-        child: Material(
-            shape: const CircleBorder(),
-            clipBehavior: Clip.hardEdge,
-            color: Colors.transparent,
-            textStyle: const TextStyle(color: Colors.white),
-            child: InkWell(
-                onTap: () => Get.to(() => const UserProfilePage()),
-                child: Center(child: img)))),
+      radius: avatarRadiusSize + 2.0,
+      backgroundColor: Colors.grey[700],
+      child: CircleAvatar(
+          radius: avatarRadiusSize,
+          child: Material(
+              shape: const CircleBorder(),
+              clipBehavior: Clip.hardEdge,
+              color: Colors.transparent,
+              textStyle: const TextStyle(color: Colors.white),
+              child: InkWell(
+                  onTap: () => Get.to(() => const UserProfilePage()),
+                  child: Center(child: img)))),
+    ),
   );
 }
 
 Widget buildLabel(String text) => Container(
-    padding: const EdgeInsets.only(left: 15.0),
+    color: MyApp.themeNotifier.value == ThemeMode.dark
+        ? Colors.black
+        : Colors.white,
+    padding: const EdgeInsets.fromLTRB(15.0, 20.0, 0, 20.0),
     child: Row(
       children: [
-        Text(text, style: const TextStyle(fontSize: 22.0)),
+        Expanded(child: Text(text, style: const TextStyle(fontSize: 22.0))),
       ],
     ));
 

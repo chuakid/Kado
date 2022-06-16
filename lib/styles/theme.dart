@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:kado/styles/palette.dart';
 
-final themeData = ThemeData(
+final ThemeData lightTheme = ThemeData(
+  scaffoldBackgroundColor: Colors.white,
   primarySwatch: Palette.color,
+  colorScheme: const ColorScheme.light(primary: Palette.primary),
+  outlinedButtonTheme: OutlinedButtonThemeData(style: outlinedButtonStyle),
+  inputDecorationTheme: InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+    ),
+  ),
+);
+
+final ThemeData darkTheme = ThemeData(
+  scaffoldBackgroundColor: Colors.black,
+  colorScheme: const ColorScheme.dark(primary: Palette.primary),
   outlinedButtonTheme: OutlinedButtonThemeData(style: outlinedButtonStyle),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(

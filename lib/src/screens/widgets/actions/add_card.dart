@@ -54,7 +54,7 @@ class AddCard extends GetView<StackController> {
           TextFormField(
             controller: _frontContentController,
             keyboardType: TextInputType.multiline,
-            maxLines: 8,
+            maxLines: 6,
             validator: (value) =>
                 value != null && value.isEmpty ? emptyFrontContent : null,
             decoration: const InputDecoration(
@@ -67,7 +67,7 @@ class AddCard extends GetView<StackController> {
           TextFormField(
             controller: _backContentController,
             keyboardType: TextInputType.multiline,
-            maxLines: 8,
+            maxLines: 6,
             validator: (value) =>
                 value != null && value.isEmpty ? emptyBackContent : null,
             decoration: const InputDecoration(
@@ -82,9 +82,6 @@ class AddCard extends GetView<StackController> {
             children: [
               buildActionBtn(
                   "Add", validateAndAddCard, null, const Icon(Icons.add_card)),
-              addHorizontalSpacing(20.0),
-              buildActionBtn("Close",
-                  () => Navigator.of(context, rootNavigator: true).pop(), null),
             ],
           )
         ]));

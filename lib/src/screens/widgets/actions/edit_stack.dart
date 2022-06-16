@@ -12,12 +12,12 @@ class EditStack extends StatelessWidget {
   final CardStack stack;
   EditStack({Key? key, required this.stack}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
-  final RxString stackName = ''.obs;
   final RxBool isUpdating = false.obs;
   final RxBool isTagHidden = true.obs;
 
   @override
   Widget build(BuildContext context) {
+    final RxString stackName = stack.name.obs;
     RxList<String> currTags = stack.tags.obs;
 
     void validateAndUpdateStack() async {
@@ -76,21 +76,26 @@ class EditStack extends StatelessWidget {
               addVerticalSpacing(10.0),
               Visibility(
                   visible: !isTagHidden.value,
-                  child: Wrap(children: [
-                    for (int i = 0; i < currTags.length + 1; i++)
-                      i == currTags.length
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(18.0, 5.0, 0, 0),
-                              child: IconButton(
-                                  onPressed: () => addNewTag(currTags),
-                                  icon: const Icon(Icons.add)),
-                            )
-                          : Tag(
-                              tagName: currTags[i],
-                              onPressed: deleteTag,
-                              icon: const Icon(Icons.delete_forever))
-                  ])),
+                  child: SizedBox(
+                    height: 100.0,
+                    child: SingleChildScrollView(
+                      child: Wrap(children: [
+                        for (int i = 0; i < currTags.length + 1; i++)
+                          i == currTags.length
+                              ? Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      18.0, 5.0, 0, 0),
+                                  child: IconButton(
+                                      onPressed: () => addNewTag(currTags),
+                                      icon: const Icon(Icons.add)),
+                                )
+                              : Tag(
+                                  tagName: currTags[i],
+                                  onPressed: deleteTag,
+                                  icon: const Icon(Icons.delete_forever))
+                      ]),
+                    ),
+                  )),
               addVerticalSpacing(20.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -106,11 +111,6 @@ class EditStack extends StatelessWidget {
                               MaterialStateProperty.all(Colors.white),
                           backgroundColor: MaterialStateProperty.all(darkRed)),
                       const Icon(Icons.delete_forever)),
-                  addHorizontalSpacing(10.0),
-                  buildActionBtn(
-                      "Close",
-                      () => Navigator.of(context, rootNavigator: true).pop(),
-                      null),
                 ],
               )
             ])));

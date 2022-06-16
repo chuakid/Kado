@@ -56,11 +56,8 @@ class UserProfilePage extends StatelessWidget {
               ],
             ),
             addVerticalSpacing(30.0),
-            Transform.translate(
-              offset: const Offset(offsetFromCenter, 0),
-              child: Text("Number Of Decks: ${stackController.stacks.length}",
-                  style: const TextStyle(fontSize: 20.0)),
-            )
+            Text("Number Of Decks: ${stackController.stacks.length}",
+                style: const TextStyle(fontSize: 20.0))
           ],
         ));
   }

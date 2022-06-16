@@ -77,8 +77,8 @@ class MyApp extends StatelessWidget {
             scrollBehavior: AppScrollBehavior(),
             debugShowCheckedModeBanner: false,
             title: title,
-            theme: themeData,
-            darkTheme: ThemeData.dark(),
+            theme: lightTheme,
+            darkTheme: darkTheme,
             themeMode: currentMode,
             home: const AuthGate(),
           );
