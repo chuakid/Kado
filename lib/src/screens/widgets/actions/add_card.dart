@@ -35,55 +35,69 @@ class AddCard extends GetView<StackController> {
       }
     }
 
+    var cardNameField = TextFormField(
+      controller: _cardNameController,
+      validator: (value) =>
+          value != null && value.isEmpty ? emptyCardName : null,
+      decoration: const InputDecoration(
+        icon: Icon(Icons.card_membership),
+        labelText: 'Card Name',
+        hintMaxLines: 1,
+      ),
+      onChanged: (val) => cardName.value = val,
+      onFieldSubmitted: (_) => validateAndAddCard(),
+    );
+
+    var frontField = TextFormField(
+      controller: _frontContentController,
+      keyboardType: TextInputType.multiline,
+      maxLines: 8,
+      validator: (value) =>
+          value != null && value.isEmpty ? emptyFrontContent : null,
+      decoration: const InputDecoration(
+        labelText: 'Front Content',
+      ),
+      onChanged: (val) => frontContent.value = val,
+      onFieldSubmitted: (_) => validateAndAddCard(),
+    );
+
+    var backField = TextFormField(
+      controller: _backContentController,
+      keyboardType: TextInputType.multiline,
+      maxLines: 8,
+      validator: (value) =>
+          value != null && value.isEmpty ? emptyBackContent : null,
+      decoration: const InputDecoration(
+        labelText: 'Back Content',
+      ),
+      onChanged: (val) => backContent.value = val,
+      onFieldSubmitted: (_) => validateAndAddCard(),
+    );
+
+    var bottomRow = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        buildActionBtn(
+            "Add", validateAndAddCard, null, const Icon(Icons.add_card)),
+      ],
+    );
+
     return Form(
-        key: _formKey,
-        child: Column(children: <Widget>[
-          TextFormField(
-            controller: _cardNameController,
-            validator: (value) =>
-                value != null && value.isEmpty ? emptyCardName : null,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.card_membership),
-              labelText: 'Card Name',
-              hintMaxLines: 1,
-            ),
-            onChanged: (val) => cardName.value = val,
-            onFieldSubmitted: (_) => validateAndAddCard(),
-          ),
-          addVerticalSpacing(20.0),
-          TextFormField(
-            controller: _frontContentController,
-            keyboardType: TextInputType.multiline,
-            maxLines: 6,
-            validator: (value) =>
-                value != null && value.isEmpty ? emptyFrontContent : null,
-            decoration: const InputDecoration(
-              labelText: 'Front Content',
-            ),
-            onChanged: (val) => frontContent.value = val,
-            onFieldSubmitted: (_) => validateAndAddCard(),
-          ),
-          addVerticalSpacing(20.0),
-          TextFormField(
-            controller: _backContentController,
-            keyboardType: TextInputType.multiline,
-            maxLines: 6,
-            validator: (value) =>
-                value != null && value.isEmpty ? emptyBackContent : null,
-            decoration: const InputDecoration(
-              labelText: 'Back Content',
-            ),
-            onChanged: (val) => backContent.value = val,
-            onFieldSubmitted: (_) => validateAndAddCard(),
-          ),
-          addVerticalSpacing(20.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              buildActionBtn(
-                  "Add", validateAndAddCard, null, const Icon(Icons.add_card)),
-            ],
-          )
-        ]));
+      key: _formKey,
+      child: Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            cardNameField,
+            addVerticalSpacing(20.0),
+            Expanded(child: frontField),
+            addVerticalSpacing(20.0),
+            Expanded(child: backField),
+            addVerticalSpacing(20.0),
+            bottomRow
+          ],
+        ),
+      ),
+    );
   }
 }
