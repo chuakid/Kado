@@ -33,60 +33,68 @@ class EditCardPage extends StatelessWidget {
         }
       }
 
-      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        addVerticalSpacing(20.0),
-        buildLabel("Stack Name: ${stackController.selectedStack.value.name}"),
-        buildLabel("Card Name: ${card.name}"),
-        addVerticalSpacing(20.0),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Form(
-              key: _formKey,
-              child: Column(children: <Widget>[
-                TextFormField(
-                  initialValue: card.name,
-                  validator: (value) =>
-                      value != null && value.isEmpty ? emptyCardName : null,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.card_membership),
-                    labelText: 'Card Name',
-                    hintMaxLines: 1,
-                  ),
-                  onChanged: (val) => cardName.value = val,
-                  onFieldSubmitted: (_) => validateAndUpdateCard(),
-                ),
-                addVerticalSpacing(20.0),
-                TextFormField(
-                  initialValue: card.frontContent,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 8,
-                  validator: (value) =>
-                      value != null && value.isEmpty ? emptyFrontContent : null,
-                  decoration: const InputDecoration(
-                    labelText: 'Front Content',
-                  ),
-                  onChanged: (val) => frontContent.value = val,
-                  onFieldSubmitted: (_) => validateAndUpdateCard(),
-                ),
-                addVerticalSpacing(20.0),
-                TextFormField(
-                  initialValue: card.backContent,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 8,
-                  validator: (value) =>
-                      value != null && value.isEmpty ? emptyBackContent : null,
-                  decoration: const InputDecoration(
-                    labelText: 'Back Content',
-                  ),
-                  onChanged: (val) => backContent.value = val,
-                  onFieldSubmitted: (_) => validateAndUpdateCard(),
-                ),
-                addVerticalSpacing(20.0),
-                buildActionBtn(
-                    "Save", validateAndUpdateCard, null, const Icon(Icons.save))
-              ])),
-        )
-      ]);
+      return Container(
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            buildLabel(
+                "Stack Name: ${stackController.selectedStack.value.name}"),
+            buildLabel("Card Name: ${card.name}"),
+            addVerticalSpacing(20.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Form(
+                  key: _formKey,
+                  child: Column(children: <Widget>[
+                    TextFormField(
+                      initialValue: card.name,
+                      validator: (value) =>
+                          value != null && value.isEmpty ? emptyCardName : null,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.card_membership),
+                        labelText: 'Card Name',
+                        hintMaxLines: 1,
+                      ),
+                      onChanged: (val) => cardName.value = val,
+                      onFieldSubmitted: (_) => validateAndUpdateCard(),
+                    ),
+                    addVerticalSpacing(20.0),
+                    TextFormField(
+                      initialValue: card.frontContent,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 8,
+                      validator: (value) => value != null && value.isEmpty
+                          ? emptyFrontContent
+                          : null,
+                      decoration: const InputDecoration(
+                        labelText: 'Front Content',
+                      ),
+                      onChanged: (val) => frontContent.value = val,
+                      onFieldSubmitted: (_) => validateAndUpdateCard(),
+                    ),
+                    addVerticalSpacing(20.0),
+                    TextFormField(
+                      initialValue: card.backContent,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 8,
+                      validator: (value) => value != null && value.isEmpty
+                          ? emptyBackContent
+                          : null,
+                      decoration: const InputDecoration(
+                        labelText: 'Back Content',
+                      ),
+                      onChanged: (val) => backContent.value = val,
+                      onFieldSubmitted: (_) => validateAndUpdateCard(),
+                    ),
+                    addVerticalSpacing(20.0),
+                    buildActionBtn("Save", validateAndUpdateCard, null,
+                        const Icon(Icons.save))
+                  ])),
+            ),
+          ]),
+        ),
+      );
     }
 
     return Scaffold(

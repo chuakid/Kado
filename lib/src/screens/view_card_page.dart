@@ -20,37 +20,38 @@ class ViewCardPage extends StatelessWidget {
         txt.text = isFront.value ? card.frontContent : card.backContent;
       }
 
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Obx(
-          () => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              addVerticalSpacing(10.0),
-              buildLabel(card.name),
-              addVerticalSpacing(20.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(children: <Widget>[
-                    TextField(
-                      textAlign: TextAlign.center,
-                      controller: txt,
-                      readOnly: true,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 20,
-                      decoration: InputDecoration(
-                        labelText:
-                            '${isFront.value ? "Front" : "Back"} Content',
-                      ),
-                    ),
-                    addVerticalSpacing(20.0),
-                    buildActionBtn(
-                        "Flip", flipCard, null, const Icon(Icons.flip)),
-                  ]),
-                ],
-              ),
-            ],
+      return Container(
+        padding: const EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 20.0),
+        child: SingleChildScrollView(
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildLabel(card.name),
+                addVerticalSpacing(20.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextField(
+                          textAlign: TextAlign.center,
+                          controller: txt,
+                          readOnly: true,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 20,
+                          decoration: InputDecoration(
+                            labelText:
+                                '${isFront.value ? "Front" : "Back"} Content',
+                          ),
+                        ),
+                        addVerticalSpacing(20.0),
+                        buildActionBtn(
+                            "Flip", flipCard, null, const Icon(Icons.flip)),
+                      ]),
+                ),
+              ],
+            ),
           ),
         ),
       );
