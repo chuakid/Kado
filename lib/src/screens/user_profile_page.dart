@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
@@ -17,7 +16,6 @@ class UserProfilePage extends StatelessWidget {
     final StackController stackController = Get.find<StackController>();
     final KadoUserModel user = userController.userModel;
     const double headerFontSize = 30.0;
-    const double offsetFromCenter = -100.0;
     RxBool isDarkMode = (MyApp.themeNotifier.value == ThemeMode.dark).obs;
 
     const double imgSize = 150.0;
@@ -38,10 +36,7 @@ class UserProfilePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
-            actions: [
-              buildBackToHomeBtn(),
-              const SignOutButton(),
-            ]),
+            actions: [buildBackToHomeBtn(), buildSignOutBtn(context)]),
         body: Column(
           children: [
             addVerticalSpacing(50.0),

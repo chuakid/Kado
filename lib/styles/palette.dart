@@ -39,6 +39,6 @@ Color darkRed = const Color.fromARGB(221, 129, 1, 24);
 
 class Palette {
   static const Color primary = Color.fromARGB(255, 75, 110, 168);
-  static const Color darkGrey = Color.fromARGB(255, 1, 25, 63);
+  static const Color secondary = Color.fromARGB(255, 160, 197, 255);
   static final MaterialColor? color = generateMaterialColor(primary);
 }

@@ -14,7 +14,7 @@ class GuestPage extends StatelessWidget {
           margin: const EdgeInsets.only(top: 20.0),
           child: Image.asset(
             'images/logo.jpg',
-            scale: 0.6,
+            scale: 0.8,
           ),
         );
       },

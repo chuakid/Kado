@@ -64,15 +64,16 @@ class AddStack extends GetView<StackController> {
               addVerticalSpacing(10.0),
               Visibility(
                   visible: !isTagHidden.value,
-                  child: SizedBox(
-                    height: 100.0,
+                  child: Container(
+                    constraints:
+                        const BoxConstraints(minHeight: 50, maxHeight: 100),
                     child: SingleChildScrollView(
                       child: Wrap(children: [
                         for (int i = 0; i < existingTags.length + 1; i++)
                           i == existingTags.length
                               ? Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      18.0, 5.0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(
+                                      i == 0 ? 0.0 : 18.0, 5.0, 0, 0),
                                   child: IconButton(
                                       onPressed: () => addNewTag(existingTags),
                                       icon: const Icon(Icons.add)),

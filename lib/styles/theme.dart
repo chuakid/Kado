@@ -3,8 +3,8 @@ import 'package:kado/styles/palette.dart';
 
 final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
-  primarySwatch: Palette.color,
-  colorScheme: const ColorScheme.light(primary: Palette.primary),
+  colorScheme: const ColorScheme.light(
+      primary: Palette.primary, secondary: Palette.secondary),
   outlinedButtonTheme: OutlinedButtonThemeData(style: outlinedButtonStyle),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
@@ -15,7 +15,8 @@ final ThemeData lightTheme = ThemeData(
 
 final ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Colors.black,
-  colorScheme: const ColorScheme.dark(primary: Palette.primary),
+  colorScheme: const ColorScheme.dark(
+      primary: Palette.secondary, secondary: Palette.secondary),
   outlinedButtonTheme: OutlinedButtonThemeData(style: outlinedButtonStyle),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(

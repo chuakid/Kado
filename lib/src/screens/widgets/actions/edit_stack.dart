@@ -76,8 +76,9 @@ class EditStack extends StatelessWidget {
               addVerticalSpacing(10.0),
               Visibility(
                   visible: !isTagHidden.value,
-                  child: SizedBox(
-                    height: 100.0,
+                  child: Container(
+                    constraints:
+                        const BoxConstraints(minHeight: 50, maxHeight: 100),
                     child: SingleChildScrollView(
                       child: Wrap(children: [
                         for (int i = 0; i < currTags.length + 1; i++)

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/card_controller.dart';
@@ -39,7 +38,7 @@ class ViewCardPage extends StatelessWidget {
                       controller: txt,
                       readOnly: true,
                       keyboardType: TextInputType.multiline,
-                      maxLines: 22,
+                      maxLines: 20,
                       decoration: InputDecoration(
                         labelText:
                             '${isFront.value ? "Front" : "Back"} Content',
@@ -61,7 +60,7 @@ class ViewCardPage extends StatelessWidget {
         appBar: AppBar(actions: [
           buildBackToHomeBtn(),
           buildProfileAvatar(),
-          const SignOutButton()
+          buildSignOutBtn(context)
         ]),
         body: PageView(
           controller:
