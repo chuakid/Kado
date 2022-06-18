@@ -5,9 +5,9 @@ import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/utils/helper.dart';
 
-class AddCard extends GetView<StackController> {
-  final BuildContext context;
-  AddCard({Key? key, required this.context}) : super(key: key);
+class AddCardPage extends GetView<StackController> {
+  AddCardPage({Key? key, required this.cardType}) : super(key: key);
+  final String cardType;
   final _formKey = GlobalKey<FormState>();
   final RxString cardName = ''.obs;
   final RxString frontContent = ''.obs;
@@ -28,7 +28,7 @@ class AddCard extends GetView<StackController> {
       FormState? fs = _formKey.currentState;
       if (fs != null && fs.validate()) {
         DBService.addCard(controller.selectedStack.value.id, cardName.value,
-            frontContent.value, backContent.value);
+            frontContent.value, backContent.value, cardType);
         showSnackBar("New Card Added", cardName.value + " added successfully.",
             SnackPosition.TOP);
         resetAllFields();
@@ -82,22 +82,38 @@ class AddCard extends GetView<StackController> {
       ],
     );
 
-    return Form(
-      key: _formKey,
-      child: Expanded(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            cardNameField,
-            addVerticalSpacing(20.0),
-            Expanded(child: frontField),
-            addVerticalSpacing(20.0),
-            Expanded(child: backField),
-            addVerticalSpacing(20.0),
-            bottomRow
-          ],
-        ),
-      ),
-    );
+    return Scaffold(
+        appBar: AppBar(actions: [
+          buildBackToHomeBtn(),
+          buildProfileAvatar(),
+          buildSignOutBtn(context)
+        ]),
+        body: Container(
+          padding: const EdgeInsets.all(20.0),
+          child: SingleChildScrollView(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              buildLabel("Stack Name: ${controller.selectedStack.value.name}"),
+              addVerticalSpacing(20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      cardNameField,
+                      addVerticalSpacing(20.0),
+                      frontField,
+                      addVerticalSpacing(20.0),
+                      backField,
+                      addVerticalSpacing(20.0),
+                      bottomRow
+                    ],
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ));
   }
 }

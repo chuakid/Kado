@@ -21,12 +21,13 @@ class DBService {
     return stacksCollectionRef.add({"uid": uid, "name": name, "tags": tags});
   }
 
-  static Future addCard(
-      String stackId, String name, String frontContent, String backContent) {
+  static Future addCard(String stackId, String name, String frontContent,
+      String backContent, String cardType) {
     return stacksCollectionRef.doc(stackId).collection(cardCollectionName).add({
       "name": name,
       "frontContent": frontContent,
-      "backContent": backContent
+      "backContent": backContent,
+      "cardType": cardType
     });
   }
 
@@ -83,7 +84,7 @@ class DBService {
       QuerySnapshot snapshot, String stackId) {
     return snapshot.docs
         .map((doc) => EachCard(doc.id, stackId, doc['name'],
-            doc['frontContent'], doc['backContent']))
+            doc['frontContent'], doc['backContent'], doc['cardType']))
         .toList();
   }
 

@@ -93,7 +93,7 @@ class CardList extends GetView<StackController> {
                                     ),
                                     onTap: () {
                                       cardController.setSelectedCardIdx(i);
-                                      Get.to(() => ViewCardPage());
+                                      Get.to(() => const ViewCardPage());
                                     })
                             ],
                             onReorder: (int oldIndex, int newIndex) {

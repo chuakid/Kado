@@ -6,6 +6,12 @@ const addTag = "Add New Tag";
 const editStack = "Edit Stack Details";
 const searchHint = "Search stacks by tag or name";
 
+// Different Card Types
+const cardTypeSelect = "Select a card type";
+const frontBack = "Front-Back";
+const fillInBlank = "Fill-In-The-Blank";
+const cardTypes = [frontBack, fillInBlank];
+
 // Validation messages
 const emptyStackName = "Enter Stack Name";
 const emptyCardName = "Enter Card Name";

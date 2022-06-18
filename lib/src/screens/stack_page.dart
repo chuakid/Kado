@@ -3,10 +3,9 @@ import 'package:get/get.dart';
 import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
-import 'package:kado/src/screens/widgets/actions/add_card.dart';
+import 'package:kado/src/screens/widgets/add_card_page.dart';
 import 'package:kado/src/screens/widgets/card_list.dart';
 import 'package:kado/src/utils/helper.dart';
-import 'package:kado/styles/theme.dart';
 
 class StackPage extends GetView<StackController> {
   StackPage({Key? key}) : super(key: key);
@@ -15,6 +14,40 @@ class StackPage extends GetView<StackController> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final Color oddItemColor = colorScheme.primary.withOpacity(0.15);
+    final Color evenItemColor = colorScheme.primary.withOpacity(0.30);
+
+    void _showCardTypes() {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: ListView.builder(
+                itemCount: cardTypes.isEmpty ? 1 : cardTypes.length + 1,
+                itemBuilder: (context, i) {
+                  if (i == 0) {
+                    return Column(
+                      children: [
+                        buildLabel(cardTypeSelect),
+                        addVerticalSpacing(20.0),
+                      ],
+                    );
+                  }
+                  return ListTile(
+                    key: Key("$i"),
+                    title: Text(cardTypes[i - 1]),
+                    tileColor: i.isEven ? evenItemColor : oddItemColor,
+                    onTap: () =>
+                        Get.to(() => AddCardPage(cardType: cardTypes[i - 1])),
+                  );
+                },
+              ),
+            );
+          });
+    }
+
     return Scaffold(
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
@@ -31,13 +64,7 @@ class StackPage extends GetView<StackController> {
             child: const Icon(Icons.add),
             tooltip: addCard,
             onPressed: () {
-              Get.defaultDialog(
-                  title: addCard,
-                  titleStyle: dialogBoxTitleStyle,
-                  titlePadding: dialogBoxTitlePadding,
-                  content: AddCard(context: context),
-                  contentPadding: const EdgeInsets.all(15.0),
-                  radius: 10.0);
+              _showCardTypes();
             }));
   }
 }

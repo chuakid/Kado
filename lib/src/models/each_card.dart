@@ -4,7 +4,8 @@ class EachCard {
   final String name;
   final String frontContent;
   final String backContent;
+  final String cardType;
 
   EachCard(this.cardId, this.stackId, this.name, this.frontContent,
-      this.backContent);
+      this.backContent, this.cardType);
 }
