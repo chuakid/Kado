@@ -51,7 +51,7 @@ class UserProfilePage extends StatelessWidget {
               ],
             ),
             addVerticalSpacing(30.0),
-            Text("Number Of Decks: ${stackController.stacks.length}",
+            Text("Number Of Stacks: ${stackController.stacks.length}",
                 style: const TextStyle(fontSize: 20.0))
           ],
         ));
