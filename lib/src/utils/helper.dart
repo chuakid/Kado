@@ -61,19 +61,15 @@ Widget buildProfileAvatar() {
   return Container(
     margin: const EdgeInsets.only(right: appBarIconSpacing),
     child: CircleAvatar(
-      radius: avatarRadiusSize + 2.0,
-      backgroundColor: Colors.grey[700],
-      child: CircleAvatar(
-          radius: avatarRadiusSize,
-          child: Material(
-              shape: const CircleBorder(),
-              clipBehavior: Clip.hardEdge,
-              color: Colors.transparent,
-              textStyle: const TextStyle(color: Colors.white),
-              child: InkWell(
-                  onTap: () => Get.to(() => const UserProfilePage()),
-                  child: Center(child: img)))),
-    ),
+        radius: avatarRadiusSize,
+        child: Material(
+            shape: const CircleBorder(),
+            clipBehavior: Clip.hardEdge,
+            color: Colors.transparent,
+            textStyle: const TextStyle(color: Colors.white),
+            child: InkWell(
+                onTap: () => Get.to(() => const UserProfilePage()),
+                child: Center(child: img)))),
   );
 }
 

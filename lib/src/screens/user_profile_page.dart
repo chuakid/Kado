@@ -22,11 +22,16 @@ class UserProfilePage extends StatelessWidget {
     final Widget img = user.photoURL.isEmpty
         ? CircleAvatar(
             radius: imgSize / 2,
-            child: Center(
-                child: Text(
-              user.email!.substring(0, 1).toUpperCase(),
-              style: const TextStyle(fontSize: 50),
-            )))
+            child: Material(
+                shape: const CircleBorder(),
+                clipBehavior: Clip.hardEdge,
+                color: isDarkMode.value ? Colors.grey[800] : Colors.transparent,
+                textStyle: const TextStyle(color: Colors.white),
+                child: Center(
+                    child: Text(
+                  user.email!.substring(0, 1).toUpperCase(),
+                  style: const TextStyle(fontSize: 50),
+                ))))
         : Image.network(
             user.photoURL!,
             width: imgSize,

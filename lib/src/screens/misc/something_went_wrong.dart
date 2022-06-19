@@ -10,7 +10,7 @@ class SomethingWentWrong extends StatelessWidget {
       child: const Center(
         child: Text(
           'Something went wrong while fetching data!',
-          style: TextStyle(color: Colors.grey),
+          style: TextStyle(color: Colors.red),
           textDirection: TextDirection.ltr,
         ),
       ),
