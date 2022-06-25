@@ -2,7 +2,7 @@
 <h2 align="center" id="top">NUS Orbital Project 2022</h2>
 
 <p align="center">
-	<img src="https://i.ibb.co/W35FYxD/Kado-Poster.png" alt="Kado Poster">
+	<img src="https://i.ibb.co/Dtw88Bc/Kado-Poster.png" alt="Kado Poster">
 </p>
 
 ## Table of Contents
