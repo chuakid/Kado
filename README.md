@@ -1,9 +1,9 @@
 <h1 align="center" id="top">Welcome to Kado 👋</h1>
 <h2 align="center" id="top">NUS Orbital Project 2022</h2>
 
-<center>
+<p align="center">
 	<img src="https://i.ibb.co/W35FYxD/Kado-Poster.png" alt="Kado Poster">
-</center>
+</p>
 
 ## Table of Contents
 
