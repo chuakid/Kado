@@ -12,6 +12,7 @@
 - [Improvements](#improvements)
 - [Technologies](#technologies)
 - [Setup](#set-up-instructions)
+- [Developers](#developers-info)
 
 ---
 
