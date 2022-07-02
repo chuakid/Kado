@@ -22,7 +22,7 @@ class HomePage extends GetView<StackController> {
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
             actions: [
-              buildShareStackBtn(),
+              // buildShareStackBtn(),
               buildProfileAvatar(),
               buildSignOutBtn(context)
             ]),

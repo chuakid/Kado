@@ -24,7 +24,7 @@ class ChooseStack extends StatelessWidget {
 
 class StacksChoices extends GetView<StackController> {
   StacksChoices({Key? key}) : super(key: key);
-  final darkBlue = Colors.blue[600];
+  final mildBlue = Colors.blue[600];
   final RxList<CardStack> selectedStacks = <CardStack>[].obs;
   final bool isDarkMode = MyApp.themeNotifier.value == ThemeMode.dark;
 
@@ -66,7 +66,7 @@ class StacksChoices extends GetView<StackController> {
                 ),
                 items: _items,
                 title: const Text(chooseStack),
-                selectedColor: darkBlue,
+                selectedColor: mildBlue,
                 unselectedColor: textColor,
                 selectedItemsTextStyle: TextStyle(color: textColor),
                 itemsTextStyle: TextStyle(color: textColor),
