@@ -21,7 +21,11 @@ class HomePage extends GetView<StackController> {
     return Scaffold(
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
-            actions: [buildProfileAvatar(), buildSignOutBtn(context)]),
+            actions: [
+              buildShareStackBtn(),
+              buildProfileAvatar(),
+              buildSignOutBtn(context)
+            ]),
         body: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(

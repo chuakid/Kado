@@ -11,6 +11,7 @@ import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/screens/home_page.dart';
 import 'package:kado/src/screens/user_profile_page.dart';
 import 'package:kado/src/screens/widgets/actions/add_tag.dart';
+import 'package:kado/src/screens/widgets/actions/choose_stack.dart';
 import 'package:kado/styles/palette.dart';
 import 'package:kado/styles/theme.dart';
 
@@ -115,3 +116,17 @@ void addNewTag(List<String> tags) {
       contentPadding: const EdgeInsets.all(15.0),
       radius: 10.0);
 }
+
+Widget buildShareStackBtn() => Container(
+      margin: const EdgeInsets.only(right: appBarIconSpacing),
+      child: IconButton(
+          onPressed: () => Get.defaultDialog(
+                title: sendStack,
+                titleStyle: dialogBoxTitleStyle,
+                titlePadding: dialogBoxTitlePadding,
+                content: const ChooseStack(),
+                contentPadding: const EdgeInsets.all(15.0),
+                radius: 10.0,
+              ),
+          icon: const Icon(Icons.share)),
+    );

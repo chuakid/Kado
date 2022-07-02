@@ -18,6 +18,9 @@ class AddCardPage extends GetView<StackController> {
 
   @override
   Widget build(BuildContext context) {
+    String frontLabel = cardType == frontBack ? "Front Content" : "Question";
+    String backLabel = cardType == frontBack ? "Back Content" : "Model Answer";
+
     void resetAllFields() {
       _cardNameController.clear();
       _frontContentController.clear();
@@ -54,8 +57,8 @@ class AddCardPage extends GetView<StackController> {
       maxLines: 8,
       validator: (value) =>
           value != null && value.isEmpty ? emptyFrontContent : null,
-      decoration: const InputDecoration(
-        labelText: 'Front Content',
+      decoration: InputDecoration(
+        labelText: frontLabel,
       ),
       onChanged: (val) => frontContent.value = val,
       onFieldSubmitted: (_) => validateAndAddCard(),
@@ -67,8 +70,8 @@ class AddCardPage extends GetView<StackController> {
       maxLines: 8,
       validator: (value) =>
           value != null && value.isEmpty ? emptyBackContent : null,
-      decoration: const InputDecoration(
-        labelText: 'Back Content',
+      decoration: InputDecoration(
+        labelText: backLabel,
       ),
       onChanged: (val) => backContent.value = val,
       onFieldSubmitted: (_) => validateAndAddCard(),

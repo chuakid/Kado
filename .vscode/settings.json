@@ -17,6 +17,7 @@
     "Reorderable",
     "RGBO",
     "riverpod",
-    "spinkit"
+    "spinkit",
+    "sublist"
   ]
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 const addCard = "Add New Card";
 const addStack = "Add New Stack";
+const chooseStack = "Choose Stacks";
+const sendStack = "Send Stacks";
 const addTag = "Add New Tag";
 const editStack = "Edit Stack Details";
 const searchHint = "Search stacks by tag or name";
