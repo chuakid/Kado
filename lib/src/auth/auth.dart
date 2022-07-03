@@ -10,7 +10,7 @@ class AuthService {
       final String userName = user.displayName == null
           ? user.email!.split('@')[0]
           : user.displayName!;
-      return KadoUserModel(userName, user.email!, photoURL);
+      return KadoUserModel(user.uid, userName, user.email!, photoURL);
     }
     return null;
   }

@@ -22,7 +22,7 @@ class HomePage extends GetView<StackController> {
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
             actions: [
-              // buildShareStackBtn(),
+              buildShareStackBtn(),
               buildProfileAvatar(),
               buildSignOutBtn(context)
             ]),
@@ -31,7 +31,7 @@ class HomePage extends GetView<StackController> {
             child: Column(
               children: [
                 const SearchBar(),
-                addVerticalSpacing(20),
+                addVerticalSpacing(10),
                 const Expanded(child: StackList())
               ],
             )),

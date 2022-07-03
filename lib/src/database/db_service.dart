@@ -9,7 +9,9 @@ class DBService {
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static const String stackCollectionName = "stacks";
   static const String cardCollectionName = "cards";
+  static const String userCollectionName = "user_suggestion";
   static final stacksCollectionRef = db.collection(stackCollectionName);
+  static final usersCollectionRef = db.collection(userCollectionName);
 
   // Create operations
   static Future<void> addStack(String name, List<String> tags) {
@@ -28,12 +30,6 @@ class DBService {
       "frontContent": frontContent,
       "backContent": backContent,
       "cardType": cardType
-    });
-  }
-
-  static Future<void> addTagToStack(String stackId, String tag) {
-    return stacksCollectionRef.doc(stackId).update({
-      'tags': FieldValue.arrayUnion([tag])
     });
   }
 
@@ -86,6 +82,35 @@ class DBService {
         .map((doc) => EachCard(doc.id, stackId, doc['name'],
             doc['frontContent'], doc['backContent'], doc['cardType']))
         .toList();
+  }
+
+  static Future<List<String>> getUserSuggestions(String query) {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("uid empty");
+    }
+
+    Stream<List<String>> emails = usersCollectionRef
+        .where("uid", isEqualTo: uid)
+        .snapshots()
+        .map((ss) => _kadoUserModelListFromSnapshot(ss, query));
+
+    return emails.firstWhere((event) => true);
+  }
+
+  static List<String> _kadoUserModelListFromSnapshot(
+      QuerySnapshot snapshot, String query) {
+    QueryDocumentSnapshot doc = snapshot.docs[0];
+    Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
+    if (asMap.containsKey('suggestedEmailAddresses')) {
+      List<String> emails = List<String>.from(doc['suggestedEmailAddresses']);
+      return emails.where((email) {
+        final queryLower = query.toLowerCase();
+        final emailLower = email.toLowerCase();
+        return emailLower.contains(queryLower);
+      }).toList();
+    }
+    return [];
   }
 
   // Update Operations

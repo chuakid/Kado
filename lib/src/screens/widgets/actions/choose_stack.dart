@@ -4,28 +4,55 @@ import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/models/card_stack.dart';
+import 'package:kado/src/screens/widgets/actions/choose_user.dart';
 import 'package:kado/src/utils/helper.dart';
+import 'package:kado/styles/theme.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class ChooseStack extends StatelessWidget {
-  const ChooseStack({Key? key}) : super(key: key);
+  ChooseStack({Key? key}) : super(key: key);
+  final RxList<CardStack> selectedStacks = <CardStack>[].obs;
+  final RxBool showErrorMsg = false.obs;
 
-  void popUpChooseUsers() {}
+  void popUpChooseUsers() {
+    if (selectedStacks.isEmpty) {
+      showErrorMsg.value = true;
+      return;
+    }
+    Get.defaultDialog(
+      title: chooseUser,
+      titleStyle: dialogBoxTitleStyle,
+      titlePadding: dialogBoxTitlePadding,
+      content: ChooseUser(),
+      contentPadding: const EdgeInsets.all(15.0),
+      radius: 10.0,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      StacksChoices(),
-      addVerticalSpacing(20.0),
-      buildActionBtn("Confirm", popUpChooseUsers, null)
+      StacksChoices(selectedStacks: selectedStacks, showErrorMsg: showErrorMsg),
+      addVerticalSpacing(10.0),
+      buildActionBtn("Confirm", popUpChooseUsers, null),
+      Obx(() => showErrorMsg.value
+          ? Column(children: [
+              addVerticalSpacing(10.0),
+              buildErrorMsg("Please pick at least 1 stack")
+            ])
+          : Container())
     ]);
   }
 }
 
 class StacksChoices extends GetView<StackController> {
-  StacksChoices({Key? key}) : super(key: key);
+  StacksChoices(
+      {required this.selectedStacks, required this.showErrorMsg, Key? key})
+      : super(key: key);
+
+  final RxBool showErrorMsg;
+  final RxList<CardStack> selectedStacks;
   final mildBlue = Colors.blue[600];
-  final RxList<CardStack> selectedStacks = <CardStack>[].obs;
   final bool isDarkMode = MyApp.themeNotifier.value == ThemeMode.dark;
 
   @override
@@ -71,6 +98,7 @@ class StacksChoices extends GetView<StackController> {
                 selectedItemsTextStyle: TextStyle(color: textColor),
                 itemsTextStyle: TextStyle(color: textColor),
                 searchable: true,
+                searchIcon: const Icon(Icons.search),
                 onSelectionChanged: (value) {
                   // Select all has been checked
                   if (value.contains(selectAll)) {
@@ -92,6 +120,7 @@ class StacksChoices extends GetView<StackController> {
                   }
                 },
                 onConfirm: (results) {
+                  showErrorMsg.value = false;
                   selectedStacks.clear();
                   for (var msItem in _items.sublist(1)) {
                     if (msItem.selected &&

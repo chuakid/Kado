@@ -9,13 +9,17 @@ class SearchBar extends GetView<StackController> {
   @override
   Widget build(BuildContext context) {
     var txtController = TextEditingController(text: controller.search.value);
-    return TextField(
-        controller: txtController,
-        autocorrect: false,
-        decoration: const InputDecoration(hintText: searchHint),
-        onChanged: (value) {
-          controller.search.value = value;
-          controller.getFilteredStacks();
-        });
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+          controller: txtController,
+          autocorrect: false,
+          decoration: const InputDecoration(
+              icon: Icon(Icons.search), hintText: searchHint),
+          onChanged: (value) {
+            controller.search.value = value;
+            controller.getFilteredStacks();
+          }),
+    );
   }
 }

@@ -18,7 +18,7 @@ class StackController extends GetxController with StateMixin<List<CardStack>> {
     this.selectedStack.bindStream(DBService.getStackById(selectedStack.id));
   }
 
-  getFilteredStacks() async {
+  getFilteredStacks() {
     try {
       change(null, status: RxStatus.loading());
       DBService.getStacks().listen((cardStacks) {

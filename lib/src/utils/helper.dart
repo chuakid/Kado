@@ -15,6 +15,10 @@ import 'package:kado/src/screens/widgets/actions/choose_stack.dart';
 import 'package:kado/styles/palette.dart';
 import 'package:kado/styles/theme.dart';
 
+bool isEmailValid(String email) => RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+    .hasMatch(email);
+
 Widget buildSignOutBtn(BuildContext context) {
   FirebaseAuth? auth;
 
@@ -82,6 +86,13 @@ Widget buildLabel(String text) => Container(
       ],
     ));
 
+Widget buildErrorMsg(String text) => Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(text, style: const TextStyle(fontSize: 16.0, color: Colors.red)),
+      ],
+    );
+
 void showSnackBar(String title, String subTitle, SnackPosition pos) =>
     Get.snackbar(title, subTitle,
         snackPosition: pos,
@@ -124,7 +135,7 @@ Widget buildShareStackBtn() => Container(
                 title: sendStack,
                 titleStyle: dialogBoxTitleStyle,
                 titlePadding: dialogBoxTitlePadding,
-                content: const ChooseStack(),
+                content: ChooseStack(),
                 contentPadding: const EdgeInsets.all(15.0),
                 radius: 10.0,
               ),
