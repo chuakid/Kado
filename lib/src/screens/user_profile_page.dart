@@ -4,16 +4,22 @@ import 'package:kado/main.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/stack_controller.dart';
 import 'package:kado/src/controller/user_controller.dart';
+import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/utils/helper.dart';
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({Key? key}) : super(key: key);
 
+  void setNotifications(bool option) async {
+    await DBService.updateUserReminder(option);
+  }
+
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.find<UserController>();
     final StackController stackController = Get.find<StackController>();
+
     final KadoUserModel user = userController.userModel;
     const double headerFontSize = 30.0;
     RxBool isDarkMode = (MyApp.themeNotifier.value == ThemeMode.dark).obs;
@@ -52,7 +58,12 @@ class UserProfilePage extends StatelessWidget {
                 Text(user.name,
                     style: const TextStyle(fontSize: headerFontSize)),
                 Text(user.email,
-                    style: const TextStyle(fontSize: headerFontSize / 2))
+                    style: const TextStyle(fontSize: headerFontSize / 2)),
+                Row(children: const []),
+                Obx(() => CheckboxListTile(
+                    title: const Text('Hourly reminder'),
+                    value: userController.reminder.value,
+                    onChanged: (value) => setNotifications(value!))),
               ],
             ),
             addVerticalSpacing(30.0),

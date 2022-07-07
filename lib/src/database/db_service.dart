@@ -152,6 +152,17 @@ class DBService {
         .toList();
   }
 
+  static Stream<bool> getUserReminder() {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("uid empty");
+    }
+    return usersCollectionRef
+        .doc(uid)
+        .snapshots()
+        .map((ss) => ss.data()!['reminder']);
+  }
+
   static Future<List<String>> getUserSuggestions(String query) {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
@@ -213,6 +224,16 @@ class DBService {
           (_) => debugPrint("Card updated successfully"),
           onError: (e) => debugPrint("Error occurred when updating card: $e"),
         );
+  }
+
+  static Future<void> updateUserReminder(bool reminder) {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("uid empty");
+    }
+    return usersCollectionRef
+        .doc(uid)
+        .set({"reminder": reminder}, SetOptions(merge: true));
   }
 
   // Delete Operations
