@@ -28,6 +28,7 @@ Widget buildSignOutBtn(BuildContext context) {
         tooltip: "Sign Out",
         icon: const Icon(Icons.logout),
         onPressed: () {
+          MyApp.themeNotifier.value = ThemeMode.light;
           FlutterFireUIAuth.signOut(
             context: context,
             auth: auth,

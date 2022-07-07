@@ -5,6 +5,7 @@ import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/database/db_service.dart';
 import 'package:kado/src/models/card_stack.dart';
+import 'package:kado/src/screens/misc/loader.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/palette.dart';
 
@@ -13,39 +14,53 @@ class ChooseUser extends GetView<UserController> {
   final RxList<CardStack> selectedStacks;
   final RxList<String> selectedEmails = <String>[].obs;
   final inputController = TextEditingController();
+  final RxBool isLoading = false.obs;
   final RxBool showErrorMsg = false.obs;
   final RxString errorMsg = "".obs;
 
   @override
   Widget build(BuildContext context) {
     void validateAndAddEmail() {
+      isLoading.toggle();
       String emailInput = inputController.text;
       if (!isEmailValid(emailInput)) {
         showErrorMsg.value = true;
         errorMsg.value = "Please enter a valid email address";
+        isLoading.toggle();
         return;
       }
+      isLoading.toggle();
       inputController.clear();
       showErrorMsg.value = false;
       selectedEmails.add(emailInput);
     }
 
-    void validateAndSend() {
+    void validateAndSend() async {
+      isLoading.toggle();
       if (selectedEmails.isEmpty) {
         showErrorMsg.value = true;
         errorMsg.value = "Please enter at least 1 user";
+        isLoading.toggle();
         return;
       }
 
       for (String email in selectedEmails) {
-        DBService.userExists(email).then((userDoesExists) {
-          if (userDoesExists) {
-            for (CardStack stack in selectedStacks) {
-              DBService.addStackToUserByEmail(email, stack.name, stack.tags);
-            }
-          }
-        });
+        bool userDoesExists = await DBService.userExists(email);
+        if (!userDoesExists) {
+          showErrorMsg.value = true;
+          errorMsg.value = "Please ensure that all users are registered";
+          isLoading.toggle();
+          return;
+        }
       }
+
+      for (String email in selectedEmails) {
+        for (CardStack stack in selectedStacks) {
+          DBService.addStackCardsToUserByEmail(email, stack);
+        }
+      }
+
+      DBService.addUserSuggestions(selectedEmails);
 
       Get.back();
       Get.back();
@@ -117,18 +132,21 @@ class ChooseUser extends GetView<UserController> {
             child: SingleChildScrollView(
                 child: Wrap(
                     children: selectedEmails
-                        .map((email) => ChosenUsers(email, selectedEmails))
+                        .map((email) =>
+                            ChosenUsers(email, selectedEmails, showErrorMsg))
                         .toList())));
 
     return Obx(() => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            children: [
-              buildSelectedEmailsView(),
-              addVerticalSpacing(20.0),
-              buildAutoSuggestForm(),
-            ],
-          ),
+          child: isLoading.value
+              ? const Loader()
+              : Column(
+                  children: [
+                    buildSelectedEmailsView(),
+                    addVerticalSpacing(20.0),
+                    buildAutoSuggestForm(),
+                  ],
+                ),
         ));
   }
 }
@@ -136,7 +154,9 @@ class ChooseUser extends GetView<UserController> {
 class ChosenUsers extends StatelessWidget {
   final String email;
   final RxList<String> selectedEmails;
-  const ChosenUsers(this.email, this.selectedEmails, {Key? key})
+  final RxBool showErrorMsg;
+  const ChosenUsers(this.email, this.selectedEmails, this.showErrorMsg,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -150,7 +170,10 @@ class ChosenUsers extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: TextButton(
-            onPressed: () => selectedEmails.remove(email),
+            onPressed: () {
+              showErrorMsg.value = false;
+              selectedEmails.remove(email);
+            },
             child: Wrap(
               alignment: WrapAlignment.spaceBetween,
               crossAxisAlignment: WrapCrossAlignment.center,

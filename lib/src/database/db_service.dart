@@ -26,11 +26,12 @@ class DBService {
         .first;
   }
 
-  static Stream<String> getUidByEmail(String email) {
+  static Future<String> getUidByEmail(String email) {
     return usersCollectionRef
         .where("email", isEqualTo: email)
         .snapshots()
-        .map((QuerySnapshot qss) => qss.docs.map((doc) => doc['uid']).first);
+        .map((QuerySnapshot qss) => qss.docs[0]['uid'] as String)
+        .first;
   }
 
   // Create operations
@@ -46,10 +47,22 @@ class DBService {
     });
   }
 
-  static void addStackToUserByEmail(
-      String email, String name, List<String> tags) {
-    getUidByEmail(email).listen((uid) =>
-        stacksCollectionRef.add({"uid": uid, "name": name, "tags": tags}));
+  static void addStackCardsToUserByEmail(String email, CardStack stack) {
+    getUidByEmail(email).then((uid) {
+      stacksCollectionRef.add({
+        "uid": uid,
+        "name": stack.name,
+        "tags": stack.tags,
+        "isCreated": false
+      }).then((docRef) {
+        getCards(stack.id).listen((List<EachCard> cardList) {
+          for (EachCard card in cardList) {
+            addCard(docRef.id, card.name, card.frontContent, card.backContent,
+                card.cardType);
+          }
+        });
+      });
+    });
   }
 
   static Future<void> addStack(String name, List<String> tags) {
@@ -57,7 +70,8 @@ class DBService {
     if (uid == null) {
       throw Exception("uid empty");
     }
-    return stacksCollectionRef.add({"uid": uid, "name": name, "tags": tags});
+    return stacksCollectionRef
+        .add({"uid": uid, "name": name, "tags": tags, "isCreated": true});
   }
 
   static Future addCard(String stackId, String name, String frontContent,
@@ -68,6 +82,15 @@ class DBService {
       "backContent": backContent,
       "cardType": cardType
     });
+  }
+
+  static void addUserSuggestions(List<String> emails) {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("uid empty");
+    }
+    usersSuggestionCollectionRef
+        .add({"uid": uid, "suggestedEmailAddresses": emails});
   }
 
   // Read Operations
@@ -85,8 +108,12 @@ class DBService {
   static List<CardStack> _cardStackListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
-      return CardStack(doc.id, doc['name'], doc['uid'],
-          asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
+      return CardStack(
+          doc.id,
+          doc['name'],
+          doc['uid'],
+          asMap.containsKey('tags') ? List<String>.from(doc['tags']) : [],
+          doc['isCreated']);
     }).toList();
   }
 
@@ -98,8 +125,12 @@ class DBService {
     return stacksCollectionRef.doc(stackId).snapshots().map(
       (doc) {
         Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
-        return CardStack(doc.id, doc['name'], doc['uid'],
-            asMap.containsKey('tags') ? List<String>.from(doc['tags']) : []);
+        return CardStack(
+            doc.id,
+            doc['name'],
+            doc['uid'],
+            asMap.containsKey('tags') ? List<String>.from(doc['tags']) : [],
+            doc['isCreated']);
       },
     );
   }

@@ -4,7 +4,7 @@ import 'package:kado/src/models/card_stack.dart';
 
 class StackController extends GetxController with StateMixin<List<CardStack>> {
   RxList<CardStack> stacks = <CardStack>[].obs;
-  Rx<CardStack> selectedStack = CardStack('', '', '', []).obs;
+  Rx<CardStack> selectedStack = CardStack('', '', '', [], true).obs;
   Rx<String> search = ''.obs;
 
   @override
