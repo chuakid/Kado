@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:kado/src/config/global_constant.dart';
 import 'package:kado/src/controller/user_controller.dart';
 import 'package:kado/src/database/db_service.dart';
+import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/utils/helper.dart';
 import 'package:kado/styles/palette.dart';
 
 class ChooseUser extends GetView<UserController> {
-  ChooseUser({Key? key}) : super(key: key);
+  ChooseUser(this.selectedStacks, {Key? key}) : super(key: key);
+  final RxList<CardStack> selectedStacks;
   final RxList<String> selectedEmails = <String>[].obs;
   final inputController = TextEditingController();
   final RxBool showErrorMsg = false.obs;
@@ -34,8 +36,20 @@ class ChooseUser extends GetView<UserController> {
         errorMsg.value = "Please enter at least 1 user";
         return;
       }
-      inputController.clear();
-      showErrorMsg.value = false;
+
+      for (String email in selectedEmails) {
+        DBService.userExists(email).then((userDoesExists) {
+          if (userDoesExists) {
+            for (CardStack stack in selectedStacks) {
+              DBService.addStackToUserByEmail(email, stack.name, stack.tags);
+            }
+          }
+        });
+      }
+
+      Get.back();
+      Get.back();
+      showSnackBar("Success", "Stacks sent successfully", SnackPosition.BOTTOM);
     }
 
     Widget buildAutoSuggestForm() => Column(
@@ -61,7 +75,7 @@ class ChooseUser extends GetView<UserController> {
                       height: 50,
                       child: Center(
                         child: Text(
-                          'No Users Found.',
+                          'No Users Found',
                           style: TextStyle(fontSize: 16),
                         ),
                       ),

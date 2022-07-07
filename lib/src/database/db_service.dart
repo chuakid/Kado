@@ -3,23 +3,60 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kado/src/models/card_stack.dart';
 import 'package:kado/src/models/each_card.dart';
+import 'package:kado/src/models/kado_user_model.dart';
 
 class DBService {
   static final db = FirebaseFirestore.instance;
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static const String stackCollectionName = "stacks";
   static const String cardCollectionName = "cards";
-  static const String userCollectionName = "user_suggestion";
+  static const String userCollectionName = "users";
+  static const String userSuggestionCollectionName = "user_suggestion";
   static final stacksCollectionRef = db.collection(stackCollectionName);
   static final usersCollectionRef = db.collection(userCollectionName);
+  static final usersSuggestionCollectionRef =
+      db.collection(userSuggestionCollectionName);
+
+  // Helper
+  static Future<bool> userExists(String email) {
+    return usersCollectionRef
+        .where("email", isEqualTo: email)
+        .snapshots()
+        .map((QuerySnapshot qss) => qss.docs.isNotEmpty)
+        .first;
+  }
+
+  static Stream<String> getUidByEmail(String email) {
+    return usersCollectionRef
+        .where("email", isEqualTo: email)
+        .snapshots()
+        .map((QuerySnapshot qss) => qss.docs.map((doc) => doc['uid']).first);
+  }
 
   // Create operations
+  static void addUserIfNotExist(KadoUserModel userModel) {
+    userExists(userModel.email).then((userDoesExists) {
+      if (!userDoesExists) {
+        usersCollectionRef.add({
+          "uid": userModel.uid,
+          "name": userModel.name,
+          "email": userModel.email
+        });
+      }
+    });
+  }
+
+  static void addStackToUserByEmail(
+      String email, String name, List<String> tags) {
+    getUidByEmail(email).listen((uid) =>
+        stacksCollectionRef.add({"uid": uid, "name": name, "tags": tags}));
+  }
+
   static Future<void> addStack(String name, List<String> tags) {
     final uid = auth.currentUser?.uid;
     if (uid == null) {
       throw Exception("uid empty");
     }
-
     return stacksCollectionRef.add({"uid": uid, "name": name, "tags": tags});
   }
 
@@ -90,7 +127,7 @@ class DBService {
       throw Exception("uid empty");
     }
 
-    Stream<List<String>> emails = usersCollectionRef
+    Stream<List<String>> emails = usersSuggestionCollectionRef
         .where("uid", isEqualTo: uid)
         .snapshots()
         .map((ss) => _kadoUserModelListFromSnapshot(ss, query));
@@ -100,6 +137,9 @@ class DBService {
 
   static List<String> _kadoUserModelListFromSnapshot(
       QuerySnapshot snapshot, String query) {
+    if (snapshot.docs.isEmpty) {
+      return [];
+    }
     QueryDocumentSnapshot doc = snapshot.docs[0];
     Map<String, dynamic> asMap = doc.data() as Map<String, dynamic>;
     if (asMap.containsKey('suggestedEmailAddresses')) {

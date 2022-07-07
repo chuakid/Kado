@@ -23,7 +23,7 @@ class ChooseStack extends StatelessWidget {
       title: chooseUser,
       titleStyle: dialogBoxTitleStyle,
       titlePadding: dialogBoxTitlePadding,
-      content: ChooseUser(),
+      content: ChooseUser(selectedStacks),
       contentPadding: const EdgeInsets.all(15.0),
       radius: 10.0,
     );

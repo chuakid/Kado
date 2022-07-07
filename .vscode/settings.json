@@ -18,6 +18,7 @@
     "RGBO",
     "riverpod",
     "spinkit",
-    "sublist"
+    "sublist",
+    "typeahead"
   ]
 }
