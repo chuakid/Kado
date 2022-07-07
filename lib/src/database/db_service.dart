@@ -9,7 +9,9 @@ class DBService {
   static final FirebaseAuth auth = FirebaseAuth.instance;
   static const String stackCollectionName = "stacks";
   static const String cardCollectionName = "cards";
+  static const String userCollectionName = "users";
   static final stacksCollectionRef = db.collection(stackCollectionName);
+  static final userCollectionRef = db.collection(userCollectionName);
 
   // Create operations
   static Future<void> addStack(String name, List<String> tags) {
@@ -88,6 +90,17 @@ class DBService {
         .toList();
   }
 
+  static Stream<bool> getUserReminder() {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("uid empty");
+    }
+    return userCollectionRef
+        .doc(uid)
+        .snapshots()
+        .map((ss) => ss.data()!['reminder']);
+  }
+
   // Update Operations
   static Future<void> updateStack(
       String stackId, String name, List<String> tags) {
@@ -117,6 +130,16 @@ class DBService {
           (_) => debugPrint("Card updated successfully"),
           onError: (e) => debugPrint("Error occurred when updating card: $e"),
         );
+  }
+
+  static Future<void> updateUserReminder(bool reminder) {
+    final uid = auth.currentUser?.uid;
+    if (uid == null) {
+      throw Exception("uid empty");
+    }
+    return userCollectionRef
+        .doc(uid)
+        .set({"reminder": reminder}, SetOptions(merge: true));
   }
 
   // Delete Operations
