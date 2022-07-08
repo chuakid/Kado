@@ -48,28 +48,31 @@ class UserProfilePage extends StatelessWidget {
         appBar: AppBar(
             leading: Obx(() => buildToggleLightDarkModeButton(isDarkMode)),
             actions: [buildBackToHomeBtn(), buildSignOutBtn(context)]),
-        body: Column(
-          children: [
-            addVerticalSpacing(50.0),
-            Center(child: ClipOval(child: img)),
-            addVerticalSpacing(20.0),
-            Column(
-              children: [
-                Text(user.name,
-                    style: const TextStyle(fontSize: headerFontSize)),
-                Text(user.email,
-                    style: const TextStyle(fontSize: headerFontSize / 2)),
-                Row(children: const []),
-                Obx(() => CheckboxListTile(
-                    title: const Text('Hourly reminder'),
-                    value: userController.reminder.value,
-                    onChanged: (value) => setNotifications(value!))),
-              ],
-            ),
-            addVerticalSpacing(30.0),
-            Text("Number Of Stacks: ${stackController.stacks.length}",
-                style: const TextStyle(fontSize: 20.0))
-          ],
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              addVerticalSpacing(50.0),
+              Center(child: ClipOval(child: img)),
+              addVerticalSpacing(20.0),
+              Column(
+                children: [
+                  Text(user.name,
+                      style: const TextStyle(fontSize: headerFontSize)),
+                  Text(user.email,
+                      style: const TextStyle(fontSize: headerFontSize / 2)),
+                ],
+              ),
+              addVerticalSpacing(30.0),
+              Text("Number Of Stacks: ${stackController.stacks.length}",
+                  style: const TextStyle(fontSize: 20.0)),
+              addVerticalSpacing(10.0),
+              Obx(() => CheckboxListTile(
+                  title: const Text('Set Hourly reminder'),
+                  value: userController.reminder.value,
+                  onChanged: (value) => setNotifications(value!))),
+            ],
+          ),
         ));
   }
 }

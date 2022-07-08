@@ -20,7 +20,7 @@ class StackList extends GetView<StackController> {
       return GridView.builder(
           itemCount: stacks.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3),
+              crossAxisCount: 4),
           itemBuilder: (context, index) {
             return Card(
                 child: InkWell(

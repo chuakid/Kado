@@ -27,7 +27,7 @@ class HomePage extends GetView<StackController> {
               buildSignOutBtn(context)
             ]),
         body: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 const SearchBar(),

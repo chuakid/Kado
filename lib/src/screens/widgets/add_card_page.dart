@@ -33,7 +33,7 @@ class AddCardPage extends GetView<StackController> {
         DBService.addCard(controller.selectedStack.value.id, cardName.value,
             frontContent.value, backContent.value, cardType);
         showSnackBar("New Card Added", cardName.value + " added successfully.",
-            SnackPosition.TOP);
+            SnackPosition.BOTTOM);
         resetAllFields();
       }
     }
