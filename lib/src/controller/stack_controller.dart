@@ -23,12 +23,13 @@ class StackController extends GetxController with StateMixin<List<CardStack>> {
       change(null, status: RxStatus.loading());
       DBService.getStacks().listen((cardStacks) {
         stacks.value = cardStacks;
-        var filtered = search.value == ''
+        String queryLower = search.value.toLowerCase();
+        var filtered = queryLower == ''
             ? cardStacks
             : cardStacks
-                .where((element) =>
-                    element.tags.contains(search.value) ||
-                    element.name.contains(search.value))
+                .where((stack) =>
+                    stack.tags.contains(queryLower) ||
+                    stack.name.toLowerCase().contains(queryLower))
                 .toList();
         change(filtered, status: RxStatus.success());
       });
