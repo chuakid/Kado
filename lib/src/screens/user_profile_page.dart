@@ -9,7 +9,8 @@ import 'package:kado/src/models/kado_user_model.dart';
 import 'package:kado/src/utils/helper.dart';
 
 class UserProfilePage extends StatelessWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+  UserProfilePage({Key? key}) : super(key: key);
+  final RxBool isDarkMode = (MyApp.themeNotifier.value == ThemeMode.dark).obs;
 
   void setNotifications(bool option) async {
     await DBService.updateUserReminder(option);
@@ -22,13 +23,12 @@ class UserProfilePage extends StatelessWidget {
 
     final KadoUserModel user = userController.userModel;
     const double headerFontSize = 30.0;
-    RxBool isDarkMode = (MyApp.themeNotifier.value == ThemeMode.dark).obs;
 
     const double imgSize = 150.0;
-    final Widget img = user.photoURL.isEmpty
-        ? CircleAvatar(
-            radius: imgSize / 2,
-            child: Material(
+    Widget buildImg() => CircleAvatar(
+        radius: imgSize / 2,
+        child: user.photoURL.isEmpty
+            ? Obx(() => Material(
                 shape: const CircleBorder(),
                 clipBehavior: Clip.hardEdge,
                 color: isDarkMode.value ? Colors.grey[800] : Colors.transparent,
@@ -38,11 +38,9 @@ class UserProfilePage extends StatelessWidget {
                   user.email!.substring(0, 1).toUpperCase(),
                   style: const TextStyle(fontSize: 50),
                 ))))
-        : Image.network(
-            user.photoURL!,
-            width: imgSize,
-            height: imgSize,
-          );
+            : CircleAvatar(
+                radius: imgSize / 2,
+                backgroundImage: NetworkImage(user.photoURL)));
 
     return Scaffold(
         appBar: AppBar(
@@ -53,7 +51,7 @@ class UserProfilePage extends StatelessWidget {
           child: Column(
             children: [
               addVerticalSpacing(50.0),
-              Center(child: ClipOval(child: img)),
+              Center(child: ClipOval(child: buildImg())),
               addVerticalSpacing(20.0),
               Column(
                 children: [

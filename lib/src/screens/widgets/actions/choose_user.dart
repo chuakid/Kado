@@ -77,9 +77,9 @@ class ChooseUser extends GetView<UserController> {
                     textFieldConfiguration: TextFieldConfiguration(
                       controller: inputController,
                       decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: Icon(Icons.email),
                         border: OutlineInputBorder(),
-                        hintText: 'Search Email Address',
+                        hintText: 'Email Address',
                       ),
                     ),
                     suggestionsCallback: DBService.getUserSuggestions,
@@ -126,7 +126,7 @@ class ChooseUser extends GetView<UserController> {
         );
 
     Widget buildSelectedEmailsView() => selectedEmails.isEmpty
-        ? const Text("No user selected")
+        ? const Text("No user added")
         : Container(
             constraints: const BoxConstraints(maxHeight: 100),
             child: SingleChildScrollView(

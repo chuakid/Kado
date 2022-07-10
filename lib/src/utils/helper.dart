@@ -74,7 +74,7 @@ Widget buildProfileAvatar() {
             color: Colors.transparent,
             textStyle: const TextStyle(color: Colors.white),
             child: InkWell(
-                onTap: () => Get.to(() => const UserProfilePage()),
+                onTap: () => Get.to(() => UserProfilePage()),
                 child: Center(child: img)))),
   );
 }
