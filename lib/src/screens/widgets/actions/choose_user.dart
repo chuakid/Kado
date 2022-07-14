@@ -69,50 +69,50 @@ class ChooseUser extends GetView<UserController> {
 
     Widget buildAutoSuggestForm() => Column(
           children: [
-            Row(
+            Column(
               children: [
-                Expanded(
-                  child: TypeAheadField<String>(
-                    debounceDuration: const Duration(milliseconds: 500),
-                    textFieldConfiguration: TextFieldConfiguration(
-                      controller: inputController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.email),
-                        border: OutlineInputBorder(),
-                        hintText: 'Email Address',
-                      ),
+                TypeAheadField<String>(
+                  debounceDuration: const Duration(milliseconds: 500),
+                  textFieldConfiguration: TextFieldConfiguration(
+                    controller: inputController,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.email),
+                      border: OutlineInputBorder(),
+                      hintText: 'Email Address',
                     ),
-                    suggestionsCallback: DBService.getUserSuggestions,
-                    itemBuilder: (context, String? email) => ListTile(
-                      title: Text(email!),
-                    ),
-                    noItemsFoundBuilder: (context) => const SizedBox(
-                      height: 50,
-                      child: Center(
-                        child: Text(
-                          'No Users Found',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
-                    onSuggestionSelected: (String? email) {
-                      inputController.text = email!;
-                    },
                   ),
+                  suggestionsCallback: DBService.getUserSuggestions,
+                  itemBuilder: (context, String? email) => ListTile(
+                    title: Text(email!),
+                  ),
+                  noItemsFoundBuilder: (context) => const SizedBox(
+                    height: 50,
+                    child: Center(
+                      child: Text(
+                        'No Users Found',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+                  onSuggestionSelected: (String? email) {
+                    inputController.text = email!;
+                  },
                 ),
-                addHorizontalSpacing(10.0),
+                addVerticalSpacing(10.0),
                 IconButton(
                     onPressed: () => validateAndAddEmail(),
                     icon: const Icon(Icons.add)),
               ],
             ),
             Obx(() => showErrorMsg.value
-                ? Column(children: [
-                    addVerticalSpacing(10.0),
-                    buildErrorMsg(errorMsg.value)
-                  ])
+                ? Column(
+                    children: [
+                      addVerticalSpacing(10.0),
+                      buildErrorMsg(errorMsg.value),
+                    ],
+                  )
                 : Container()),
-            addVerticalSpacing(20.0),
+            addVerticalSpacing(15.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

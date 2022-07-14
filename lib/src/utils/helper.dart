@@ -87,11 +87,10 @@ Widget buildLabel(String text) => Container(
       ],
     ));
 
-Widget buildErrorMsg(String text) => Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(text, style: const TextStyle(fontSize: 16.0, color: Colors.red)),
-      ],
+Widget buildErrorMsg(String text) => Text(
+      text,
+      style: const TextStyle(fontSize: 16.0, color: Colors.red),
+      textAlign: TextAlign.center,
     );
 
 void showSnackBar(String title, String subTitle, SnackPosition pos) =>
