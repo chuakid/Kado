@@ -66,7 +66,7 @@ class UserProfilePage extends StatelessWidget {
                   style: const TextStyle(fontSize: 20.0)),
               addVerticalSpacing(10.0),
               Obx(() => CheckboxListTile(
-                  title: const Text('Set Hourly reminder'),
+                  title: const Text('Set Hourly Reminder'),
                   value: userController.reminder.value,
                   onChanged: (value) => setNotifications(value!))),
             ],
