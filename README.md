@@ -2,7 +2,7 @@
 <h2 align="center" id="top">NUS Orbital Project 2022</h2>
 
 <p align="center">
-	<img src="https://i.ibb.co/Dtw88Bc/Kado-Poster.png" alt="Kado Poster">
+	<img src="https://i.ibb.co/9gk40vB/Kado-Poster-ms3.png" alt="Kado Poster">
 </p>
 
 ## Table of Contents
@@ -22,7 +22,11 @@
 
 > Users can customized stacks and cards with the option of placing a tag to each stacks. There are 2 types of card: Front-Back and Fill-In-The-Blank.
 
-> Our application can be accessed at: <https://kado.vercel.app/>
+> Our application can be accessed from web browser at: <https://kado.vercel.app/>
+
+> Our application can be used by installing our Kado <a href="https://drive.google.com/file/d/1uUzB5Ex3eizOgpobHcz6XdK6yQI53mAL/view?usp=sharing">APK file</a> .
+
+> For more information, you may refer to this <a href="https://drive.google.com/file/d/1jePeCqwEFTXZzWohs4FgmaxjhYTCLmZV/view?usp=sharing">PDF documentation</a> .
 
 ### Challenges
 
