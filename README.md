@@ -19,13 +19,9 @@
 ### Description
 
 > Kado is designed as a mobile application that serves students' need of studying the notes they took down using digital flashcards.
-
 > Users can customized stacks and cards with the option of placing a tag to each stacks. There are 2 types of card: Front-Back and Fill-In-The-Blank.
-
 > Our application can be accessed from web browser at: <https://kado.vercel.app/>
-
-> Our application can be used by installing our Kado <a href="https://drive.google.com/file/d/1uUzB5Ex3eizOgpobHcz6XdK6yQI53mAL/view?usp=sharing">APK file</a> .
-
+> Our application can be used by installing our Kado <a href="https://drive.google.com/file/d/1x0cKW8Kx_S5ReRgGJ64dZ2Az6B8hCmBU/view?usp=share_link">APK file</a> .
 > For more information, you may refer to this <a href="https://drive.google.com/file/d/1jePeCqwEFTXZzWohs4FgmaxjhYTCLmZV/view?usp=sharing">PDF documentation</a> .
 
 ### Challenges
@@ -57,7 +53,7 @@
 3. To run in an android emulator, install Android Studio and create a new Android Emulator by following this link: <https://developer.android.com/studio>
 4. To run in web, navigate to the root path of this repository which you had cloned or downloaded from your terminal and enter the following command.
 
-```
+```code
 flutter run -d chrome --web-hostname localhost --web-port 56613
 ```
 

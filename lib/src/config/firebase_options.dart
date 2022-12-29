@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -47,30 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCVu-ZHc15u2eLIboyjR6RDfgDvvL2NBO4',
-    appId: '1:72886769722:web:146a3ee09abccd0910fd03',
-    messagingSenderId: '72886769722',
-    projectId: 'kado-b99cd',
-    authDomain: 'kado-b99cd.firebaseapp.com',
-    storageBucket: 'kado-b99cd.appspot.com',
-    measurementId: 'G-VBY4WZWVZY',
+    apiKey: 'AIzaSyCAM2yK7EIYsL8aC6H3nqCzP16cZP5yhDo',
+    appId: '1:829886348231:web:cf9352f8b8e7f1c8d5f7e2',
+    messagingSenderId: '829886348231',
+    projectId: 'kado-3c561',
+    authDomain: 'kado-3c561.firebaseapp.com',
+    storageBucket: 'kado-3c561.appspot.com',
+    measurementId: 'G-96GC4MFVML',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD1GGMQOjCkM8oHhP3Ii65-Yx0GELnud6M',
-    appId: '1:72886769722:android:f3d68644fba1ce7010fd03',
-    messagingSenderId: '72886769722',
-    projectId: 'kado-b99cd',
-    storageBucket: 'kado-b99cd.appspot.com',
+    apiKey: 'AIzaSyBL-2XUCaXYhc2xrGxVE1K_fcNeNvMScn0',
+    appId: '1:829886348231:android:988708659a112ba4d5f7e2',
+    messagingSenderId: '829886348231',
+    projectId: 'kado-3c561',
+    storageBucket: 'kado-3c561.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDxNmZigEhedt_1m-IZYxK8_XRwHVYNn60',
-    appId: '1:72886769722:ios:90a89daa695cf7c210fd03',
-    messagingSenderId: '72886769722',
-    projectId: 'kado-b99cd',
-    storageBucket: 'kado-b99cd.appspot.com',
-    iosClientId: '72886769722-g63pitig54f8001e7tq87gudqrth0qq5.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCXq3260m0fRq3PudZi1MYZ90nVwwqZb1g',
+    appId: '1:829886348231:ios:8b5d5326aa26608ed5f7e2',
+    messagingSenderId: '829886348231',
+    projectId: 'kado-3c561',
+    storageBucket: 'kado-3c561.appspot.com',
+    iosClientId: '829886348231-5i4i5qoh2g4po90i0qeofk422ns9smsm.apps.googleusercontent.com',
+    iosBundleId: 'com.example.kado',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCXq3260m0fRq3PudZi1MYZ90nVwwqZb1g',
+    appId: '1:829886348231:ios:8b5d5326aa26608ed5f7e2',
+    messagingSenderId: '829886348231',
+    projectId: 'kado-3c561',
+    storageBucket: 'kado-3c561.appspot.com',
+    iosClientId: '829886348231-5i4i5qoh2g4po90i0qeofk422ns9smsm.apps.googleusercontent.com',
     iosBundleId: 'com.example.kado',
   );
 }
