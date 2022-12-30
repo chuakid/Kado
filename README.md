@@ -18,11 +18,13 @@
 
 ### Description
 
-> Kado is designed as a mobile application that serves students' need of studying the notes they took down using digital flashcards.
-> Users can customized stacks and cards with the option of placing a tag to each stacks. There are 2 types of card: Front-Back and Fill-In-The-Blank.
-> Our application can be accessed from web browser at: <https://kado.vercel.app/>
-> Our application can be used by installing our Kado <a href="https://drive.google.com/file/d/1x0cKW8Kx_S5ReRgGJ64dZ2Az6B8hCmBU/view?usp=share_link">APK file</a> .
-> For more information, you may refer to this <a href="https://drive.google.com/file/d/1jePeCqwEFTXZzWohs4FgmaxjhYTCLmZV/view?usp=sharing">PDF documentation</a> .
+- Kado is designed as a mobile application that serves students' need of studying the notes they took down using digital flashcards.
+
+- Users can customized stacks and cards with the option of placing a tag to each stacks. There are 2 types of card: Front-Back and Fill-In-The-Blank.
+
+- Our application can be used by installing our Kado <a href="https://drive.google.com/file/d/1x0cKW8Kx_S5ReRgGJ64dZ2Az6B8hCmBU/view?usp=share_link">APK file</a> .
+
+- For more information, you may refer to this <a href="https://drive.google.com/file/d/1jePeCqwEFTXZzWohs4FgmaxjhYTCLmZV/view?usp=sharing">PDF documentation</a> .
 
 ### Challenges
 
@@ -41,6 +43,8 @@
 3. Cloud Firestore
 
 > We chose Flutter + Firebase (FlutterFire) as we had no experience with the two technologies and wanted to learn something new. They also have a reputation for working well with each other, as well as for being easy to build with.
+
+### 🎥[Live Demo](https://www.youtube.com/watch?v=FR-Ncc7m63U)
 
 [Back To The Top](#top)
 
